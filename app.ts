@@ -1,6 +1,12 @@
+//npm module imports
 require('dotenv').config();
 const express = require('express');
 const app = express();
+
+//custom module imports
+import db from './config/db';
+//routes imports
+db()
 
 try {
     app.listen(process.env.server_port, () => {
