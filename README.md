@@ -1,6 +1,6 @@
 # elect.io
 
-## Structure for .env file
+## Structure for the .env file
 
 |        Key       | Description                                                  |
 |----------------|------------------------------------------|
