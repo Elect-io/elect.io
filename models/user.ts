@@ -19,7 +19,8 @@ const user = new mongoose.Schema({
     },
     socials: {
         google: {
-            type: String,
+            type: Boolean,
+            default: false
         },
         facebook: {
             type: String

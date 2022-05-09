@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 import db from './config/db';
 //routes imports
 import user from './api/user'
+import socials from './api/socials';
 
 
 db()
@@ -22,3 +23,4 @@ catch (err) {
 }
 
 app.use('/api/user', user);
+app.use('/api/socials', socials);

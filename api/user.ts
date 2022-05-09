@@ -2,9 +2,13 @@ const express = require('express')
 const router = express.Router()
 const validator = require('oversimplified-express-validator')
 const bcrypt = require('bcryptjs');
+const {google} = require('googleapis');
+
 import auth from '../middlewares/auth';
 import User from '../models/user'
 import generateJWT from '../functions/generateJwt';
+
+
 router.get('/', auth, async (req, res) => {
     try {
         console.log(req.user)
@@ -72,4 +76,6 @@ router.delete('/', [auth, validator([{name:"password", minlength: 8}])], async (
 
     }
 })
+
+
 export default router;
