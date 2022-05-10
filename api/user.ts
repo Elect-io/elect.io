@@ -16,7 +16,10 @@ router.get('/', auth, async (req, res) => {
         return res.json(user)
     }
     catch (err) {
-
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" });
+        }
+        return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 })
 router.post('/create-account',
@@ -57,7 +60,10 @@ router.post('/create-account',
 
         }
         catch (err) {
-            console.log(err);
+            if (err.kind === 'ObjectId') {
+                return res.status(404).json({ error: "Not Found" });
+            }
+            return res.status(500).json({ error: "We can't process your request at this moment" });
         }
     })
 router.post('/sign-in',
@@ -75,9 +81,29 @@ router.post('/sign-in',
             console.log(token)
             return res.json({ token })
         }
-        catch (err) { }
+        catch (err) {
+            if (err.kind === 'ObjectId') {
+                return res.status(404).json({ error: "Not Found" });
+            }
+            return res.status(500).json({ error: "We can't process your request at this moment" });
+        }
     })
-
+router.put('/password', [auth, validator([{ name: "password", minlength: 8 }])], async (req, res) => {
+    try {
+        const user = await User.findById(req.user);
+        const salt = await bcrypt.genSalt(Number(process.env.salt_rounds))
+        const password = await bcrypt.hash(req.body.password, salt)
+        user.password = password;
+        await user.save();
+        return res.json({ msg: "Password updated successfully!" })
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" });
+        }
+        return res.status(500).json({ error: "We can't process your request at this moment" });
+    }
+})
 router.delete('/', [auth, validator([{ name: "password", minlength: 8 }])], async (req, res) => {
     try {
         const user = await User.findById(req.user);
@@ -89,7 +115,10 @@ router.delete('/', [auth, validator([{ name: "password", minlength: 8 }])], asyn
         return res.json({ msg: "Account deleted successfully!" })
     }
     catch (err) {
-
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" });
+        }
+        return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 })
 
