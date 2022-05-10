@@ -6,7 +6,7 @@ import auth from '../middlewares/auth';
 import User from '../models/user'
 import generateJWT from '../functions/generateJwt';
 import imageUploader from '../functions/uploadToCloudinary';
-import simpleAvatarGenerator from 'simple-avatar-generator';
+const simpleAvatarGenerator = require('simple-avatar-generator');
 import Profile from '../models/profile';
 
 router.get('/', auth, async (req, res) => {
@@ -40,12 +40,11 @@ router.post('/create-account',
                 image = await simpleAvatarGenerator(name);
             }
             const user = new User({
-                name,
                 email,
                 password: Password
             });
             await user.save();
-            const profile = new Profile({ profile: image, user: user._id });
+            const profile = new Profile({ picture: image, user: user._id, name });
             await profile.save();
             const token = await generateJWT(user._id)
             return res.json({ token });

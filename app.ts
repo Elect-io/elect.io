@@ -8,7 +8,7 @@ import db from './config/db';
 //routes imports
 import user from './api/user'
 import socials from './api/socials';
-
+import profile from './api/profile';
 
 db();
 app.use(bodyParser.json({extended:false}));
@@ -24,3 +24,4 @@ catch (err) {
 
 app.use('/api/user', user);
 app.use('/api/socials', socials);
+app.use('/api/profile', profile);

@@ -131,10 +131,10 @@ router.post('/create/:id', validator([{ name: "password", minlength: 8 }, { name
         }
         let salt = await bcrypt.genSalt(Number(process.env.salt_rounds));
         let password = await bcrypt.hash(req.body.password, salt);
-        let user = new User({ name: req.body.name, email: social.email, password, socials: { google: true }, verified: true });
+        let user = new User({ email: social.email, password, socials: { google: true }, verified: true });
         await user.save();
         let image = await imageUploader(social.image);
-        const profile = new Profile({ user:user._id, picture:image})
+        const profile = new Profile({ user: user._id, picture: image, name: req.body.name})
         await social.delete();
         let token = await generateJWT(user._id);
         return res.json({ token })

@@ -1,10 +1,6 @@
 import * as mongoose from 'mongoose';
 
 const user = new mongoose.Schema({
-    name: {
-        type: String,
-        default: "Anonymous"
-    },
     createdAt: {
         type: Date,
         default: Date.now

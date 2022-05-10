@@ -7,6 +7,11 @@ const profile = new mongoose.Schema({
         ref: 'user',
         required: true
     },
+    name:{
+        type:String,
+        required: true,
+        default: 'Anonymous'
+    },
     picture: {
         type: String,
         required: true
@@ -35,17 +40,16 @@ const profile = new mongoose.Schema({
         type: String,
         enums: ['None', 'Christianity', "Islam", "Hinduism", "Buddhism", "Judaism", "Other"]
     },
-    trans: {
-        type: Boolean
+    genderIdentity: {
+        type: String,
+        enums: ["Cisgender", "Transgender", "Non Binary", "Gender Non Conforming", "Other"]
     },
-
-
-
     createdAt: {
         type: Date,
         default: Date.now
     }
 })
 
+profile.index({ '$**': "text" });
 export default mongoose.model('profile', profile);
 
