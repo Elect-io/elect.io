@@ -2,11 +2,12 @@ const express = require('express')
 const router = express.Router()
 const validator = require('oversimplified-express-validator')
 const bcrypt = require('bcryptjs');
-
 import auth from '../middlewares/auth';
 import User from '../models/user'
 import generateJWT from '../functions/generateJwt';
-
+import imageUploader from '../functions/uploadToCloudinary';
+import simpleAvatarGenerator from 'simple-avatar-generator';
+import Profile from '../models/profile';
 
 router.get('/', auth, async (req, res) => {
     try {
@@ -29,12 +30,23 @@ router.post('/create-account',
             const { name, email, password } = req.body;
             let salt = await bcrypt.genSalt(Number(process.env.salt_rounds))
             let Password = await bcrypt.hash(password, salt)
+
+            let image;
+
+            if (req.body.image) {
+                image = await imageUploader(req.body.image);
+            }
+            else {
+                image = await simpleAvatarGenerator(name);
+            }
             const user = new User({
                 name,
                 email,
                 password: Password
             });
             await user.save();
+            const profile = new Profile({ profile: image, user: user._id });
+            await profile.save();
             const token = await generateJWT(user._id)
             return res.json({ token });
 

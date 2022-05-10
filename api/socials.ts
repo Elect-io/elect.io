@@ -4,11 +4,13 @@ const router = express.Router();
 const validator = require('oversimplified-express-validator');
 const bcrypt = require('bcryptjs');
 
+import imageUploader from '../functions/uploadToCloudinary';
 import axios from 'axios';
 import generateJWT from '../functions/generateJwt';
 import auth from '../middlewares/auth';
 import User from '../models/user';
 import Social from '../models/social';
+import Profile from '../models/profile';
 
 const oauth2Client = new google.auth.OAuth2(
     process.env.google_id,
@@ -81,6 +83,7 @@ router.post('/merge/:id', [auth], async (req, res) => {
         switch (social.type) {
             case "google":
                 user.socials.google = true;
+
                 user.verified = true;
                 await social.delete();
                 break;
@@ -122,13 +125,19 @@ router.post('/create/:id', validator([{ name: "password", minlength: 8 }, { name
         if (!social) {
             return res.status(404).json({ error: "Not Found" })
         }
+        let exists = await User.findOne({ email: social.email });
+        if (exists) {
+            return res.redirect(`${process.env.client_url}/socials/merge/${social._id}`);
+        }
         let salt = await bcrypt.genSalt(Number(process.env.salt_rounds));
         let password = await bcrypt.hash(req.body.password, salt);
         let user = new User({ name: req.body.name, email: social.email, password, socials: { google: true }, verified: true });
         await user.save();
+        let image = await imageUploader(social.image);
+        const profile = new Profile({ user:user._id, picture:image})
         await social.delete();
         let token = await generateJWT(user._id);
-        return res.json({token})
+        return res.json({ token })
     }
     catch (err) {
         if (err.kind === 'ObjectId') {
