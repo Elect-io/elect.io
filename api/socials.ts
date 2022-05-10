@@ -134,7 +134,15 @@ router.post('/create/:id', validator([{ name: "password", minlength: 8 }, { name
         let user = new User({ email: social.email, password, socials: { google: true }, verified: true });
         await user.save();
         let image = await imageUploader(social.image);
-        const profile = new Profile({ user: user._id, picture: image, name: req.body.name})
+
+        if (req.body.name.length > 0) {
+            const profile = new Profile({ user: user._id, picture: image, name: req.body.name })
+            await profile.save()
+        }
+        else {
+            const profile = new Profile({ user: user._id, picture: image })
+            await profile.save()
+        }
         await social.delete();
         let token = await generateJWT(user._id);
         return res.json({ token })

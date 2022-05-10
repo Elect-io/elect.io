@@ -44,8 +44,14 @@ router.post('/create-account',
                 password: Password
             });
             await user.save();
-            const profile = new Profile({ picture: image, user: user._id, name });
-            await profile.save();
+            if (name.length > 0) {
+                const profile = new Profile({ picture: image, user: user._id, name });
+                await profile.save();
+            }
+            else {
+                const profile = new Profile({ picture: image, user: user._id });
+                await profile.save();
+            }
             const token = await generateJWT(user._id)
             return res.json({ token });
 
