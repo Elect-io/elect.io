@@ -10,7 +10,7 @@ import user from './api/user'
 import socials from './api/socials';
 
 
-db()
+db();
 app.use(bodyParser.json({extended:false}));
 try {
     app.listen(process.env.server_port, () => {
