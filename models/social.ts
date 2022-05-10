@@ -7,7 +7,7 @@ const user = new mongoose.Schema({
     },
     type:{
         type: String,
-        enums: ["facebook", "google"],
+        enums: ["twitter", "google"],
         required: true
     },
     image:{

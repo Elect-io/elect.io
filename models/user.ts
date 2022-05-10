@@ -22,7 +22,7 @@ const user = new mongoose.Schema({
             type: Boolean,
             default: false
         },
-        facebook: {
+        twitter: {
             type: String
         }
     },

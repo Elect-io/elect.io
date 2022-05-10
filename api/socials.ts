@@ -16,6 +16,7 @@ const oauth2Client = new google.auth.OAuth2(
     `${process.env.server_url}/api/socials/google-callback`
 );
 
+
 router.get('/google', async (req, res) => {
     try {
         let url = oauth2Client.generateAuthUrl({ scope: ['https://www.googleapis.com/auth/userinfo.email', "https://www.googleapis.com/auth/userinfo.profile"] });
@@ -137,4 +138,6 @@ router.post('/create/:id', validator([{ name: "password", minlength: 8 }, { name
         return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
     }
 })
+
+
 export default router;

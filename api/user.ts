@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const validator = require('oversimplified-express-validator')
 const bcrypt = require('bcryptjs');
-const {google} = require('googleapis');
 
 import auth from '../middlewares/auth';
 import User from '../models/user'
@@ -62,20 +61,22 @@ router.post('/sign-in',
         catch (err) { }
     })
 
-router.delete('/', [auth, validator([{name:"password", minlength: 8}])], async (req, res)=>{
-    try{
+router.delete('/', [auth, validator([{ name: "password", minlength: 8 }])], async (req, res) => {
+    try {
         const user = await User.findById(req.user);
         let comparison = await bcrypt.compare(req.body.password, user.password)
         if (!comparison) {
             return res.status(401).json({ error: `Can't delete account: invalid credentials` });
         }
         await user.delete();
-        return res.json({ msg:"Account deleted successfully!"})
+        return res.json({ msg: "Account deleted successfully!" })
     }
-    catch (err){
+    catch (err) {
 
     }
 })
+
+
 
 
 export default router;
