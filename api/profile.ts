@@ -31,9 +31,8 @@ router.get('/', auth, async (req, res) => {
 })
 router.get('/:id', async (req, res) => {
     try {
-        const user = await User.findById(req.user).select('-password');
-        const profile = await Profile.findOne({ user: user._id })
-        return res.json({ name: user.name, ...profile });
+        const profile = await Profile.findById(req.params.id)
+        return res.json(profile);
     }
     catch (err) {
         if (err.kind === 'ObjectId') {
@@ -162,7 +161,7 @@ router.put('/state', [auth, validator([{ name: "state" }])], async (req, res) =>
         const user = await User.findById(req.user).select('-password');
         const profile = await Profile.findOne({ user: user._id })
         profile.state = req.body.state;
-        if (profile.country !== "The United States Of America") {
+        if (profile.country !== "The United States of America") {
             return res.status(400).json({ error: "Currently, you can only add your state info if you're in the United States of America" })
         }
         await profile.save();
@@ -219,13 +218,13 @@ router.put('/picture', [auth, validator([{ name: "picture" }])], async (req, res
         const user = await User.findById(req.user).select('-password');
         const profile = await Profile.findOne({ user: user._id })
         let picture = req.body.picture;
-        if (picture.length === 0) {
+        if (picture.length === 1) {
             picture = await simpleAvatarGenerator(profile.name);
         }
         else{ 
             picture = await Upload(picture);
         }
-        profile.picture = req.body.picture;
+        profile.picture = picture;
         await profile.save();
         return res.json({ msg: "successfully updated" });
     }
