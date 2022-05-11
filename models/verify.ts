@@ -6,10 +6,6 @@ const verify = new mongoose.Schema({
         ref: 'user',
         required: true
     },
-    token: {
-        type: String,
-        required: true
-    },
     createdAt: {
         type: Date,
         default: Date.now
