@@ -67,6 +67,7 @@ router.post('/forgot/:email', async (req, res) => {
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ error: "Not Found" });
         }
+        console.log(err)
         return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 });
@@ -81,6 +82,7 @@ router.post('/reset/:id', validator([{ name: 'password', minlength: 8 }]), async
         const password = await bcrypt.hash(req.body.password, salt)
         user.password = password;
         await user.save();
+        await forgot.delete();
         const token = await generateJWT(user._id);
         return res.json({ msg: "Password updated successfully!", token })
     }
@@ -113,7 +115,7 @@ router.get('/didn\'t-forget/:id', async (req, res) => {
     try {
         const forgot = await ForgotPassword.findById(req.params.id);
         if (!forgot) {
-            res.redirect(`${process.env.client_url}/not-found`);
+            return res.redirect(`${process.env.client_url}/not-found`);
         }
         await forgot.delete();
         return res.redirect(`${process.env.client_url}`);
