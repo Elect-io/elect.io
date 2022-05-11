@@ -28,7 +28,6 @@ router.get('/', auth, async (req, res) => {
 
 router.post('/forgot/:email', async (req, res) => {
     try {
-
         const user = await User.findOne({ email: req.params.email });
         if (!user) {
             return res.json({ msg: 'If an account is associated with this email address, we will send you an email regarding the password reset process.' })
@@ -50,7 +49,7 @@ router.post('/forgot/:email', async (req, res) => {
                         "Email": `${user.email}`,
                         "Name": `${profile.name}`
                     }],
-                    "Subject": `Verify Your Elect io Account`,
+                    "Subject": `Reset Your Elect io Account's Password`,
                     "TextPart": "",
                     "HTMLPart": forgetEmail(profile.name, forgot._id)
                 }]
