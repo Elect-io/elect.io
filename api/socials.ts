@@ -83,7 +83,6 @@ router.post('/merge/:id', [auth], async (req, res) => {
         switch (social.type) {
             case "google":
                 user.socials.google = true;
-
                 user.verified = true;
                 await social.delete();
                 break;

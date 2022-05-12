@@ -86,6 +86,9 @@ router.put('/gender-identity', [auth, validator([{ name: "genderIdentity" }])], 
             return res.status(400).json({ error: "This input has not yet been added to our database" })
         }
         const user = await User.findById(req.user).select('-password');
+        if(!user){
+            return res.status(404).json({ error: "not found"})
+        }
         const profile = await Profile.findOne({ user: user._id })
         profile.genderIdentity = req.body.genderIdentity;
         await profile.save();
@@ -95,6 +98,7 @@ router.put('/gender-identity', [auth, validator([{ name: "genderIdentity" }])], 
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ error: "Not Found" });
         }
+        console.log(err)
         return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 });

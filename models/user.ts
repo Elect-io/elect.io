@@ -23,8 +23,13 @@ const user = new mongoose.Schema({
         }
     },
     admin: {
-        type: Boolean,
-        default: false
+        type: Number,
+        default: 0,
+        enums: [0, 1, 2, 3]
+        // 0, normal user
+        // 1, mod(can add polls, responses, politician profiles, campaigns, etc)
+        // 2 admin(can delete profiles, add mods, delete and edit politician responses, delete polls, edit generalized poll, plus everything on level 1 )
+        // 3, super admin(can remove and add admins, plus everything on level 2)
     },
     password: {
         type: String,

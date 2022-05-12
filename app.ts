@@ -9,6 +9,7 @@ import db from './config/db';
 import user from './api/user'
 import socials from './api/socials';
 import profile from './api/profile';
+import mod from './api/mod';
 
 db();
 app.use(bodyParser.json({extended:false}));
@@ -25,3 +26,4 @@ catch (err) {
 app.use('/api/user', user);
 app.use('/api/socials', socials);
 app.use('/api/profile', profile);
+app.use('/api/mod', mod);
