@@ -4,7 +4,7 @@ import auth from '../middlewares/auth'
 import Profile from '../models/profile';
 import User from '../models/user';
 
-router.post('/promote-to-mod/:id', auth, async (req, res) => {
+router.post('/promote-to-mod/:user', auth, async (req, res) => {
     try {
         const admin = await User.findById(req.user);
         if (admin.admin < 2) {
@@ -30,11 +30,11 @@ router.post('/promote-to-mod/:id', auth, async (req, res) => {
         return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 });
-router.post('/promote-to-admin/:id', auth, async (req, res) => {
+router.post('/promote-to-admin/:user', auth, async (req, res) => {
     try {
         const admin = await User.findById(req.user);
         if (admin.admin < 3) {
-            return res.status(401).json({ error: "You need to be at least an admin to promote people to mod" })
+            return res.status(401).json({ error: "You need to be at least a super admin to promote people to admin" })
         }
         const user = await User.findById(req.params.user);
         if (!user) {
@@ -56,11 +56,11 @@ router.post('/promote-to-admin/:id', auth, async (req, res) => {
         return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 });
-router.put('/demote/:id', auth, async (req, res) => {
+router.put('/demote/:user', auth, async (req, res) => {
     try {
         const admin = await User.findById(req.user);
         const user = await User.findById(req.params.user);
-
+        console.log(req.params.user);
         if (!user) {
             return res.status(404).json({ error: "User Not Found" })
         }

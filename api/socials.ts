@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const validator = require('oversimplified-express-validator');
 const bcrypt = require('bcryptjs');
+const simpleAvatarGenerator = require('simple-avatar-generator');
 
 import imageUploader from '../functions/uploadToCloudinary';
 import axios from 'axios';
@@ -53,7 +54,7 @@ router.get('/google-callback', async (req, res) => {
             return res.redirect(`${process.env.client_url}/socials/merge/${socialExists._id}`);
         }
         const socials = new Social({ name: googleUser.name, email: googleUser.email, type: "google", image: googleUser.picture });
-
+        console.log(socials);
         if (exist) {
             if (exist.socials.google) {
                 const token = await generateJWT(exist._id);
@@ -131,9 +132,17 @@ router.post('/create/:id', validator([{ name: "password", minlength: 8 }, { name
         let salt = await bcrypt.genSalt(Number(process.env.salt_rounds));
         let password = await bcrypt.hash(req.body.password, salt);
         let user = new User({ email: social.email, password, socials: { google: true }, verified: true });
-        await user.save();
-        let image = await imageUploader(social.image);
+        console.log(social)
+        let image;
+        if (social.image) {
+            image = await imageUploader(social.image);
+        }
+        else{
+            image = await simpleAvatarGenerator(req.body.name)
+        }
 
+        console.log(image);
+        await user.save();
         if (req.body.name.length > 0) {
             const profile = new Profile({ user: user._id, picture: image, name: req.body.name })
             await profile.save()
