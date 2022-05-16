@@ -9,6 +9,7 @@ import db from './config/db';
 import user from './api/user'
 import socials from './api/socials';
 import profile from './api/profile';
+import party from './api/party';
 import mod from './api/mod';
 
 db();
@@ -27,3 +28,4 @@ app.use('/api/user', user);
 app.use('/api/socials', socials);
 app.use('/api/profile', profile);
 app.use('/api/mod', mod);
+app.use('/api/party', party);

@@ -1,22 +1,39 @@
 import * as mongoose from 'mongoose';
-
+import listOfCountries from '../util/listOfCountries';
+import listOfAmericanStates from '../util/listOfAmericanStates';
 const partySchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
-    symbol:{
+    createdBy: {
+        type: mongoose.Types.ObjectId,
+        ref: 'user',
+        required: true
+    },
+    editors: {
+        type: [mongoose.Types.ObjectId],
+        ref: 'user',
+        required: true
+
+    },
+    symbol: {
         type: String,
         required: true
     },
-    commonName:{
+    country: {
+        type: String,
+        enums: listOfCountries,
+        required: true
+    },
+    commonName: {
         type: String,
         required: true
     },
-    color:{
+    color: {
         type: String
     },
-    moreDetails:{
+    moreDetails: {
         type: String,
         required: true
     }
