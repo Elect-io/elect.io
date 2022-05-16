@@ -11,6 +11,7 @@ import socials from './api/socials';
 import profile from './api/profile';
 import party from './api/party';
 import mod from './api/mod';
+import politicians from './api/politicians';
 
 db();
 app.use(bodyParser.json({extended:false}));
@@ -29,3 +30,4 @@ app.use('/api/socials', socials);
 app.use('/api/profile', profile);
 app.use('/api/mod', mod);
 app.use('/api/party', party);
+app.use('/api/politician', politicians);
