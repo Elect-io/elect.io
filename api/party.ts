@@ -64,7 +64,7 @@ router.post('/', [auth, validator([{ name: "name" }, { name: "country" }, { name
         else {
             symbol = await simpleAvatarGenerator(name);
         }
-        const party = new Party({ country, name, symbol, moreDetails, color, commonName, createdBy: user._id, editors:[user._id]});
+        const party = new Party({ country, name, symbol, moreDetails, color, commonName, createdBy: user._id, editors: [user._id] });
         await party.save();
         return res.json({ party });
     }
@@ -85,32 +85,55 @@ router.put('/:id', auth, async (req, res) => {
             return res.status(401).json({ error: "You need to be at least a moderator to access this route" })
         }
         let { country, name, symbol, moreDetails, color, commonName } = req.body;
-       
+
         if (symbol) {
             symbol = await imageUploader(symbol);
             party.symbol = symbol;
         }
-        if(country){
+        if (country) {
             if (!listOfCountries.includes(country)) {
                 return res.status(400).json({ error: "Unable to process request: mentioned country not included in database" });
             }
             party.country = country;
         }
-        if(name){
+        if (name) {
             party.name = name;
         }
-        if(moreDetails){
+        if (moreDetails) {
             party.moreDetails = moreDetails;
         }
-        if(color){
+        if (color) {
             party.color = color;
         }
-        if(commonName){
+        if (commonName) {
             party.commonName = commonName;
         }
         party.editors = [...party.editors, user._id];
         await party.save();
         return res.json({ party });
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
+
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user);
+        let party = await Party.findById(req.params.id);
+        if (user.admin < 2) {
+            return res.status(401).json({ error: "You need to be at least an admin to access this route" })
+        }
+        if (!party) {
+
+            return res.status(404).json({ error: "Not Found" })
+        }
+        await party.delete();
+        return res.json({ msg: "successfully deleted" });
     }
     catch (err) {
         if (err.kind === 'ObjectId') {

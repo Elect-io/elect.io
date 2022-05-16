@@ -105,7 +105,7 @@ router.post('/', validator([{ name: 'name' }, { name: "country" }, { name: "stat
 
 //edit a politician's profile
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', auth, async (req, res) => {
     try {
         let { name, gender, genderIdentity, partyAffiliation, sexualOrientation, country, dateOfBirth, state, race, picture } = req.body;
         let politician = await Politician.findById(req.params.id);
@@ -171,5 +171,27 @@ router.put('/:id', async (req, res) => {
     }
 })
 
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user);
+        let politician = await Politician.findById(req.params.id);
+        if (user.admin < 2) {
+            return res.status(401).json({ error: "You need to be at least an admin to access this route" })
+        }
+        if (!politician) {
+
+            return res.status(404).json({ error: "Not Found" })
+        }
+        await politician.delete();
+        return res.json({ msg: "successfully deleted" });
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
 
 export default router;
