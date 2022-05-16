@@ -15,40 +15,53 @@ const politicians = new mongoose.Schema({
         type: String,
         required: true
     },
+    dateOfBirth:{
+        type:Date,
+        required: true
+    },
     country: {
         type: String,
+        required: true,
         enums: listOfCountries
     },
     state: {
         type: String,
+        required: true,
         enums: listOfAmericanStates
     },
     race: {
         type: String,
+        required: true,
         enums: listOfRaces
     },
     sexualOrientation: {
         type: String,
+        required: true,
         enums: listOfSexualities
     },
     gender: {
         type: String,
+        required: true,
         enums: listOfGenders
     },
     religion: {
         type: String,
+        required: true,
         enums: listOfReligions
     },
     genderIdentity: {
         type: String,
+        required: true,
         enums: listOfGenderIdentities
     },
     partyAffiliation: {
         type: mongoose.Types.ObjectId,
+        required: true,
         ref:'party'
     },
     createdAt: {
         type: Date,
+        required: true,
         default: Date.now
     },
     createdBy:{
