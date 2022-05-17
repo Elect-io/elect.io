@@ -152,12 +152,12 @@ router.get('/:id', auth, async (req, res) => {
 })
 
 router.get('/location/:skip', async (req, res) => {
-    try{
-        const {country, state, city, district} = req.query;
+    try {
+        const { country, state, city, district } = req.query;
         const elections = await Election.find({
             country, state, city, district
         }).skip(Number(req.params.skip)).limit(10);
-        return res.json({elections});
+        return res.json({ elections });
     }
     catch (err) {
         if (err.kind === 'ObjectId') {
@@ -168,6 +168,27 @@ router.get('/location/:skip', async (req, res) => {
     }
 })
 
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user);
+        let election = await Election.findById(req.params.id);
+        if (user.admin < 2 && election.user.toString() !== user._id.toString()) {
+            return res.status(401).json({ error: "You need to be at least a moderator to access this route" })
+        }
+        if(!election){
+            return res.status(404).json({ error: "Not Found" })
+        }
+        await election.delete();
+        return res.json({msg:"successfully deleted!"})
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
 
 
 export default router;
