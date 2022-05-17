@@ -14,6 +14,7 @@ import listOfSexualities from '../util/listOfSexualities';
 import listOfRaces from '../util/listOfRaces';
 import listOfGenderIdentities from '../util/listOfGenderIdentities';
 import politicians from '../models/politicians';
+import listOfReligions from '../util/listOfReligions';
 
 //get a politician's info by id
 router.get('/:id', async (req, res) => {
@@ -51,9 +52,9 @@ router.get('/party/:id/:skip', async (req, res) => {
 
 //create a politician's profile
 
-router.post('/', validator([{ name: 'name' }, { name: "country" }, { name: "state" }, { name: "race" }, { name: "sexualOrientation" }, { name: "gender" }, { name: "genderIdentity" }, { name: 'dateOfBirth' }]), async (req, res) => {
+router.post('/', [auth, validator([{ name: 'name' }, { name: "country" }, { name: "state" }, { name: "race" }, { name: "sexualOrientation" }, { name: "gender" }, { name: "genderIdentity" }, { name: 'dateOfBirth' }, {name:"religion"}])], async (req, res) => {
     try {
-        let { name, gender, genderIdentity, partyAffiliation, sexualOrientation, country, dateOfBirth, state, race, picture } = req.body;
+        let { name, gender, genderIdentity, partyAffiliation, sexualOrientation, country, dateOfBirth, state, religion, race, picture } = req.body;
         const user = await User.findById(req.user);
         if (user.admin === 0) {
             return res.status(401).json({ error: "You need to be at least a moderator to access this route" })
@@ -80,6 +81,10 @@ router.post('/', validator([{ name: 'name' }, { name: "country" }, { name: "stat
         if (race && !listOfRaces.includes(race)) {
             return res.status(400).json({ error: "This race input has not yet been added to our database" })
         }
+        
+        if (religion && !listOfReligions.includes(religion)) {
+            return res.status(400).json({ error: "This religion input has not yet been added to our database" })
+        }
         if (genderIdentity && !listOfGenderIdentities.includes(genderIdentity)) {
             return res.status(400).json({ error: "This gender identity input has not yet been added to our database" })
         }
@@ -89,7 +94,7 @@ router.post('/', validator([{ name: 'name' }, { name: "country" }, { name: "stat
         else {
             picture = await simpleAvatarGenerator(name);
         }
-        const politician = new Politician({ name, gender, dateOfBirth, sexualOrientation, picture, country, state, user: user._id, editors: [user._id] });
+        const politician = new Politician({ name, gender, dateOfBirth, sexualOrientation, picture, country, state, createdBy: user._id, editors: [user._id], race, religion, genderIdentity, partyAffiliation});
         await politician.save();
         return res.json({ politician });
     }
@@ -107,7 +112,7 @@ router.post('/', validator([{ name: 'name' }, { name: "country" }, { name: "stat
 
 router.put('/:id', auth, async (req, res) => {
     try {
-        let { name, gender, genderIdentity, partyAffiliation, sexualOrientation, country, dateOfBirth, state, race, picture } = req.body;
+        let { name, gender, genderIdentity, religion, partyAffiliation, sexualOrientation, country, dateOfBirth, state, race, picture } = req.body;
         let politician = await Politician.findById(req.params.id);
         const user = await User.findById(req.user);
         if (user.admin < 2 && politician.user !== user._id) {
@@ -157,6 +162,12 @@ router.put('/:id', auth, async (req, res) => {
         if (picture) {
             picture = await imageUploader(picture);
             politician.picture = picture;
+        }
+        if(religion && !listOfReligions.includes(religion)){
+            return res.status(400).json({ error: "This religion input has not yet been added to our database" })
+        }
+        else if(religion){
+            politician.religion = religion;
         }
         politician.editors = [...politician.editors, user._id];
         await politician.save();

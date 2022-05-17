@@ -56,7 +56,6 @@ const politicians = new mongoose.Schema({
     },
     partyAffiliation: {
         type: mongoose.Types.ObjectId,
-        required: true,
         ref:'party'
     },
     createdAt: {
@@ -77,5 +76,5 @@ const politicians = new mongoose.Schema({
 })
 
 politicians.index({ '$**': "text" });
-export default mongoose.model('politicians', politicians);
+export default mongoose.model('politician', politicians);
 

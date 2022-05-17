@@ -5,11 +5,12 @@ import listOfStates from '../util/listOfAmericanStates';
 const electionSchema = new mongoose.Schema({
     politicians: {
         type: [mongoose.Types.ObjectId],
+        ref:"politician"
     },
     editors: {
         type: [mongoose.Types.ObjectId],
         required: true,
-        ref: 'users'
+        ref: 'user'
     },
     date: {
         type: Date,
