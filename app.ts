@@ -44,4 +44,4 @@ app.use('/api/general-question', generalQuestions)
 app.use('/api/election-specific-question', electionSpecificQuestions)
 
 app.use('/api/answer-general-question', answerGeneralQuestions)
-app.use('/api/answer-election-specific-questions', answerElections);
+app.use('/api/answer-election-specific-question', answerElections);

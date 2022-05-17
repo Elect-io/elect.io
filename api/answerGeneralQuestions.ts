@@ -73,6 +73,7 @@ router.post('/:id/:answer', auth, async (req, res) => {
 
             await exists.save();
 
+            await profile.save()
             return res.json({ answer: exists });
         }
         else {
