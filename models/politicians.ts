@@ -16,8 +16,7 @@ const politicians = new mongoose.Schema({
         required: true
     },
     dateOfBirth:{
-        type:Date,
-        required: true
+        type:Date
     },
     country: {
         type: String,
@@ -31,27 +30,22 @@ const politicians = new mongoose.Schema({
     },
     race: {
         type: String,
-        required: true,
         enums: listOfRaces
     },
     sexualOrientation: {
         type: String,
-        required: true,
         enums: listOfSexualities
     },
     gender: {
         type: String,
-        required: true,
         enums: listOfGenders
     },
     religion: {
         type: String,
-        required: true,
         enums: listOfReligions
     },
     genderIdentity: {
         type: String,
-        required: true,
         enums: listOfGenderIdentities
     },
     partyAffiliation: {

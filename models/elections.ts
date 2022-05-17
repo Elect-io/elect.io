@@ -58,4 +58,5 @@ const electionSchema = new mongoose.Schema({
     }
 });
 
+electionSchema.index({ '$**': "text" });
 export default mongoose.model('election', electionSchema);

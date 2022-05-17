@@ -52,7 +52,7 @@ router.get('/party/:id/:skip', async (req, res) => {
 
 //create a politician's profile
 
-router.post('/', [auth, validator([{ name: 'name' }, { name: "country" }, { name: "state" }, { name: "race" }, { name: "sexualOrientation" }, { name: "gender" }, { name: "genderIdentity" }, { name: 'dateOfBirth' }, {name:"religion"}])], async (req, res) => {
+router.post('/', [auth, validator([{ name: 'name' }, { name: "country" }, { name: "state" }])], async (req, res) => {
     try {
         let { name, gender, genderIdentity, partyAffiliation, sexualOrientation, country, dateOfBirth, state, religion, race, picture } = req.body;
         const user = await User.findById(req.user);
