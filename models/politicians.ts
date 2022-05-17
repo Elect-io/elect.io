@@ -15,8 +15,16 @@ const politicians = new mongoose.Schema({
         type: String,
         required: true
     },
-    dateOfBirth:{
-        type:Date
+    dateOfBirth: {
+        type: Date
+    },
+    xCoefficient: {
+        type: Number,
+        default: 0
+    },
+    yCoefficient: {
+        type: Number,
+        default: 0
     },
     country: {
         type: String,
@@ -50,22 +58,22 @@ const politicians = new mongoose.Schema({
     },
     partyAffiliation: {
         type: mongoose.Types.ObjectId,
-        ref:'party'
+        ref: 'party'
     },
     createdAt: {
         type: Date,
         required: true,
         default: Date.now
     },
-    createdBy:{
-        type:mongoose.Types.ObjectId,
-        ref:'user',
+    createdBy: {
+        type: mongoose.Types.ObjectId,
+        ref: 'user',
         required: true
     },
     editors: {
-       type: [mongoose.Types.ObjectId],
-       ref:'user',
-       required: true 
+        type: [mongoose.Types.ObjectId],
+        ref: 'user',
+        required: true
     }
 })
 
