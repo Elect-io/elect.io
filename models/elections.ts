@@ -24,6 +24,9 @@ const electionSchema = new mongoose.Schema({
         enums: ["Federal", "State", "Municipal", "Primaries-Federal", "Primaries-State", "Primaries-Municipal"],
         required: true
     },
+    results:{
+        type: String
+    },
     for: {
         type: String,
         required: true

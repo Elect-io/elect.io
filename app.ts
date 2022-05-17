@@ -13,6 +13,7 @@ import party from './api/party';
 import mod from './api/mod';
 import politicians from './api/politicians';
 import election from './api/elections';
+import generalQuestions from './api/generalQuestions';
 
 db();
 app.use(bodyParser.json({extended:false}));
@@ -29,7 +30,10 @@ catch (err) {
 app.use('/api/user', user);
 app.use('/api/socials', socials);
 app.use('/api/profile', profile);
+
 app.use('/api/mod', mod);
+
 app.use('/api/party', party);
 app.use('/api/politician', politicians);
 app.use('/api/election', election);
+app.use('/api/general-question', generalQuestions)

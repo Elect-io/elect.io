@@ -3,8 +3,7 @@ import * as mongoose from 'mongoose';
 const answerSchema = new mongoose.Schema({
     question: {
         type: mongoose.Types.ObjectId,
-        required: true,
-        ref: 'question'
+        required: true
     },
     source: {
         type: [[String, mongoose.Types.ObjectId]],

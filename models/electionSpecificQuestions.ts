@@ -5,18 +5,18 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    type: {
-        type: String,
-        enums: ["general", "election"]
-    },
     election: {
         type: mongoose.Types.ObjectId,
-        required: false,
+        required: true,
         ref: "election"
     },
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: 'user',
+        required: true
+    },
+    category: {
+        type: String,
         required: true
     },
     editors: {
@@ -26,4 +26,4 @@ const questionSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('question', questionSchema);
+export default mongoose.model('electionSpecificQuestion', questionSchema);

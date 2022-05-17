@@ -12,6 +12,14 @@ const profile = new mongoose.Schema({
         ref: 'user',
         required: true
     },
+    xCoefficient: {
+        type:Number,
+        default:0
+    },
+    yCoefficient: {
+        type:Number,
+        default:0
+    },
     name: {
         type: String,
         required: true,
