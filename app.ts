@@ -14,6 +14,7 @@ import mod from './api/mod';
 import politicians from './api/politicians';
 import election from './api/elections';
 import generalQuestions from './api/generalQuestions';
+import electionSpecificQuestions from './api/electionQuestions';
 
 db();
 app.use(bodyParser.json({extended:false}));
@@ -37,3 +38,5 @@ app.use('/api/party', party);
 app.use('/api/politician', politicians);
 app.use('/api/election', election);
 app.use('/api/general-question', generalQuestions)
+
+app.use('/api/election-specific-question', electionSpecificQuestions)
