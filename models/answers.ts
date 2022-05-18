@@ -14,7 +14,7 @@ const answerSchema = new mongoose.Schema({
         1: agree
         2: neutral
         3: disagree
-        4:strongly disagree
+        4:strong
         */
     },
     user: {

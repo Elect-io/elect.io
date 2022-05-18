@@ -19,6 +19,7 @@ import answerGeneralQuestions from './api/answerGeneralQuestions';
 import answerElections from './api/answerElectionQuestions';
 import politicianAnswerGeneralQuestions from './api/politicianAnswerGeneralQuestions';
 import politicianAnswerElections from './api/politicianAnswerElection';
+import analyze from './api/analyze';
 
 db();
 app.use(bodyParser.json({extended:false}));
@@ -52,3 +53,4 @@ app.use('/api/answer-election-specific-question', answerElections);
 app.use('/api/answer-politician-general-question', politicianAnswerGeneralQuestions);
 app.use('/api/answer-politician-election-question', politicianAnswerElections);
 
+app.use('/api/analyze', analyze);

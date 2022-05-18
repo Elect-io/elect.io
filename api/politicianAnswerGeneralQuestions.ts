@@ -44,6 +44,10 @@ router.post('/:id/:politician/:answer', [auth, validator([{ name: "source" }])],
             return res.status(400).json({ error: "invalid response" })
         }
         const question = await Question.findById(req.params.id);
+        if(!question) {
+            
+            return res.status(400).json({ error: "invalid response" })
+        }
         const exists = await Answer.findOne({ question: question._id, politician: politician._id });
         switch (answer) {
             case 0:

@@ -5,7 +5,7 @@ import Election from '../models/elections';
 import Question from '../models/electionSpecificQuestions';
 import Politician from '../models/politicians'
 import User from '../models/user';
-import Answer from '../models/answers';
+import Answer from '../models/politicianAnswers';
 import auth from '../middlewares/auth';
 
 router.get('/:politician/:id', async (req, res) => {
