@@ -31,7 +31,7 @@ router.post('/:id/:answer', auth, async (req, res) => {
             return res.status(400).json({ error: "invalid response" })
         }
         const question = await Question.findById(req.params.id);
-        const exists = await Answer.findOne({ question: question._id });
+        const exists = await Answer.findOne({ question: question._id, user:user._id });
         switch (answer) {
             case 0:
                 profile.yCoefficient += 2 * question.yCoefficient;
