@@ -17,9 +17,12 @@ import generalQuestions from './api/generalQuestions';
 import electionSpecificQuestions from './api/electionQuestions';
 import answerGeneralQuestions from './api/answerGeneralQuestions';
 import answerElections from './api/answerElectionQuestions';
+import politicianAnswerGeneralQuestions from './api/politicianAnswerGeneralQuestions';
+import politicianAnswerElections from './api/politicianAnswerElection';
 
 db();
 app.use(bodyParser.json({extended:false}));
+
 try {
     app.listen(process.env.server_port, () => {
         console.log(`Server started successfully; Listening on port ${process.env.server_port}`);
@@ -45,3 +48,7 @@ app.use('/api/election-specific-question', electionSpecificQuestions)
 
 app.use('/api/answer-general-question', answerGeneralQuestions)
 app.use('/api/answer-election-specific-question', answerElections);
+
+app.use('/api/answer-politician-general-question', politicianAnswerGeneralQuestions);
+app.use('/api/answer-politician-election-question', politicianAnswerElections);
+
