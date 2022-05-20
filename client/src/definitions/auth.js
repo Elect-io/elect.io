@@ -1,0 +1,2 @@
+export const ADD_X_AUTH_TOKEN = 'ADD_X_AUTH_TOKEN';
+export const REMOVE_X_AUTH_TOKEN= 'REMOVE_X_AUTH_TOKEN';

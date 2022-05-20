@@ -1,0 +1,3 @@
+export const LOAD_PROFILE = 'LOAD_PROFILE';
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const REMOVE_PROFILE = 'REMOVE_PROFILE';

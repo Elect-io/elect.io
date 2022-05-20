@@ -1,0 +1,3 @@
+export const LOAD_ANSWER = 'LOAD_ANSWER';
+export const UPDATE_ANSWER = 'UPDATE_ANSWER';
+export const REMOVE_ANSWER = 'REMOVE_ANSWER';
