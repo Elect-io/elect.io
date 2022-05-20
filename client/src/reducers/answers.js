@@ -2,7 +2,7 @@ import {
   LOAD_ANSWER,
   UPDATE_ANSWER,
   REMOVE_ANSWER
-} from "../definitions/auth";
+} from "../definitions/answers";
 
 const initialState = [];
 
