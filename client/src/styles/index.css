@@ -8,6 +8,46 @@
   height: calc(100vh - 4rem);
   padding: 2rem 1rem;
 }
+.sidebar-each {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+.sidebar-each:hover .sidebar-each-toolkit {
+  opacity: 1;
+  transform: translate(5rem, 0%);
+}
+.sidebar-each-toolkit {
+  transition: opacity 0.2s;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-200%, 0%);
+  z-index: 4;
+  opacity: 0;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  background-color: #E5E5E5;
+  border-radius: 1rem;
+  width: 8rem;
+}
+.sidebar-each-toolkit-each {
+  display: block;
+  text-decoration: none;
+  font-size: 1.4rem;
+  text-align: left;
+  transition: all 0.1s;
+  font-weight: 400;
+  padding: 1rem 0.1rem;
+  margin: auto;
+  color: rgba(0, 0, 0, 0.7);
+}
+.sidebar-each-toolkit-each:not(:last-child) {
+  border-bottom: 0.5px solid #AEAEAE;
+}
+.sidebar-each-toolkit-each:hover {
+  font-size: 1.7rem;
+}
 .sidebar-icon {
   margin: 1.5rem auto;
   cursor: pointer;
