@@ -1,8 +1,16 @@
-body{
-    margin:0;
-    padding:0;
+body {
+    margin: 0;
+    padding: 0;
 }
-html{
+
+html {
     font-size: 10px;
 }
 
+.app {
+    height: 100vh;
+    width: 100vw;
+    background-color: $primaryColor;
+    display: flex;
+    
+}

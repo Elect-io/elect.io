@@ -4,17 +4,17 @@ import {
 } from '../definitions/profile';
 const initialState = {
     user: {},
-    lastLoaded:new Date(),
-    profile: {}
+    profile: {},
+    loaded:false
 }
 
 const profileReducer = (state=initialState, action) =>{
     const {type, payload} = action;
     switch(type){
         case LOAD_PROFILE: 
-            return payload
+            return {payload, loaded:true}
         case REMOVE_PROFILE:
-            return null;
+            return initialState;
         default:
             return state
     }

@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "concurrently \"react-scripts start\" \"sass ./src/sass/main.scss ./src/index.css -w\"",
+    "dev": "concurrently \"react-scripts start\" \"sass ./src/sass/main.scss ./src/styles/index.css -w\"",
     "build": "react-scripts build",
     "style":"sass ./src/sass/main.scss ./src/styles/index.css -w",
     "test": "react-scripts test",
