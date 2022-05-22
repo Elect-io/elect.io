@@ -8,10 +8,12 @@
         position: relative;
         width: 100%;
         text-align: center;
-        &:hover &-toolkit{
+
+        &:hover &-toolkit {
             opacity: 1;
             transform: translate(5rem, 0%)
         }
+
         &-toolkit {
             transition: opacity 0.2s;
             position: absolute;
@@ -19,40 +21,51 @@
             top: 0;
             transform: translate(-200%, 0%);
             z-index: 4;
-    
+
             opacity: 0;
+
             &-each {
-                display: block;
-                text-decoration: none;
+                display: flex !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                align-items: center !important;
+                text-decoration: none !important;
+                width: 100%;
+                // height: 12rem;
+                p {
+                    margin: 0 1rem 0;
+                }
+
                 font-size: 1.4rem;
-    
+
                 &:not(:last-child) {
                     border-bottom: .5px solid $tertiaryColor;
                 }
-                &:hover{
-                    font-size:1.6rem;
-                    // transform:scale(1.2)
+
+                &:hover {
+                    font-size: 1.45rem !important;
+                    
                 }
-    
+
                 text-align: left;
-                transition: all .1s;
+                transition: all .2s;
                 font-weight: 400;
                 padding: 1rem .1rem;
                 margin: auto;
                 color: rgba($secondaryColor, 0.7);
             }
-    
+
             padding: 1rem 1.5rem;
             ;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
             background-color: $primaryColor;
             border-radius: 1rem;
-            width: 8rem;
+            width: 10rem;
         }
-    
+
     }
 
-   
+
     &-icon {
         margin: 1.5rem auto;
         cursor: pointer;
