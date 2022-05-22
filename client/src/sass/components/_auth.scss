@@ -1,6 +1,33 @@
 .auth {
     max-width: 50rem;
     margin: 0 auto;
+
+    &-2 {
+        justify-content: flex-start;
+    }
+
+    &-back {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        // width: 6rem;
+            align-self: start !important;
+
+        text-decoration: none !important;
+
+        &-text {
+            margin-left: .5rem;
+            font-weight: 600;
+            &:hover {
+                color: rgba(#000000, 1);
+            }
+
+            transition: all 0.2s;
+            color: rgba(#000000, 0.8);
+            font-size: 1.8rem;
+        }
+    }
+
     padding: 6rem 0;
     overflow: auto;
     min-height: calc(100vh - 12rem);
@@ -23,7 +50,11 @@
         font-weight: 600;
 
         &-link {
+            &:hover {
+                color: rgba(#000000, 1);
+            }
 
+            transition: all 0.2s;
             color: rgba(#000000, 0.8);
             text-decoration: none
         }
@@ -37,6 +68,13 @@
         &-icon {
 
             cursor: pointer;
+            transition: all 0.2s !important;
+
+            &:hover {
+                color: #000000;
+                transform: scale(1.1);
+            }
+
             font-size: 4rem !important;
         }
 
@@ -51,6 +89,12 @@
 
     &-form {
         text-align: left;
+
+        &-title-2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0rem auto 4rem;
+        }
 
         &-title {
             font-size: 2rem;
@@ -67,12 +111,23 @@
         }
 
         &-forgot {
-            margin-bottom: 4rem;
+            margin: 1.5rem 0 4rem !important;
             font-size: 1.6rem;
+            text-decoration: none;
+            color: rgba(#000000, 0.8) !important;
+
+
+            &:hover {
+                color: #000 !important;
+            }
+
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
         &-input {
             border: 1px solid $tertiaryColor;
+
             background-color: $inputColor;
 
             &-hidden {
@@ -85,14 +140,23 @@
                 margin: 2rem auto;
                 width: 20rem;
                 cursor: pointer;
-                &-icon{
+
+                &-icon {
                     font-size: 2rem !important;
                 }
+
                 p {
                     font-size: 1.4rem;
                     margin: 0 auto 1.5rem;
                 }
 
+                &:hover {
+
+                    background-color: #fff;
+                }
+
+                background-color: $inputColor;
+                transition: all 0.2s;
                 height:8rem;
                 display: flex;
                 flex-direction: column;

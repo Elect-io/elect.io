@@ -11,7 +11,7 @@ const Login = (props) => {
                     <input className="auth-form-input" type="email" placeholder="Email" />
                     <input className="auth-form-input" type="password" placeholder="Password" />
                 </div>
-                <p className="auth-form-forgot">Forgot your password?</p>
+                <Link to="/profile/forgot-password" className="auth-form-forgot">Forgot your password?</Link>
                 <button className="button-large">Sign In</button>
             </form>
             <div className="auth-google">
