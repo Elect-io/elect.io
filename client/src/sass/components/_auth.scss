@@ -1,0 +1,136 @@
+.auth {
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 6rem 0;
+    overflow: auto;
+    min-height: calc(100vh - 12rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    color: rgba(#000000, 0.8);
+
+    &-header {
+        font-size: 4rem;
+        color: rgba(#000000, 0.8);
+    }
+
+    &-redirect {
+        font-size: 1.8rem;
+        font-weight: lighter;
+        color: rgba(#000000, 0.6);
+        font-weight: 600;
+
+        &-link {
+
+            color: rgba(#000000, 0.8);
+            text-decoration: none
+        }
+    }
+
+    &-google {
+        // background-color: blue;
+        width: 9rem;
+        padding: 2rem;
+
+        &-icon {
+
+            cursor: pointer;
+            font-size: 4rem !important;
+        }
+
+        &-or {
+
+            font-size: 2rem;
+            margin: auto auto 1rem;
+        }
+
+        margin:2rem auto !important;
+    }
+
+    &-form {
+        text-align: left;
+
+        &-title {
+            font-size: 2rem;
+            font-weight: 700;
+            // margin:2rem 0;
+        }
+
+        &-content {
+
+            display: flex;
+            width: 100%;
+
+            flex-direction: column;
+        }
+
+        &-forgot {
+            margin-bottom: 4rem;
+            font-size: 1.6rem;
+        }
+
+        &-input {
+            border: 1px solid $tertiaryColor;
+            background-color: $inputColor;
+
+            &-hidden {
+                display: none;
+            }
+
+            &-profile {
+                border: 1px solid $tertiaryColor;
+                border-radius: 1rem;
+                margin: 2rem auto;
+                width: 20rem;
+                cursor: pointer;
+                &-icon{
+                    font-size: 2rem !important;
+                }
+                p {
+                    font-size: 1.4rem;
+                    margin: 0 auto 1.5rem;
+                }
+
+                height:8rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            &:focus {
+                outline: none;
+            }
+
+            &:not(:last-child) {
+                border-bottom: none;
+            }
+
+            &:nth-child(1) {
+                border-top-right-radius: 1rem;
+
+                border-top-left-radius: 1rem;
+            }
+
+            font-size: 1.6rem;
+
+            &:last-child {
+                border-bottom-right-radius: 1rem;
+
+                border-bottom-left-radius: 1rem;
+            }
+
+            padding:1rem;
+            height: 3rem;
+        }
+
+        display:flex;
+        width: 100%;
+        flex-direction: column;
+
+    }
+}

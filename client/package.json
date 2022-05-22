@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -16,6 +19,7 @@
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
     "sass": "^1.52.0",
+    "simplebar-react": "^2.3.7",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.0"
   },
@@ -23,7 +27,7 @@
     "start": "react-scripts start",
     "dev": "concurrently \"react-scripts start\" \"sass ./src/sass/main.scss ./src/styles/index.css -w\"",
     "build": "react-scripts build",
-    "style":"sass ./src/sass/main.scss ./src/styles/index.css -w",
+    "style": "sass ./src/sass/main.scss ./src/styles/index.css -w",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
