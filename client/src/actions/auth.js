@@ -58,9 +58,34 @@ export const finishReset = async (dispatch, options) => {
         console.log(err);
     }
 }
+export const getSocial = async (id) => {
+    try {
+        const request = await axios.get(`/api/socials/${id}`);
+        return request.data.social
+    } catch (err) {
+        console.log(err);
+    }
+}
 export const getGoogleLink = async () => {
     try {
         const request = await axios.get('/api/socials/google');
+        return request.data.url;
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const createFromGoogle = async (dispatch, options) => {
+    try {
+        const request = await axios.post(`/api/socials/create/${options.id}`, {
+            password: options.password,
+            name: options.name
+        });
+        dispatch({
+            type: ADD_X_AUTH_TOKEN,
+            payload: request.data.token
+        });
+        setToken(request.data.token);
+        await loadProfile(dispatch);
         return request.data.url;
     } catch (err) {
         console.log(err);

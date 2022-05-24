@@ -49,24 +49,24 @@ router.get('/google-callback', async (req, res) => {
 
         if (socialExists) {
             if (!exist) {
-                return res.redirect(`${process.env.client_url}/socials/google/${socialExists._id}`);
+                return res.redirect(`${process.env.client_url}/profile/socials/google/${socialExists._id}`);
             }
-            return res.redirect(`${process.env.client_url}/socials/merge/${socialExists._id}`);
+            return res.redirect(`${process.env.client_url}/profile/socials/merge/${socialExists._id}`);
         }
         const socials = new Social({ name: googleUser.name, email: googleUser.email, type: "google", image: googleUser.picture });
         console.log(socials);
         if (exist) {
             if (exist.socials.google) {
                 const token = await generateJWT(exist._id);
-                return res.redirect(`${process.env.client_url}/authenticate/${token}`);
+                return res.redirect(`${process.env.client_url}/profile/authenticate/${token}`);
             }
             else {
                 await socials.save();
-                return res.redirect(`${process.env.client_url}/socials/merge/${socials._id}`);
+                return res.redirect(`${process.env.client_url}/profile/socials/merge/${socials._id}`);
             }
         }
         await socials.save();
-        return res.redirect(`${process.env.client_url}/socials/google/${socials._id}`);
+        return res.redirect(`${process.env.client_url}/profile/socials/google/${socials._id}`);
     }
     catch (err) {
         console.log(err);
