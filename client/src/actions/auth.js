@@ -39,6 +39,25 @@ export const startReset = async (email) => {
         console.log(err);
     }
 }
+
+export const finishReset = async (dispatch, options) => {
+    try {
+        const request = await axios.post(`/api/user/reset/${options.id}`, {
+            password: options.password
+        });
+        const {
+            token
+        } = request.data;
+        dispatch({
+            type: ADD_X_AUTH_TOKEN,
+            payload: token
+        });
+        setToken(request.data.token);
+        await loadProfile(dispatch);
+    } catch (err) {
+        console.log(err);
+    }
+}
 export const getGoogleLink = async () => {
     try {
         const request = await axios.get('/api/socials/google');

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login, getReset } from '../../actions/auth';
+import { finishReset, getReset } from '../../actions/auth';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
@@ -20,11 +20,13 @@ const ResetPassword = (props) => {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
+        await props.reset({password: state.password, id})
     }
     const onChange = (e) => {
-        this.setState(state => ({ ...state, [e.target.name]: e.target.value }));
+        setState(state => ({ ...state, [e.target.name]: e.target.value }));
     }
+    console.log(props.state)
     if(!state.exists){
         return <div>404 </div>
     }
@@ -52,7 +54,7 @@ const ResetPassword = (props) => {
 
 const mapDispatch = (dispatch) => {
     return {
-        reset: async (options) => await login(dispatch, options)
+        reset: async (options) => await finishReset(dispatch, options)
     }
 }
 export default connect((state) => { return { state: state } }, mapDispatch)(ResetPassword)
