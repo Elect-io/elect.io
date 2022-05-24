@@ -19,6 +19,7 @@ export const login = async (dispatch, options) => {
         await loadProfile(dispatch);
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 
@@ -29,6 +30,7 @@ export const getReset = async (id) => {
         return request.data;
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 export const startReset = async (email) => {
@@ -37,6 +39,7 @@ export const startReset = async (email) => {
         return request.data.msg
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 
@@ -56,6 +59,7 @@ export const finishReset = async (dispatch, options) => {
         await loadProfile(dispatch);
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 export const getSocial = async (id) => {
@@ -64,6 +68,7 @@ export const getSocial = async (id) => {
         return request.data.social
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 export const getGoogleLink = async () => {
@@ -72,6 +77,7 @@ export const getGoogleLink = async () => {
         return request.data.url;
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 export const dispatchToken = async (dispatch, token) => {
@@ -84,7 +90,7 @@ export const dispatchToken = async (dispatch, token) => {
         await loadProfile(dispatch);
     }
     catch (err) {
-
+        throw err;
     }
 }
 export const connectGoogleAccount = async (dispatch, id) => {
@@ -98,6 +104,7 @@ export const connectGoogleAccount = async (dispatch, id) => {
         await loadProfile(dispatch);
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 export const createFromGoogle = async (dispatch, options) => {
@@ -114,6 +121,7 @@ export const createFromGoogle = async (dispatch, options) => {
         await loadProfile(dispatch);
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 export const signup = async (dispatch, options) => {
@@ -127,6 +135,7 @@ export const signup = async (dispatch, options) => {
         await loadProfile(dispatch);
     } catch (err) {
         console.log(err);
+        throw err;
     }
 }
 
@@ -143,6 +152,9 @@ export const loadProfile = async (dispatch) => {
             }
         })
     } catch (err) {
+        localStorage.clear();
+        document.location.reload();
         console.log(err);
+        throw err;
     }
 }

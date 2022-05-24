@@ -1,6 +1,6 @@
 import React from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import GetImage from '../../actions/getImage';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -11,10 +11,13 @@ const Signup = (props) => {
     const onChange = (e) => {
         setState(state => ({ ...state, [e.target.name]: e.target.value }));
     }
+    
+    const navigate = useNavigate();
     const onSubmit = async (e) => {
         e.preventDefault();
         console.log(state);
         await props.onSignUp(state);
+        navigate('/');
         // await props.login(state);
     }
     console.log(props.state)

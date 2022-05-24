@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createFromGoogle, getSocial } from '../../actions/auth';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 const CreateAccountFromGoogle = (props) => {
     const [state, setState] = React.useState({
@@ -25,11 +26,18 @@ const CreateAccountFromGoogle = (props) => {
             }
         })();
     }, []);
-
+    const navigate = useNavigate();
     const onSubmit = async (e) => {
-        e.preventDefault();
-        // console.log(this.state);
-        await props.createFromGoogle({ password: state.password, id, name: state.social.name })
+        try {
+            e.preventDefault();
+            // console.log(this.state);
+            await props.createFromGoogle({ password: state.password, id, name: state.social.name })
+            navigate('/');
+        }
+        catch (err) {
+
+        }
+
     }
     const onChange = (e) => {
         setState(state => ({ ...state, [e.target.name]: e.target.value }));

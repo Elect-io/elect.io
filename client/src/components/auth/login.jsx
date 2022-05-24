@@ -1,13 +1,16 @@
 import React from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getGoogleLink, login } from '../../actions/auth';
 const Login = (props) => {
+    
+    const navigate = useNavigate();
     const onSubmit = async (e) => {
         e.preventDefault();
         console.log(state);
         await props.login(state);
+        navigate('/')
     }
     const [state, setState] = React.useState({ email: "", password: "" });
     const onChange = (e) => {
@@ -26,9 +29,9 @@ const Login = (props) => {
         </form>
         <div className="auth-google">
             <div className="auth-google-or">OR</div>
-            <GoogleIcon onClick={async ()=>{
+            <GoogleIcon onClick={async () => {
                 document.location.href = await getGoogleLink()
-            }}  className="auth-google-icon" />
+            }} className="auth-google-icon" />
         </div>
         <p className="auth-redirect">
             New To elect.io? <Link to="/profile/sign-up" className="auth-redirect-link">Create Account</Link>
@@ -41,4 +44,4 @@ const mapDispatch = (dispatch) => {
         login: async (options) => await login(dispatch, options)
     }
 }
-export default connect((state) => { return {state:state} }, mapDispatch)(Login)
+export default connect((state) => { return { state: state } }, mapDispatch)(Login)

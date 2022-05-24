@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { finishReset, getReset } from '../../actions/auth';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ResetPassword = (props) => {
     const [state, setState] = React.useState({
@@ -17,11 +17,14 @@ const ResetPassword = (props) => {
             setState(state => ({ ...state, user, profile, exists: true }));
         })();
     }, []);
+    
+    const navigate = useNavigate();
 
     const onSubmit = async (e) => {
         e.preventDefault();
         // console.log(this.state);
         await props.reset({password: state.password, id})
+        navigate('/')
     }
     const onChange = (e) => {
         setState(state => ({ ...state, [e.target.name]: e.target.value }));

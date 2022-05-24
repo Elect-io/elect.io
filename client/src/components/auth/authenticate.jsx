@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { dispatchToken } from '../../actions/auth';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ConnectGoogleAccount = (props) => {
     const [state, setState] = React.useState({
         password: "", confirmPassword: "", exists: false, social: {}
     });
+    const navigate = useNavigate();
     const { token } = useParams();
     useEffect(() => {
         (async () => {
             const social = await props.authenticate(token);
-
+            navigate('/');
         })();
     }, []);
 
@@ -22,7 +23,7 @@ const ConnectGoogleAccount = (props) => {
     }
     else {
         return (<div className="auth">
-            
+
         </div>
         )
     }

@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { connectGoogleAccount, getSocial } from '../../actions/auth';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ConnectGoogleAccount = (props) => {
     const [state, setState] = React.useState({
         password: "", confirmPassword: "", exists: false, social: {}
     });
+
+    const navigate = useNavigate();
     const { id } = useParams();
     useEffect(() => {
         (async () => {
@@ -28,6 +30,7 @@ const ConnectGoogleAccount = (props) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         await props.connectGoogleAccount(id);
+        navigate('/')
 
     }
 
