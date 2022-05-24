@@ -89,6 +89,21 @@
     }
 
     &-form {
+        &-user {
+            margin: 0 auto 3rem;
+            text-align: center;
+            p{
+                font-size: 2rem;
+                font-weight: 600;
+                margin: 2rem auto;
+            }
+            img {
+                box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+                border-radius: 100%;
+                width: 15rem;
+            }
+        }
+
         text-align: left;
 
         &-title-2 {
@@ -149,15 +164,19 @@
                     border-radius: 100%;
                     display: flex;
                     transition: all 0.2s;
-                    &:hover{
+
+                    &:hover {
                         transform: scale(1.1);
                     }
+
                     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
                     justify-content: center;
                     align-items: center;
-                    &-icon{
+
+                    &-icon {
                         font-size: 2rem !important;
                     }
+
                     width: 2rem;
 
                     right: 3rem;

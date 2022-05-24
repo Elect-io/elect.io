@@ -6,6 +6,8 @@ const SideBar = lazy(() => import('./components/reusables/sidebar'));
 const Login = lazy(() => import('./components/auth/login'));
 const Signup = lazy(() => import('./components/auth/signup'))
 const ForgotPassword = lazy(() => import('./components/auth/forgotPassword'))
+const ResetPassword = lazy(() => import('./components/auth/resetPassword'))
+
 class App extends React.Component {
   render() {
     console.log(this.props.loaded);
@@ -21,9 +23,11 @@ class App extends React.Component {
                 <Switch>
                   <Route path="/" element={<div>Home</div>} />
                   <Route path="/profile/login" element={<Login />} />
+                  <Route path="/profile/forgot-password/:id" exact element={<ResetPassword />} />
                   
                   <Route path="/profile/forgot-password" element={<ForgotPassword />} />
                   <Route path="/profile/sign-up" element={<Signup />} />
+
                 </Switch>
               </div>
           </div>

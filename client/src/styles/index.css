@@ -153,6 +153,20 @@
   width: 100%;
   flex-direction: column;
 }
+.auth-form-user {
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+.auth-form-user p {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 2rem auto;
+}
+.auth-form-user img {
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+  border-radius: 100%;
+  width: 15rem;
+}
 .auth-form-title-2 {
   font-size: 2rem;
   font-weight: 600;
@@ -288,8 +302,9 @@ html {
   display: flex;
 }
 .app-right {
-  width: calc(100vw - 6rem);
+  width: calc(100vw - 10rem);
   max-height: 100vh;
+  padding: 0 2rem;
   overflow: auto;
 }
 

@@ -22,21 +22,28 @@ export const login = async (dispatch, options) => {
     }
 }
 
-export const startReset = async (email) =>{
-    try{
-        const request = await axios.post(`/api/user/forgot/${email}`);
-        return request.data.msg
-    }
-    catch(err){
+export const getReset = async (id) => {
+    try {
+        const request = await axios.get(`/api/user/forgot/${id}`);
+        console.log(request.data)
+        return request.data;
+    } catch (err) {
         console.log(err);
     }
 }
-export const getGoogleLink = async () =>{
-    try{
+export const startReset = async (email) => {
+    try {
+        const request = await axios.post(`/api/user/forgot/${email}`);
+        return request.data.msg
+    } catch (err) {
+        console.log(err);
+    }
+}
+export const getGoogleLink = async () => {
+    try {
         const request = await axios.get('/api/socials/google');
         return request.data.url;
-    }
-    catch(err){
+    } catch (err) {
         console.log(err);
     }
 }

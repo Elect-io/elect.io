@@ -33,8 +33,9 @@ html {
 
 .app {
     &-right {
-        width: calc(100vw - 6rem);
+        width: calc(100vw - 10rem);
         max-height: 100vh;
+        padding:0 2rem;
         overflow: auto
     }
 
