@@ -202,7 +202,6 @@ router.post('/create-account',
                 });
             await Email
                 .then(async a => {
-                    console.log(a.response);
                     await verify.save();
                     await profile.save();
                     await user.save();

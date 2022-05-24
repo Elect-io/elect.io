@@ -22,7 +22,7 @@ import politicianAnswerElections from './api/politicianAnswerElection';
 import analyze from './api/analyze';
 
 db();
-app.use(bodyParser.json({extended:false}));
+app.use(bodyParser.json({ extended: false, limit: '50mb' }));
 
 try {
     app.listen(process.env.server_port, () => {

@@ -21,6 +21,28 @@ export const login = async (dispatch, options) => {
         console.log(err);
     }
 }
+export const getGoogleLink = async () =>{
+    try{
+        const request = await axios.get('/api/socials/google');
+        return request.data.url;
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+export const signup = async (dispatch, options) => {
+    try {
+        const request = await axios.post('/api/user/create-account', options);
+        dispatch({
+            type: ADD_X_AUTH_TOKEN,
+            payload: request.data.token
+        });
+        setToken(request.data.token);
+        await loadProfile(dispatch);
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 export const loadProfile = async (dispatch) => {
     try {

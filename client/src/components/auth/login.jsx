@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { login } from '../../actions/auth';
+import { getGoogleLink, login } from '../../actions/auth';
 const Login = (props) => {
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -22,7 +22,9 @@ const Login = (props) => {
                 <input className="auth-form-input" type="password" name="password" onChange={onChange} value={state.password} placeholder="Password" />
             </div>
             <Link to="/profile/forgot-password" className="auth-form-forgot">Forgot your password?</Link>
-            <button className="button-large">Sign In</button>
+            <button onClick={async ()=>{
+                document.location.href = await getGoogleLink()
+            }}  className="button-large">Sign In</button>
         </form>
         <div className="auth-google">
             <div className="auth-google-or">OR</div>

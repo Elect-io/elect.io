@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import GetImage from '../../actions/getImage';
 import CancelIcon from '@mui/icons-material/Cancel';
-
+import { connect } from 'react-redux';
+import { getGoogleLink, signup } from '../../actions/auth';
 const Signup = (props) => {
     const [state, setState] = React.useState({ email: "", password: "", confirmPassword: "", name: "", image: "" });
     const onChange = (e) => {
@@ -13,9 +14,10 @@ const Signup = (props) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         console.log(state);
+        await props.onSignUp(state);
         // await props.login(state);
     }
-
+    console.log(props.state)
     return (<div className="auth">
         <h1 className="auth-header">Welcome to elect.io</h1>
         <form className="auth-form" onSubmit={onSubmit}>
@@ -34,7 +36,7 @@ const Signup = (props) => {
                 <AddCircleOutlineIcon className="auth-form-input-profile-icon" /></label> :
                 <div className="auth-form-input-profile">
                     <img className="auth-form-input-profile-image" src={state.image} alt="profile" />
-                    <div className="auth-form-input-profile-cross" onClick={()=>setState({...state, image: null})}><CancelIcon className="auth-form-input-profile-cross-icon" /></div>
+                    <div className="auth-form-input-profile-cross" onClick={() => setState({ ...state, image: null })}><CancelIcon className="auth-form-input-profile-cross-icon" /></div>
                 </div>}
             <div className="auth-form-content">
                 <input className="auth-form-input" name="password" onChange={onChange} value={state.password} type="password" placeholder="Password" />
@@ -46,7 +48,9 @@ const Signup = (props) => {
         </form>
         <div className="auth-google">
             <div className="auth-google-or">OR</div>
-            <GoogleIcon className="auth-google-icon" />
+            <GoogleIcon onClick={async ()=>{
+                document.location.href = await getGoogleLink()
+            }} className="auth-google-icon" />
         </div>
         <p className="auth-redirect">
             Already have an account? <Link to="/profile/login" className="auth-redirect-link">Sign In</Link>
@@ -54,5 +58,9 @@ const Signup = (props) => {
     </div>
     )
 }
-
-export default Signup
+const mapDispatchToProps = (dispatch) => {
+    return ({
+        onSignUp: async (options) => await signup(dispatch, options)
+    })
+}
+export default connect((state) => { return {state} }, mapDispatchToProps)(Signup)
