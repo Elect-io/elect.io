@@ -74,6 +74,32 @@ export const getGoogleLink = async () => {
         console.log(err);
     }
 }
+export const dispatchToken = async (dispatch, token) => {
+    try{
+        dispatch({
+            type: ADD_X_AUTH_TOKEN,
+            payload: token
+        });
+        setToken(token);
+        await loadProfile(dispatch);
+    }
+    catch (err) {
+
+    }
+}
+export const connectGoogleAccount = async (dispatch, id) => {
+    try {
+        const request = await axios.post(`/api/socials/merge/${id}`);
+        dispatch({
+            type: ADD_X_AUTH_TOKEN,
+            payload: request.data.token
+        });
+        setToken(request.data.token);
+        await loadProfile(dispatch);
+    } catch (err) {
+        console.log(err);
+    }
+}
 export const createFromGoogle = async (dispatch, options) => {
     try {
         const request = await axios.post(`/api/socials/create/${options.id}`, {
@@ -86,7 +112,6 @@ export const createFromGoogle = async (dispatch, options) => {
         });
         setToken(request.data.token);
         await loadProfile(dispatch);
-        return request.data.url;
     } catch (err) {
         console.log(err);
     }

@@ -74,10 +74,10 @@ router.get('/google-callback', async (req, res) => {
     }
 })
 
-router.post('/merge/:id', [auth], async (req, res) => {
+router.post('/merge/:id', async (req, res) => {
     try {
-        let user = await User.findById(req.user);
         let social = await Social.findById(req.params.id);
+        let user = await User.findOne({ email: social.email });
         if (!social) {
             return res.status(404).json({ error: "Not Found" })
         }
@@ -90,8 +90,10 @@ router.post('/merge/:id', [auth], async (req, res) => {
             case "facebook":
                 break;
         }
+        user.socials['google'] = true;
         await user.save();
-        return res.json({ msg: "successfully linked" })
+        let token = await generateJWT(user._id);
+        return res.json({ token })
     }
     catch (err) {
         if (err.kind === 'ObjectId') {
@@ -137,7 +139,7 @@ router.post('/create/:id', validator([{ name: "password", minlength: 8 }, { name
         if (social.image) {
             image = await imageUploader(social.image);
         }
-        else{
+        else {
             image = await simpleAvatarGenerator(req.body.name)
         }
 
