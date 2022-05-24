@@ -22,13 +22,13 @@ const Login = (props) => {
                 <input className="auth-form-input" type="password" name="password" onChange={onChange} value={state.password} placeholder="Password" />
             </div>
             <Link to="/profile/forgot-password" className="auth-form-forgot">Forgot your password?</Link>
-            <button onClick={async ()=>{
-                document.location.href = await getGoogleLink()
-            }}  className="button-large">Sign In</button>
+            <button className="button-large">Sign In</button>
         </form>
         <div className="auth-google">
             <div className="auth-google-or">OR</div>
-            <GoogleIcon className="auth-google-icon" />
+            <GoogleIcon onClick={async ()=>{
+                document.location.href = await getGoogleLink()
+            }}  className="auth-google-icon" />
         </div>
         <p className="auth-redirect">
             New To elect.io? <Link to="/profile/sign-up" className="auth-redirect-link">Create Account</Link>

@@ -21,6 +21,16 @@ export const login = async (dispatch, options) => {
         console.log(err);
     }
 }
+
+export const startReset = async (email) =>{
+    try{
+        const request = await axios.post(`/api/user/forgot/${email}`);
+        return request.data.msg
+    }
+    catch(err){
+        console.log(err);
+    }
+}
 export const getGoogleLink = async () =>{
     try{
         const request = await axios.get('/api/socials/google');
