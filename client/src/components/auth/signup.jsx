@@ -6,18 +6,43 @@ import GetImage from '../../actions/getImage';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { connect } from 'react-redux';
 import { getGoogleLink, signup } from '../../actions/auth';
+import validateEmail from '../../actions/checkEmail';
 const Signup = (props) => {
     const [state, setState] = React.useState({ email: "", password: "", confirmPassword: "", name: "", image: "" });
+    const [alert, setAlert] = React.useState("");
+
     const onChange = (e) => {
         setState(state => ({ ...state, [e.target.name]: e.target.value }));
     }
-    
+
     const navigate = useNavigate();
     const onSubmit = async (e) => {
         e.preventDefault();
-        console.log(state);
-        await props.onSignUp(state);
-        navigate('/');
+        setAlert('');
+        if (!validateEmail(state.email)) {
+            setAlert("*Invalid Email")
+            return;
+        }
+        if (state.password.length < 8) {
+            setAlert("*Your password should be at least 8 characters long")
+            return;
+        }
+        if (state.password !== state.confirmPassword) {
+            setAlert("*Your passwords don't match")
+            return;
+        }
+        if (state.name.length < 1) {
+            setAlert("*Please enter a name");
+            return;
+        }
+        try {
+            console.log(state);
+            await props.onSignUp(state);
+            navigate('/');
+        }
+        catch (err) {
+            setAlert(err);
+        }
         // await props.login(state);
     }
     console.log(props.state)
@@ -46,12 +71,13 @@ const Signup = (props) => {
                 <input className="auth-form-input" type="password" placeholder="Re-Enter Password" name="confirmPassword" onChange={onChange} value={state.confirmPassword} />
             </div>
 
+            {alert.length > 0 ? <p className="auth-form-alert">{alert}</p> : null}
             <p className="auth-form-forgot"></p>
             <button className="button-large">Sign Up</button>
         </form>
         <div className="auth-google">
             <div className="auth-google-or">OR</div>
-            <GoogleIcon onClick={async ()=>{
+            <GoogleIcon onClick={async () => {
                 document.location.href = await getGoogleLink()
             }} className="auth-google-icon" />
         </div>
@@ -66,4 +92,4 @@ const mapDispatchToProps = (dispatch) => {
         onSignUp: async (options) => await signup(dispatch, options)
     })
 }
-export default connect((state) => { return {state} }, mapDispatchToProps)(Signup)
+export default connect((state) => { return { state } }, mapDispatchToProps)(Signup)

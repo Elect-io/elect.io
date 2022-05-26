@@ -89,6 +89,11 @@
     }
 
     &-form {
+        &-alert{
+            align-self: end;
+            color: #FF0000;
+            font-size: 1.6rem;
+        }
         &-user {
             margin: 0 auto 3rem;
             text-align: center;

@@ -159,6 +159,11 @@
   width: 100%;
   flex-direction: column;
 }
+.auth-form-alert {
+  align-self: end;
+  color: #FF0000;
+  font-size: 1.6rem;
+}
 .auth-form-user {
   margin: 0 auto 3rem;
   text-align: center;

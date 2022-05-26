@@ -3,15 +3,30 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getGoogleLink, login } from '../../actions/auth';
+import validateEmail from '../../actions/checkEmail';
 const Login = (props) => {
-    
+
     const navigate = useNavigate();
     const onSubmit = async (e) => {
+        setAlert('');
         e.preventDefault();
-        console.log(state);
-        await props.login(state);
-        navigate('/')
+        if (!validateEmail(state.email)) {
+            setAlert("*Invalid Email")
+            return;
+        }
+        if (state.password.length < 8) {
+            setAlert("*Invalid Credentials")
+            return;
+        }
+        try {
+            await props.login(state);
+            navigate('/')
+        }
+        catch (err) {
+            setAlert(err);
+        }
     }
+    const [alert, setAlert] = React.useState("");
     const [state, setState] = React.useState({ email: "", password: "" });
     const onChange = (e) => {
         setState(state => ({ ...state, [e.target.name]: e.target.value }));
@@ -24,6 +39,7 @@ const Login = (props) => {
                 <input className="auth-form-input" name="email" onChange={onChange} value={state.email} type="email" placeholder="Email" />
                 <input className="auth-form-input" type="password" name="password" onChange={onChange} value={state.password} placeholder="Password" />
             </div>
+            {alert.length > 0 ? <p className="auth-form-alert">{alert}</p> : null}
             <Link to="/profile/forgot-password" className="auth-form-forgot">Forgot your password?</Link>
             <button className="button-large">Sign In</button>
         </form>

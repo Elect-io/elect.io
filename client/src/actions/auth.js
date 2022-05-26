@@ -18,8 +18,10 @@ export const login = async (dispatch, options) => {
         setToken(request.data.token);
         await loadProfile(dispatch);
     } catch (err) {
-        console.log(err);
-        throw err;
+        console.log(err.response.status);
+        if (err.response.status === 401) {
+            throw "*Invalid Credentials";
+        }
     }
 }
 
@@ -146,6 +148,9 @@ export const signup = async (dispatch, options) => {
         setToken(request.data.token);
         await loadProfile(dispatch);
     } catch (err) {
+        if (err.response.status === 401) {
+            throw "*An account already exists with this email address; please try to login";
+        }
         console.log(err);
         throw err;
     }

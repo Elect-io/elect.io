@@ -11,6 +11,7 @@ const CreateAccountFromGoogle = (props) => {
     const [state, setState] = React.useState({
         password: "", confirmPassword: "", exists: false, social: {}
     });
+    const [alert, setAlert] = React.useState("");
     const { id } = useParams();
     useEffect(() => {
         (async () => {
@@ -28,14 +29,23 @@ const CreateAccountFromGoogle = (props) => {
     }, []);
     const navigate = useNavigate();
     const onSubmit = async (e) => {
+
+        e.preventDefault();
+        if (state.password.length < 8) {
+            setAlert("*Your password should be at least 8 characters long")
+            return;
+        }
+        if (state.password !== state.confirmPassword) {
+            setAlert("*Your passwords don't match")
+            return;
+        }
         try {
-            e.preventDefault();
             // console.log(this.state);
             await props.createFromGoogle({ password: state.password, id, name: state.social.name })
             navigate('/');
         }
         catch (err) {
-
+            setAlert(err);
         }
 
     }
@@ -60,6 +70,7 @@ const CreateAccountFromGoogle = (props) => {
                     <input className="auth-form-input" name="password" onChange={onChange} value={state.password} type="password" placeholder="Password" />
                     <input className="auth-form-input" type="password" name="confirmPassword" onChange={onChange} value={state.confirmPassword} placeholder="Confirm Password" />
                 </div>
+                {alert.length > 0 ? <p className="auth-form-alert">{alert}</p> : null}
                 <span className="auth-form-forgot"></span>
                 <button className="button-large">Complete Registration</button>
             </form>
