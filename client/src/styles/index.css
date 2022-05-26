@@ -48,13 +48,19 @@
   align-items: center !important;
   text-decoration: none !important;
   width: 100%;
-  font-size: 1.4rem;
+  font-size: 1.4rem !important;
   text-align: left;
   transition: all 0.2s;
   font-weight: 400;
   padding: 1rem 0.1rem;
   margin: auto;
   color: rgba(0, 0, 0, 0.7);
+}
+.sidebar-each-toolkit-each-image {
+  border-radius: 100%;
+  width: 2.4rem;
+  font-size: 2rem !important;
+  object-fit: cover;
 }
 .sidebar-each-toolkit-each p {
   margin: 0 1rem 0;

@@ -81,15 +81,14 @@ export const getGoogleLink = async () => {
     }
 }
 export const dispatchToken = async (dispatch, token) => {
-    try{
+    try {
         dispatch({
             type: ADD_X_AUTH_TOKEN,
             payload: token
         });
         setToken(token);
         await loadProfile(dispatch);
-    }
-    catch (err) {
+    } catch (err) {
         throw err;
     }
 }
@@ -105,6 +104,19 @@ export const connectGoogleAccount = async (dispatch, id) => {
     } catch (err) {
         console.log(err);
         throw err;
+    }
+}
+export const removeAccount = async (dispatch) => {
+    try {
+        localStorage.clear();
+        dispatch({
+            type: REMOVE_X_AUTH_TOKEN
+        })
+        dispatch({
+            type: REMOVE_PROFILE
+        })
+    } catch (err) {
+
     }
 }
 export const createFromGoogle = async (dispatch, options) => {
