@@ -134,8 +134,7 @@ export const createFromGoogle = async (dispatch, options) => {
         setToken(request.data.token);
         await loadProfile(dispatch);
     } catch (err) {
-        console.log(err);
-        throw err;
+        throw err.response.data.error;
     }
 }
 export const signup = async (dispatch, options) => {

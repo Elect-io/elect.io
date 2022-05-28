@@ -1,0 +1,19 @@
+.input {
+    border: 1px solid $tertiaryColor;
+    background-color: $inputColor;
+
+    &-hidden {
+        display: none;
+    }
+
+
+    &:focus {
+        outline: none;
+    }
+
+    font-size: 1.6rem;
+    border-radius: 1rem;
+    width: 100%;
+    padding:1rem;
+    height: 3rem;
+}

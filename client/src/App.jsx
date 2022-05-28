@@ -12,7 +12,7 @@ const ResetPassword = lazy(() => import('./components/auth/resetPassword'));
 const CreateFromGoogle = lazy(() => import('./components/auth/createFromGoogle'));
 const Merge = lazy(() => import('./components/auth/merge'));
 const Authenticate = lazy(() => import('./components/auth/authenticate'));
-
+const Home = lazy(() => import('./components/home/home'));
 class App extends React.Component {
   async componentWillMount() {
     let token = localStorage.getItem('token');
@@ -34,7 +34,7 @@ class App extends React.Component {
 
             <div className="app-right">
               <Switch>
-                <Route path="/" element={<div>Home</div>} />
+                <Route path="/" element={<div><Home/></div>} />
               </Switch>
             </div>
           </div>
