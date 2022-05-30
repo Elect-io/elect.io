@@ -7,18 +7,45 @@
         align-items: flex-start;
         justify-content: space-between;
 
+        &-para {
+            &-success{
+                padding: 1.5rem;
+                font-size: 1.2rem;
+                display: flex;
+                align-items: center;
+                svg{
+                    margin-right: 1rem;
+                }
+                border-radius: .5rem;
+                box-shadow: 0 0 .4rem rgba(0, 0, 0, 0.2);
+            }
+            &-general {
+                padding: 1.5rem;
+                font-size: 1.2rem;
+                
+                display: flex;
+                align-items: center;
+                svg{
+                    margin-right: 1rem;
+                }
+                border-radius: .5rem;
+                box-shadow: 0 0 .4rem rgba(0, 0, 0, 0.2);
+            }
+        }
+
         &-top {
 
             &-input {
                 width: 55rem;
                 justify-content: space-between;
                 display: flex;
-                
+
                 &-each {
-                    p{
+                    p {
                         font-weight: 600;
                         font-size: 1.5rem;
                     }
+
                     width: 25rem;
                 }
             }
