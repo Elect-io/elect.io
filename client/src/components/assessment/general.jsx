@@ -1,12 +1,10 @@
 import React from "react";
 import { connect } from 'react-redux'
-import {Navigate as Redirect } from 'react-router';
+import { Navigate as Redirect } from 'react-router';
 import { getAllQuestions, setAnswer } from "../../actions/poll";
 import ArrowRight from "../../icons/u_arrow-circle-right";
 class General extends React.Component {
-    async componentWillMount() {
-        await this.props.getAllQuestions();
-    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -17,6 +15,10 @@ class General extends React.Component {
     setAnswer = (answer, previousAnswer) => {
         console.log("set answer")
         this.props.setAnswer(this.props.generalQuestions.questions[this.state.current]._id, answer, previousAnswer);
+        setTimeout(() => {
+
+            this.right();
+        }, 200)
     }
     right = () => {
         this.setState(state => ({ ...state, current: state.current + 1 }));
@@ -29,7 +31,7 @@ class General extends React.Component {
     render() {
         console.log(this.props.generalQuestions)
         if (this.props.generalQuestions.loaded) {
-            if(!this.props.generalQuestions.questions[this.state.current]){
+            if (!this.props.generalQuestions.questions[this.state.current]) {
                 return <Redirect to="/profile" />
             }
             let answer = this.props.generalQuestions.answers.find(a => {
@@ -47,7 +49,7 @@ class General extends React.Component {
                                     {this.props.generalQuestions.questions[this.state.current].question}
                                 </h2>
                                 <div className="poll-general-question-answer">
-                                    {this.answers.map((a, index) => <p onClick={this.setAnswer.bind(this, index, answer)} className={answer.answer === index ? "poll-general-question-answer-each poll-general-question-answer-each-selected" : "poll-general-question-answer-each"}>
+                                    {this.answers.map((a, index) => <p onClick={this.setAnswer.bind(this, index, answer)} className={answer?.answer === index ? "poll-general-question-answer-each poll-general-question-answer-each-selected" : "poll-general-question-answer-each"}>
                                         {a}
                                     </p>)}
                                 </div>
@@ -59,7 +61,7 @@ class General extends React.Component {
                             </div>
                             <div className="poll-general-key">
                                 {this.props.generalQuestions.questions.map((question, index) => {
-                                    return <div className="poll-general-key-each" onClick={() => this.setState(state => ({ ...state, current: index }))}><div className={index === this.state.current ? "poll-general-key-each-selected" : "poll-general-key-each-unselected"}><div className="poll-general-key-each-filled" /></div> </div>
+                                    return <div className="poll-general-key-each" onClick={() => this.setState(state => ({ ...state, current: index }))}><div className={index === this.state.current ? "poll-general-key-each-selected" : "poll-general-key-each-unselected"}><div className={this.props.generalQuestions.answers.find(a=>a.question.toString() === question._id.toString())? "poll-general-key-each-filled" : null} /></div> </div>
                                 })
                                 }
                             </div>

@@ -29,7 +29,7 @@ class SideBar extends React.Component {
                     this.setState({ selected: 3 });
                     break;
                 default:
-                    this.setState({ selected: null });
+                    this.setState({ selected: 2 });
             }
         }
         else {
@@ -47,7 +47,7 @@ class SideBar extends React.Component {
 
             </div>
 
-            <Link to="/home" className="sidebar-each"><Vector onClick={() => this.setState({ selected: 2 })} active={this.state.selected === 2} /></Link>
+            <Link to="/" className="sidebar-each"><Vector onClick={() => this.setState({ selected: 2 })} active={this.state.selected === 2} /></Link>
             <Link to="/elections" className="sidebar-each"><Group onClick={() => this.setState({ selected: 3 })} active={this.state.selected === 3} /></Link>
 
         </div>)

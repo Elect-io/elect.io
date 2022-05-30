@@ -4,7 +4,7 @@ const validator = require('oversimplified-express-validator');
 import Question from '../models/generalQuestions';
 import User from '../models/user';
 import auth from '../middlewares/auth';
-
+import Answers from '../models/answers';
 
 router.get('/', auth, async (req, res) => {
     try {
@@ -27,10 +27,10 @@ router.post('/', [auth, validator([{ name: "question" }, { name: "category" }])]
             return res.status(401).json({ error: "You need to be at least an admin to access this route" })
         }
         let { question, category, xCoefficient, yCoefficient } = req.body;
-        if(!xCoefficient){
+        if (!xCoefficient) {
             xCoefficient = 0;
         }
-        if(!yCoefficient){
+        if (!yCoefficient) {
             yCoefficient = 0;
         }
         let questionInstance = new Question({ question, category, xCoefficient: Number(xCoefficient), yCoefficient: Number(yCoefficient), createdBy: user._id, editors: [user._id] });
@@ -91,8 +91,14 @@ router.delete('/:id', auth, async (req, res) => {
         if (!questionInstance) {
             return res.status(404).json({ error: "Not Found" })
         }
+        let answers = await Answers.find({
+            question: questionInstance._id
+        });
+        for(let i = 0; i < answers.length; i++) {
+            await answers[i].delete();
+        }
         await questionInstance.delete();
-        return res.json({ msg:"Successfully deleted" });
+        return res.json({ msg: "Successfully deleted" });
     }
     catch (err) {
         if (err.kind === 'ObjectId') {
