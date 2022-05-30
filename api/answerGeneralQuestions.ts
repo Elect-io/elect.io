@@ -7,6 +7,31 @@ import User from '../models/user';
 import Answer from '../models/answers';
 import auth from '../middlewares/auth';
 
+router.get('/', auth, async (req, res) => {
+    try {
+        const user = await User.findById(req.user);
+        const questions = await Question.find();
+        let answers = [];
+        let solved = 0;
+        for (let i = 0; i < questions.length; i++) {
+            let question = questions[i];
+            const answer = await Answer.findOne({ question: question._id, user: user._id });
+            if (answer) {
+                solved++;
+                answers.push(answer);
+            }
+        }
+        let remaining = answers.length - solved;
+        return res.json({ answers, questions, remaining, solved });
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
 router.get('/:id', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user);
@@ -31,7 +56,7 @@ router.post('/:id/:answer', auth, async (req, res) => {
             return res.status(400).json({ error: "invalid response" })
         }
         const question = await Question.findById(req.params.id);
-        const exists = await Answer.findOne({ question: question._id, user:user._id });
+        const exists = await Answer.findOne({ question: question._id, user: user._id });
         switch (answer) {
             case 0:
                 profile.yCoefficient += 2 * question.yCoefficient;

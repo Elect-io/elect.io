@@ -30,7 +30,7 @@ class Home extends React.Component {
                             <p>
                                 State/Province
                             </p>
-                            <input className="input" name="state" onChange={this.onChange}  type="text" placeholder="Country" />
+                            <input className="input" name="state" onChange={this.onChange} type="text" placeholder="Country" />
                         </div>
                     </div>
                 </div>

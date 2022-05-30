@@ -31,6 +31,7 @@ const questionSchema = new mongoose.Schema({
     category: {
         type: String,
         required: true
+        // 
     },
     editors: {
         type: [mongoose.Types.ObjectId],

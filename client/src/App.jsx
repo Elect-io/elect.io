@@ -4,6 +4,7 @@ import { Routes as Switch, Route, BrowserRouter as Router } from 'react-router-d
 import { lazy, Suspense } from 'react';
 import setToken from './actions/setToken';
 import { loadProfile } from './actions/auth';
+import General from './components/assessment/general';
 const SideBar = lazy(() => import('./components/reusables/sidebar'));
 const Login = lazy(() => import('./components/auth/login'));
 const Signup = lazy(() => import('./components/auth/signup'));
@@ -23,7 +24,7 @@ class App extends React.Component {
     }
   }
   render() {
-    console.log(this.props.loaded);
+    console.log(this.props.state);
     if (this.props.loaded) {
       return (<Suspense fallback={<div>Loading...</div>}>
 
@@ -35,6 +36,7 @@ class App extends React.Component {
             <div className="app-right">
               <Switch>
                 <Route path="/" element={<div><Home/></div>} />
+                <Route path="/assessment/general" exact element={<div><General/></div>} />
               </Switch>
             </div>
           </div>
@@ -96,7 +98,8 @@ const mapDispatch = (dispatch) => {
 }
 const mapStateToProps = (state) => {
   return ({
-    loaded: state.profile.loaded
+    loaded: state.profile.loaded, 
+    state:state
   });
 }
 export default connect(mapStateToProps, mapDispatch)(App);
