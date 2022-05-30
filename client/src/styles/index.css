@@ -337,7 +337,7 @@
   font-size: 1.2rem;
   display: flex;
   align-items: center;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.2);
 }
 .home-header-para-success svg {
@@ -348,7 +348,7 @@
   font-size: 1.2rem;
   display: flex;
   align-items: center;
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.2);
 }
 .home-header-para-general svg {
