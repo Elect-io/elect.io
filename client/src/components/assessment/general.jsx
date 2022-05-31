@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Navigate as Redirect } from 'react-router';
 import { getAllQuestions, setAnswer } from "../../actions/poll";
 import ArrowRight from "../../icons/u_arrow-circle-right";
+import {loadProfile} from '../../actions/auth';
 class General extends React.Component {
 
     constructor(props) {
@@ -32,6 +33,7 @@ class General extends React.Component {
         console.log(this.props.generalQuestions)
         if (this.props.generalQuestions.loaded) {
             if (!this.props.generalQuestions.questions[this.state.current]) {
+                (async ()=> await this.props.load())();
                 return <Redirect to="/profile" />
             }
             let answer = this.props.generalQuestions.answers.find(a => {
@@ -83,7 +85,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getAllQuestions: async () => await getAllQuestions(dispatch),
-        setAnswer: async (question, answer, previousAnswer) => await setAnswer(dispatch, question, answer, previousAnswer)
+        setAnswer: async (question, answer, previousAnswer) => await setAnswer(dispatch, question, answer, previousAnswer),
+        load: async()=> loadProfile(dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(General);
