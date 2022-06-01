@@ -2,7 +2,10 @@ import Map from '../../icons/map';
 import React from 'react'
 import Analyze from '../buttons/assessment'
 import { connect } from 'react-redux'
+
+import { Link } from 'react-router-dom';
 import Exclaim from '../../icons/exclaim';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
 const Profile = (props) => {
     let keys = ['Name', 'Gender Identity', "Religion", "Sexual Orientation", "Race", "Gender"];
@@ -23,7 +26,7 @@ const Profile = (props) => {
             <div className="profile-header-left">
                 <img className="profile-header-left-image" src={props.profile.picture} alt={props.profile.name} />
                 <div>
-                    <h2 className="profile-header-left-name">{props.profile.name}</h2>
+                    <h2 className="profile-header-left-name">{props.profile.name} <Link to="/profile/edit"><ModeEditOutlineOutlinedIcon className="profile-header-left-name-icon"/></Link></h2>
                     <p className="profile-header-left-content">
                         {props.user.email}
                     </p>

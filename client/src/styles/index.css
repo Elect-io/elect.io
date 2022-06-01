@@ -32,6 +32,25 @@
 .button-large p {
   display: inline;
 }
+.button-sm {
+  color: #fff;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: block;
+  margin: 6rem auto 3rem;
+  width: 20rem;
+  cursor: pointer;
+  font-size: 1.8rem;
+  background-color: #000;
+  transition: all 0.2s !important;
+}
+.button-sm p {
+  display: inline;
+}
+.button-sm:hover {
+  transform: scale(1.02);
+}
+
 .input {
   border: 1px solid #AEAEAE;
   background-color: #F9F9F9;
@@ -496,6 +515,50 @@
 .profile {
   padding: 4rem;
 }
+.profile-dropdown {
+  border: 1px solid #AEAEAE;
+  max-height: 15rem;
+  overflow: auto;
+  z-index: 20;
+  background-color: #F9F9F9;
+  border-radius: 1rem;
+  width: 25rem;
+  transition: opacity 0.2s;
+  position: absolute;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding: 0rem 1rem;
+}
+.profile-edit {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 2rem;
+  margin: 2rem 0;
+}
+.profile-edit-each {
+  position: relative;
+  width: 100%;
+}
+.profile-edit-each-dropdown {
+  border: 1px solid #AEAEAE;
+  background-color: #F9F9F9;
+  border-radius: 1rem;
+  width: 90%;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding: 0rem 1rem;
+}
+.profile-edit-each-container {
+  width: 100%;
+}
+.profile-edit-each-container input {
+  width: 90%;
+}
+.profile-edit-each-title {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
 .profile-header {
   display: flex;
   justify-content: space-between;
@@ -513,7 +576,12 @@
 }
 .profile-header-left-name {
   margin: 0;
-  font-size: 2.5rem;
+  font-size: 2.5rem !important;
+}
+.profile-header-left-name-icon {
+  font-size: 2.5rem !important;
+  color: #000 !important;
+  cursor: pointer;
 }
 .profile-header-left-content {
   font-weight: 300;

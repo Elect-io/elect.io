@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Navigate as Redirect } from 'react-router';
 import { getAllQuestions, setAnswer } from "../../actions/poll";
 import ArrowRight from "../../icons/u_arrow-circle-right";
-import {loadProfile} from '../../actions/auth';
+import { loadProfile } from '../../actions/auth';
 class General extends React.Component {
 
     constructor(props) {
@@ -33,7 +33,7 @@ class General extends React.Component {
         console.log(this.props.generalQuestions)
         if (this.props.generalQuestions.loaded) {
             if (!this.props.generalQuestions.questions[this.state.current]) {
-                (async ()=> await this.props.load())();
+                (async () => await this.props.load())();
                 return <Redirect to="/profile" />
             }
             let answer = this.props.generalQuestions.answers.find(a => {
@@ -63,7 +63,7 @@ class General extends React.Component {
                             </div>
                             <div className="poll-general-key">
                                 {this.props.generalQuestions.questions.map((question, index) => {
-                                    return <div className="poll-general-key-each" onClick={() => this.setState(state => ({ ...state, current: index }))}><div className={index === this.state.current ? "poll-general-key-each-selected" : "poll-general-key-each-unselected"}><div className={this.props.generalQuestions.answers.find(a=>a.question.toString() === question._id.toString())? "poll-general-key-each-filled" : null} /></div> </div>
+                                    return <div className="poll-general-key-each" onClick={() => this.setState(state => ({ ...state, current: index }))}><div className={index === this.state.current ? "poll-general-key-each-selected" : "poll-general-key-each-unselected"}><div className={this.props.generalQuestions.answers.find(a => a.question.toString() === question._id.toString()) ? "poll-general-key-each-filled" : null} /></div> </div>
                                 })
                                 }
                             </div>
@@ -86,7 +86,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getAllQuestions: async () => await getAllQuestions(dispatch),
         setAnswer: async (question, answer, previousAnswer) => await setAnswer(dispatch, question, answer, previousAnswer),
-        load: async()=> loadProfile(dispatch)
+        load: async () => loadProfile(dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(General);

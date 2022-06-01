@@ -80,7 +80,7 @@ router.put('/name', [auth, validator([{ name: "name" }])], async (req, res) => {
     }
 });
 
-router.put('/gender-identity', [auth, validator([{ name: "genderIdentity" }])], async (req, res) => {
+router.put('/genderIdentity', [auth, validator([{ name: "genderIdentity" }])], async (req, res) => {
     try {
         if (!listOfGenderIdentities.includes(req.body.genderIdentity)) {
             return res.status(400).json({ error: "This input has not yet been added to our database" })
@@ -120,7 +120,7 @@ router.put('/religion', [auth, validator([{ name: "religion" }])], async (req, r
         return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 });
-router.put('/sexual-orientation', [auth, validator([{ name: "sexualOrientation" }])], async (req, res) => {
+router.put('/sexualOrientation', [auth, validator([{ name: "sexualOrientation" }])], async (req, res) => {
     try {
         if (!listOfSexualities.includes(req.body.sexualOrientation)) {
             return res.status(400).json({ error: "This input has not yet been added to our database" })

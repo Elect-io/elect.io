@@ -14,6 +14,7 @@ const ResetPassword = lazy(() => import('./components/auth/resetPassword'));
 const CreateFromGoogle = lazy(() => import('./components/auth/createFromGoogle'));
 const Merge = lazy(() => import('./components/auth/merge'));
 const Profile = lazy(() => import('./components/profile/profile'));
+const EditProfile= lazy(() => import('./components/profile/editProfile'));
 const Authenticate = lazy(() => import('./components/auth/authenticate'));
 const Home = lazy(() => import('./components/home/home'));
 class App extends React.Component {
@@ -41,6 +42,7 @@ class App extends React.Component {
                 <Route path="/" element={<div><Home /></div>} />
                 <Route path="/assessment/general" exact element={<div><General /></div>} />
                 <Route path="/profile" exact element={<div><Profile /></div>} />
+                <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
                 
               </Switch>
             </div>

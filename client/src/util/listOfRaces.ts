@@ -1,0 +1,1 @@
+export default ["Hispanic", "White alone, non-Hispanic", "Black or African American alone, non- Hispanic", "American Indian and Alaska Native alone, non - Hispanic", "Asian alone, non - Hispanic", "Native Hawaiian and Other Pacific Islander alone, non - Hispanic", "Some Other Race alone, non - Hispanic", "Multiracial, non - Hispanic"]

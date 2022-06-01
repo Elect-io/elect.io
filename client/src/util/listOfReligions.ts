@@ -1,0 +1,1 @@
+export default ['None', 'Christianity', "Islam", "Hinduism", "Buddhism", "Judaism", "Other"];

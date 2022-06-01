@@ -41,4 +41,26 @@
             // transform: scale(1.02);
         }
     }
+
+    &-sm {
+        color: $primaryColor;
+        border-radius: 1rem;
+        padding: 1rem;
+        display: block;
+        margin: 6rem auto 3rem;
+        width: 20rem;
+        cursor: pointer;
+        font-size: 1.8rem;
+
+        p {
+            display: inline;
+        }
+
+        background-color: #000;
+        transition: all 0.2s !important;
+
+        &:hover {
+            transform: scale(1.02);
+        }
+    }
 }

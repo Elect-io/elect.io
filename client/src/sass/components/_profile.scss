@@ -1,6 +1,68 @@
 .profile {
     padding: 4rem;
 
+    &-dropdown {
+        border: 1px solid $tertiaryColor;
+        max-height: 15rem;
+        overflow: auto;
+        z-index: 20;
+        background-color: $inputColor;
+        border-radius: 1rem;
+        width: 25rem;
+        transition: opacity 0.2s;
+        &-each{
+            
+        }
+        position: absolute;
+        cursor: pointer;
+        font-size: 1.6rem;
+        padding: 0rem 1rem;
+        // height: 2rem;
+
+    }
+
+    &-edit {
+        display: grid;
+        // display: gird;
+        grid-template-columns: auto auto;
+        grid-gap: 2rem;
+        margin: 2rem 0;
+
+        &-each {
+
+            position: relative;
+
+            &-dropdown {
+                border: 1px solid $tertiaryColor;
+
+                background-color: $inputColor;
+                border-radius: 1rem;
+                width: 90%;
+                cursor: pointer;
+                font-size: 1.6rem;
+                padding: 0rem 1rem;
+                // height: 2rem;
+
+            }
+
+            &-container {
+                input {
+                    width: 90%;
+                }
+
+                width: 100%;
+            }
+
+            width: 100%;
+
+            &-title {
+                margin: 1rem 0;
+                font-size: 1.5rem;
+                font-weight: 600;
+            }
+        }
+    }
+
     &-header {
         display: flex;
         justify-content: space-between;
@@ -18,8 +80,15 @@
             }
 
             &-name {
+                &-icon {
+                    font-size: 2.5rem !important;
+                    // margin-left: 1rem;
+                    color: #000 !important;
+                    cursor: pointer;
+                }
+
                 margin: 0;
-                font-size: 2.5rem;
+                font-size: 2.5rem !important;
             }
 
             &-content {
@@ -36,12 +105,15 @@
         &-legend {
             display: flex;
             margin: 0 0 2rem;
-            p{
+
+            p {
                 margin: 0;
                 font-size: 1.2rem;
             }
+
             border-radius: 1rem;
             align-items: center;
+
             &-marker {
                 margin-right: 1rem;
                 background-color: #FFA9A9;

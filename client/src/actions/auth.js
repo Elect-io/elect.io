@@ -8,6 +8,18 @@ import {
     REMOVE_PROFILE
 } from '../definitions/profile';
 import setToken from './setToken';
+
+export const update = async (dispatch, value, key) => {
+    try {
+        const request = await axios.put(`/api/profile/${key}`, {
+            [key]: value
+        });
+
+        await loadProfile(dispatch);
+    } catch (e) {
+        console.log(e.response.status);
+    }
+}
 export const login = async (dispatch, options) => {
     try {
         const request = await axios.post('/api/user/sign-in', options);

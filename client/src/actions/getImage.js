@@ -1,11 +1,11 @@
-const getImage = (img, setState) => {
+const getImage = (img, setState, key="image") => {
     const Fr = new FileReader();
     Fr.readAsDataURL(img);
  
     Fr.addEventListener('load', (a) => {
         setState((state) => ({
             ...state,
-            image: a.target.result
+            [key]: a.target.result
         }));
     })
 }
