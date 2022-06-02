@@ -8,9 +8,8 @@ import Exclaim from '../../icons/exclaim';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
 const Profile = (props) => {
-    let keys = ['Name', 'Gender Identity', "Religion", "Sexual Orientation", "Race", "Gender"];
+    let keys = [ 'Gender Identity', "Religion", "Sexual Orientation", "Race", "Gender"];
     let trueKeys = {
-        Name: "name",
         "Gender Identity": "genderIdentity",
         Religion: 'religion',
         "Sexual Orientation": "sexualOrientation",
