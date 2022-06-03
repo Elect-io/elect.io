@@ -14,8 +14,10 @@ const ResetPassword = lazy(() => import('./components/auth/resetPassword'));
 const CreateFromGoogle = lazy(() => import('./components/auth/createFromGoogle'));
 const Merge = lazy(() => import('./components/auth/merge'));
 const Profile = lazy(() => import('./components/profile/profile'));
-const EditProfile= lazy(() => import('./components/profile/editProfile'));
+const EditProfile = lazy(() => import('./components/profile/editProfile'));
 const Authenticate = lazy(() => import('./components/auth/authenticate'));
+;
+const ModDashboard = lazy(() => import('./components/moderator/dashboard'));
 const Home = lazy(() => import('./components/home/home'));
 class App extends React.Component {
   async componentWillMount() {
@@ -43,7 +45,8 @@ class App extends React.Component {
                 <Route path="/assessment/general" exact element={<div><General /></div>} />
                 <Route path="/profile" exact element={<div><Profile /></div>} />
                 <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
-                
+                {this.props.admin > 0 ? <Route path="/mod/dashboard" exact element={<div><ModDashboard /></div>} />
+                  : null}
               </Switch>
             </div>
           </div>
@@ -107,6 +110,7 @@ const mapDispatch = (dispatch) => {
 const mapStateToProps = (state) => {
   return ({
     loaded: state.profile.loaded,
+    admin: state.profile.user.admin,
     state: state
   });
 }

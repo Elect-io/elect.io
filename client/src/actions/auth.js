@@ -7,6 +7,9 @@ import {
     LOAD_PROFILE,
     REMOVE_PROFILE
 } from '../definitions/profile';
+import {
+    loadDashboard
+} from './admin';
 import setToken from './setToken';
 
 export const update = async (dispatch, value, key) => {
@@ -171,7 +174,7 @@ export const loadProfile = async (dispatch) => {
     try {
         const request = await axios.get('/api/user');
         const user = request.data;
-        const profile = (await axios.get('/api/profile/')).data
+        const profile = (await axios.get('/api/profile/')).data;
         dispatch({
             type: LOAD_PROFILE,
             payload: {
@@ -179,6 +182,9 @@ export const loadProfile = async (dispatch) => {
                 user
             }
         })
+        if (user.admin > 0) {
+            await loadDashboard(dispatch);
+        }
     } catch (err) {
         localStorage.clear();
         document.location.reload();

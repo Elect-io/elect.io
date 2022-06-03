@@ -64,6 +64,7 @@ router.post('/', [auth, validator([{ name: "politicians" }, { name: "date" }, { 
     }
 })
 
+
 router.put('/:id', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user);
