@@ -16,3 +16,32 @@ export const loadDashboard = async (dispatch) => {
         console.log(err);
     }
 }
+
+export const demote = async (dispatch, id) => {
+    try {
+        const request = await axios.put(`/api/mod/demote/${id}`);
+        loadDashboard(dispatch);
+    } catch (err) {
+        throw err;
+    }
+}
+
+export const promoteToAdmin = async (dispatch, id) => {
+    try {
+        const request = await axios.post(`/api/mod/promote-to-admin/${id}`);
+        loadDashboard(dispatch);
+    } catch (err) {
+        throw err;
+    }
+}
+
+export const promoteToModerator = async (dispatch, id) => {
+    try {
+        console.log(id);
+        const request = await axios.post(`/api/mod/promote-to-mod/${id}`);
+        loadDashboard(dispatch);
+    } catch (err) {
+        console.log(err)
+        throw err;
+    }
+}

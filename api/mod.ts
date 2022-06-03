@@ -64,6 +64,26 @@ router.get('/stats', auth, async (req, res) => {
         return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 })
+router.get('/email/:id', auth, async (req, res) => {
+    try {
+        const admin = await User.findById(req.user);
+        if (admin.admin < 3) {
+            return res.status(401).json({ error: "You need to be at least a super admin to promote people to admin" })
+        }
+        const user = await User.findOne({ email: req.params.id, admin: 0 }).select('-password');
+        if (user) {
+            const profile = await Profile.findOne({ user: user._id }).select(['name', 'picture']);
+            return res.json({ user, profile })
+        }
+        return res.status(404).json({error: "Not Found"});
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" });
+        }
+        return res.status(500).json({ error: "We can't process your request at this moment" });
+    }
+})
 router.post('/promote-to-mod/:user', auth, async (req, res) => {
     try {
         const admin = await User.findById(req.user);

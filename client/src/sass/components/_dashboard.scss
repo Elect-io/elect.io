@@ -24,6 +24,40 @@
         // justify-content: space-between;
 
         &-mod {
+            &-input {
+                input {
+                    border: 1px solid $tertiaryColor;
+
+                    background-color: $inputColor;
+                    border-radius: .5rem;
+                    width: calc(100% - 2rem);
+
+                    &:focus {
+                        outline: none;
+                    }
+
+
+
+                    font-size: 1.6rem;
+
+
+                    padding:1rem;
+                    height: 3rem;
+                }
+
+                padding: 0 0 2rem;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $tertiaryColor;
+                }
+
+                margin: 1.4rem 0 0;
+
+                p {
+                    font-size: 1.2rem;
+                }
+            }
+
             h3 {
                 padding: 0 0 2rem;
                 border-bottom: 1px solid $tertiaryColor;
@@ -36,22 +70,41 @@
                 width: calc(100% - 2rem);
                 padding: 0 1rem;
                 margin: 1rem 0;
+
                 &-each {
                     &-name {
+                        // overflow: hidden;
                         text-align: left;
-                        width: 17rem;
+                        min-width: 15rem;
+                        margin-left: 1rem;
                         font-weight: 400;
                         font-size: 1.4rem;
+                    }
+
+                    &-alter {
+                        display: flex;
+                        align-items: center;
+                        min-width: 3rem;
+                        margin-left: 1rem;
+
+                        * {
+
+                            cursor: pointer;
+                        }
+
+                        justify-content: space-between;
+
                     }
 
                     &-admin {
                         text-align: left;
-                        width: 9rem;
+                        min-width: 9rem;
                         // width: 2rem;
+                        margin-left: 1rem;
                         font-weight: 400;
                         font-size: 1.4rem;
                     }
-
+                    overflow:auto;
                     display: flex;
                     width: calc(100% - 2rem);
                     justify-content: space-between;
