@@ -134,6 +134,11 @@
   margin: 1.5rem auto;
   cursor: pointer;
   transition: all 0.1s;
+  font-size: 2.5rem !important;
+  color: #B8B8B8;
+}
+.sidebar-icon-selected {
+  filter: brightness(0.1) sepia(0.2) hue-rotate(0deg) saturate(0);
 }
 .sidebar-icon-active {
   filter: brightness(0.1) sepia(0.2) hue-rotate(0deg) saturate(0);
