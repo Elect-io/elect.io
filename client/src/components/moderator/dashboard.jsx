@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 const Dashboard = (props) => {
     console.log(props.admin);
@@ -12,15 +13,18 @@ const Dashboard = (props) => {
         },
         mods: props.admin.mods,
         "Your Contributions": {
+
+            "Total Contributions": props.admin.totalContributions,
             "Elections Created": props.admin.createdElections,
             "Answers Created": props.admin.createdPoliticianAnswers,
-            "Total Contributions": props.admin.totalContributions,
             "Politician Profiles Created": props.admin.createdPoliticians
         }
     }
     return (<div className="dashboard">
         <div className="dashboard-header">
-            <p className="dashboard-header-name">Hi, {props.name}</p>
+            <p className="dashboard-header-name">Hi, {props.name},</p>
+
+            <p className="dashboard-header-welcome">Welcome to Elect.io's moderator dashboard </p>
         </div>
 
         <h2 className="dashboard-title">
@@ -45,7 +49,7 @@ const Dashboard = (props) => {
             Moderator Information
         </h2>
         <div className="dashboard-row">
-            <div className="dashboard-row-item"><h3 className="dashboard-row-item-header">Your Mod Level</h3><p>{props.adminLevel}{": " + (props.adminLevel === 1 ? "Moderator" : props.adminLevel === 2 ? "Admin" : "Super Admin")}</p></div>
+            <div className="dashboard-row-item"><h3 className="dashboard-row-item-header">Your Mod Level</h3><p>{(props.adminLevel === 1 ? "Moderator" : props.adminLevel === 2 ? "Admin" : "Super Admin")}</p></div>
             <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Moderators</h3>
                 <div className="dashboard-row-mod-container">
                     {keys.mods.map(a => {
@@ -53,7 +57,23 @@ const Dashboard = (props) => {
                             <img className="dashboard-row-mod-container-each-img" src={a.picture} alt={a.name} />
                             <p className="dashboard-row-mod-container-each-name">{a.name}</p>
                             <p className="dashboard-row-mod-container-each-admin">{(a.admin === 1 ? "Moderator" : props.admin === 2 ? "Admin" : "Super Admin")}</p>
-
+                            <p></p>
+                        </div>
+                    })}
+                    {keys.mods.map(a => {
+                        return <div className="dashboard-row-mod-container-each">
+                            <img className="dashboard-row-mod-container-each-img" src={a.picture} alt={a.name} />
+                            <p className="dashboard-row-mod-container-each-name">{a.name}</p>
+                            <p className="dashboard-row-mod-container-each-admin">{(a.admin === 1 ? "Moderator" : props.admin === 2 ? "Admin" : "Super Admin")}</p>
+                            <p></p>
+                        </div>
+                    })}
+                    {keys.mods.map(a => {
+                        return <div className="dashboard-row-mod-container-each">
+                            <img className="dashboard-row-mod-container-each-img" src={a.picture} alt={a.name} />
+                            <p className="dashboard-row-mod-container-each-name">{a.name}</p>
+                            <p className="dashboard-row-mod-container-each-admin">{(a.admin === 1 ? "Moderator" : props.admin === 2 ? "Admin" : "Super Admin")}</p>
+                            <p></p>
                         </div>
                     })}
                 </div>
