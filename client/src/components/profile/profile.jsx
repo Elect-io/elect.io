@@ -8,7 +8,7 @@ import Exclaim from '../../icons/exclaim';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 
 const Profile = (props) => {
-    let keys = [ 'Gender Identity', "Religion", "Sexual Orientation", "Race", "Gender"];
+    let keys = ['Gender Identity', "Religion", "Sexual Orientation", "Race", "Gender"];
     let trueKeys = {
         "Gender Identity": "genderIdentity",
         Religion: 'religion',
@@ -25,7 +25,7 @@ const Profile = (props) => {
             <div className="profile-header-left">
                 <img className="profile-header-left-image" src={props.profile.picture} alt={props.profile.name} />
                 <div>
-                    <h2 className="profile-header-left-name">{props.profile.name} <Link to="/profile/edit"><ModeEditOutlineOutlinedIcon className="profile-header-left-name-icon"/></Link></h2>
+                    <h2 className="profile-header-left-name">{props.profile.name} <Link to="/profile/edit"><ModeEditOutlineOutlinedIcon className="profile-header-left-name-icon" /></Link></h2>
                     <p className="profile-header-left-content">
                         {props.user.email}
                     </p>
@@ -64,7 +64,7 @@ const Profile = (props) => {
                 <div className="profile-demographics">
 
                     {keys.map(a => <div className="profile-demographics-each"><p className="profile-demographics-each-title">{a} </p><p
-                        className="profile-demographics-each-content">{props.profile[trueKeys[a]]}</p></div>)}
+                        className="profile-demographics-each-content">{!props.profile[trueKeys[a]]? "Not Answered" : props.profile[trueKeys[a]]}</p></div>)}
 
                 </div>
             </div>

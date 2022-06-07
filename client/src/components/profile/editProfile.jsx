@@ -76,7 +76,7 @@ const EditProfile = (props) => {
                                 else {
                                     setDropDown(trueKeys[a]);
                                 }
-                            }} value={props.profile[trueKeys[a]]} type="text" placeholder={a}><p>{state[trueKeys[a]]}</p>
+                            }} value={props.profile[trueKeys[a]]} type="text" placeholder={a}><p>{state[trueKeys[a]] ? state[trueKeys[a]] : a}</p>
 
 
                             </div></span>
@@ -106,16 +106,16 @@ const EditProfile = (props) => {
                 await props.update(state.sexualOrientation, 'sexualOrientation')
             }
             if (state.race !== props.profile.race) {
-                await  props.update(state.race, 'race')
+                await props.update(state.race, 'race')
             }
             if (state.gender !== props.profile.gender) {
-                await  props.update(state.gender, 'gender')
+                await props.update(state.gender, 'gender')
             }
             if (state.genderIdentity !== props.profile.genderIdentity) {
-                await  props.update(state.genderIdentity, 'genderIdentity')
+                await props.update(state.genderIdentity, 'genderIdentity')
             }
             if (state.country !== props.profile.country) {
-                await  props.update(state.country, 'country')
+                await props.update(state.country, 'country')
             }
             if (state.state !== props.profile.state) {
                 await props.update(state.state, 'state')
