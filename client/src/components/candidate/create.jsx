@@ -22,7 +22,7 @@ const mapStateToProps = (state) => {
 }
 
 const CreateCandidate = (props) => {
-    let keys = ['Name', 'Gender Identity', "Religion", "Sexual Orientation", "Race", "Gender", "Date Of Birth", "State", "Country"];
+    let keys = ['Name', 'Gender Identity', "Religion", "Sexual Orientation", "Political Affiliation", "Race", "Gender", "Date Of Birth", "State", "Country"];
     let trueKeys = {
         Name: "name",
         "Gender Identity": "genderIdentity",
@@ -32,7 +32,8 @@ const CreateCandidate = (props) => {
         "Date Of Birth": "dateOfBirth",
         Gender: "gender",
         State: "state",
-        Country: "country"
+        Country: "country",
+        "Political Affiliation":"politicalAffiliation"
     }
     let lists = {
         race: listOfRaces,
@@ -79,7 +80,7 @@ const CreateCandidate = (props) => {
             </div>
             <div className="profile-edit">
                 {keys.map(a => {
-                    if (a === "Name") {
+                    if (a === "Name" || a === "Political Affiliation") {
                         return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]]} onChange={(e) => {
                             setState(state => ({ ...state, [trueKeys[a]]: e.target.value }))
                         }} type="text" placeholder={a} /></span></div>)
