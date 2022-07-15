@@ -16,7 +16,7 @@ const Merge = lazy(() => import('./components/auth/merge'));
 const Profile = lazy(() => import('./components/profile/profile'));
 const EditProfile = lazy(() => import('./components/profile/editProfile'));
 const Authenticate = lazy(() => import('./components/auth/authenticate'));
-;
+const CreateCandidate = lazy(() => import('./components/candidate/create'));
 const ModDashboard = lazy(() => import('./components/moderator/dashboard'));
 const Home = lazy(() => import('./components/home/home'));
 class App extends React.Component {
@@ -45,7 +45,11 @@ class App extends React.Component {
                 <Route path="/assessment/general" exact element={<div><General /></div>} />
                 <Route path="/profile" exact element={<div><Profile /></div>} />
                 <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
-                {this.props.admin > 0 ? <Route path="/mod/dashboard" exact element={<div><ModDashboard /></div>} />
+                {this.props.admin > 0 ?
+
+                  <><Route path="/mod/dashboard" exact element={<div><ModDashboard /></div>} />
+                  <Route path='/create/candidate' exact element={<div><CreateCandidate /></div>} />
+                  </>
                   : null}
               </Switch>
             </div>

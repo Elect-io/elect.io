@@ -94,7 +94,9 @@ class Home extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        generalQuestions: state.poll
+        generalQuestions: state.poll,
+        admin: state.profile.user.admin,
+        profile: state.profile.profile
     }
 }
 export default connect(mapStateToProps)(Home);
