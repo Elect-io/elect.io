@@ -44,8 +44,36 @@ router.get('/:id', async (req, res) => {
         console.log(err);
         return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
     }
-
-
+})
+router.get('/search/:country/:name', async (req, res) => {
+    try {
+        console.log(req.params.country)
+        //search all political parties from a certain region
+        if (req.params.country !== "all") {
+            const party = await Party.find({
+                country: req.params.country, $text: {
+                    $search: req.params.name
+                }
+            });
+            return res.json({ party });
+        }
+        else {
+            console.log("all")
+            const party = await Party.find({
+                $text: {
+                    $search: req.params.name
+                }
+            });
+            return res.json({ party });
+        }
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
 })
 
 router.post('/', [auth, validator([{ name: "name" }, { name: "country" }, { name: "commonName" }, { name: "color" }, { name: "moreDetails" }])], async (req, res) => {

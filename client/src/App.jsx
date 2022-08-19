@@ -6,6 +6,7 @@ import setToken from './actions/setToken';
 import { loadProfile } from './actions/auth';
 import General from './components/assessment/general';
 import { getAllQuestions } from './actions/poll';
+import Candidate from './components/candidate/candidate';
 const SideBar = lazy(() => import('./components/reusables/sidebar'));
 const Login = lazy(() => import('./components/auth/login'));
 const Signup = lazy(() => import('./components/auth/signup'));
@@ -45,6 +46,8 @@ class App extends React.Component {
                 <Route path="/assessment/general" exact element={<div><General /></div>} />
                 <Route path="/profile" exact element={<div><Profile /></div>} />
                 <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
+                
+                <Route path="/candidate/:id" exact element={<div><Candidate /></div>} />
                 {this.props.admin > 0 ?
 
                   <><Route path="/mod/dashboard" exact element={<div><ModDashboard /></div>} />

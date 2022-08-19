@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 import React from 'react';
-
+import axios from 'axios';
 import GetImage from '../../actions/getImage';
 
+import { Link, useNavigate } from 'react-router-dom';
 import listOfCountries from '../../util/listOfCountries.ts';
 import listOfAmericanStates from '../../util/listOfAmericanStates.ts';
 import listOfGenderIdentities from '../../util/listOfGenderIdentities.ts';
@@ -22,6 +23,8 @@ const mapStateToProps = (state) => {
 }
 
 const CreateCandidate = (props) => {
+    
+    const navigate = useNavigate();
     let keys = ['Name', 'Gender Identity', "Religion", "Sexual Orientation", "Political Affiliation", "Race", "Gender", "Date Of Birth", "State", "Country"];
     let trueKeys = {
         Name: "name",
@@ -33,7 +36,7 @@ const CreateCandidate = (props) => {
         Gender: "gender",
         State: "state",
         Country: "country",
-        "Political Affiliation":"politicalAffiliation"
+        "Political Affiliation": "partyAffiliation"
     }
     let lists = {
         race: listOfRaces,
@@ -45,6 +48,7 @@ const CreateCandidate = (props) => {
         state: listOfAmericanStates
     }
     const [dropDown, setDropDown] = React.useState(null);
+    const [parties, setParties] = React.useState([]);
     const [state, setState] = React.useState({
         name: "", //
         picture: "", //
@@ -56,7 +60,7 @@ const CreateCandidate = (props) => {
         gender: "", //
         religion: "", //
         genderIdentity: "", //
-        partyAffiliation: ""
+        partyAffiliation: { name: '' }
     })
     return (
         <div className="profile">
@@ -80,15 +84,46 @@ const CreateCandidate = (props) => {
             </div>
             <div className="profile-edit">
                 {keys.map(a => {
-                    if (a === "Name" || a === "Political Affiliation") {
+                    if (a === "Name") {
                         return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]]} onChange={(e) => {
                             setState(state => ({ ...state, [trueKeys[a]]: e.target.value }))
                         }} type="text" placeholder={a} /></span></div>)
                     }
                     else if (a === "Date Of Birth") {
-                        return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input min="1905-01-01" max="2003-01-01" type="date"className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]]} onChange={(e) => {
+                        return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input min="1905-01-01" max="2003-01-01" type="date" className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]]} onChange={(e) => {
                             setState(state => ({ ...state, [trueKeys[a]]: e.target.value }))
                         }} placeholder={a} /></span></div>)
+                    }
+                    else if (a === "Political Affiliation") {
+
+                        return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]].name} onChange={async (e) => {
+                            setState(state => ({ ...state, [trueKeys[a]]: { ...state[trueKeys[a]], name: e.target.value } }))
+                            setDropDown(trueKeys[a]);
+                            console.log(state["partyAffiliation"])
+                            if (state.country) {
+                                let res = await axios.get(`/api/party/search/${state.country}/${e.target.value}`);
+                                console.log(res);
+                                setParties(res.data.party);
+                            }
+                            else {
+                                let res = await axios.get(`/api/party/search/all/${e.target.value}`);
+                                setParties(res.data.party);
+                                console.log(res)
+                            }
+
+                        }} type="text" placeholder={a} /></span>
+
+                            <div className="profile-dropdown" style={{ opacity: dropDown === trueKeys[a] ? 100 : 0, visibility: dropDown === trueKeys[a] ? 'visible' : 'hidden' }}>
+                                {parties.map(item => {
+                                    return <p class="profile-dropdown-each" onClick={() => {
+                                        setState(state => ({ ...state, [trueKeys[a]]: item }));
+                                        setDropDown(null);
+                                    }}>{item.name}</p>
+                                })}
+                            </div>
+
+                        </div>)
+
                     }
                     else {
                         return (
@@ -121,30 +156,8 @@ const CreateCandidate = (props) => {
             </div>
 
             <button className="button-sm" onClick={async () => {
-                if (state.name !== props.profile.name) {
-                    await props.update(state.name, 'name')
-                }
-                if (state.picture !== props.profile.picture) {
-                    await props.update(state.picture, 'picture')
-                }
-                if (state.sexualOrientation !== props.profile.sexualOrientation) {
-                    await props.update(state.sexualOrientation, 'sexualOrientation')
-                }
-                if (state.race !== props.profile.race) {
-                    await props.update(state.race, 'race')
-                }
-                if (state.gender !== props.profile.gender) {
-                    await props.update(state.gender, 'gender')
-                }
-                if (state.genderIdentity !== props.profile.genderIdentity) {
-                    await props.update(state.genderIdentity, 'genderIdentity')
-                }
-                if (state.country !== props.profile.country) {
-                    await props.update(state.country, 'country')
-                }
-                if (state.state !== props.profile.state) {
-                    await props.update(state.state, 'state')
-                }
+                let res = await axios.post('/api/politician', state);
+                navigate(`/candidate/${res.data.politician._id}`);
             }}>Save</button>
         </div>
     )

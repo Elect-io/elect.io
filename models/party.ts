@@ -38,5 +38,5 @@ const partySchema = new mongoose.Schema({
         required: true
     }
 });
-
+partySchema.index({ '$**': "text" });
 export default mongoose.model('party', partySchema)
