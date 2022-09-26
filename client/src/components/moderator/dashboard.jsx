@@ -4,25 +4,30 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { promoteToModerator, promoteToAdmin, demote } from '../../actions/admin';
 import checkEmail from '../../actions/checkEmail';
+import { useNavigate as useHistory } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 const Dashboard = (props) => {
-    console.log(props.admin);
+    console.log(props);
     const keys = {
         stats: {
             "Profiles": props.admin.profileCount,
-            "Politicians": props.admin.politicianCount,
-            "Elections": props.admin.electionCount
+            "Politicians": props.admin.politicians.length,
+            "Elections": props.admin.elections.length
         },
         "Your Contributions": {
 
             "Total Contributions": props.admin.totalContributions,
-            "Elections Created": props.admin.createdElections,
-            "Answers Created": props.admin.createdPoliticianAnswers,
-            "Politician Profiles Created": props.admin.createdPoliticians
+            "Elections Created": props.admin.createdElections.length,
+            "Answers Created": props.admin.createdPoliticianAnswers.length,
+            "Politician Profiles Created": props.admin.createdPoliticians.length
         }
     }
+    const months = ['January', 'February', "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const [mods, setMods] = React.useState(props.admin.mods);
     const [user, setUser] = React.useState({});
+    const history = useHistory();
     if (props.admin.mods.length > mods.length) {
         setMods(props.admin.mods);
     }
@@ -59,7 +64,7 @@ const Dashboard = (props) => {
             <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Moderators</h3>
                 <div className="dashboard-row-mod-container">
                     {mods.map(a => {
-                        if(a.admin < 1){
+                        if (a.admin < 1) {
                             return null
                         }
                         return <div className="dashboard-row-mod-container-each">
@@ -83,7 +88,6 @@ const Dashboard = (props) => {
                                             await props.promoteToAdmin(a.user);
                                         }
                                         catch (err) {
-
                                             setMods(props.admin.mods);
                                         }
                                     }} /> : null}
@@ -148,7 +152,123 @@ const Dashboard = (props) => {
                     </div> : null}
                 </div> : null}
         </div>
-    </div>)
+        <h2 className="dashboard-title">
+            Moderator Tools
+        </h2>
+        <div className="dashboard-row">
+
+            <Link to="/create/candidate" className="dashboard-row-mod-link">
+                <p className="dashboard-row-item-link"> Create a Candidate</p>
+            </Link>
+            <Link to="/create/election" className="dashboard-row-mod-link">
+                <p className="dashboard-row-item-link"> Create an Election</p>
+            </Link>
+
+            <Link to="/create/candidate" className="dashboard-row-mod-link">
+                <p className="dashboard-row-item-link"> Answer General Questions as a Politician</p>
+            </Link>
+
+        </div>
+        <div className="dashboard-row">
+            <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Edit a Candidate</h3>
+                <div className="dashboard-row-mod-container">
+                    <div className="dashboard-row-mod-input">
+                        <p>Enter Candidate's Name</p>
+                        <input placeholder="Name" onChange={async (e) => {
+                            // if (checkEmail(e.target.value)) {
+                            // console.log("true email")
+                            // const user = await axios.get(`/api/mod/email/${e.target.value}`);
+                            // if (user.data.user) {
+                            // setUser({ picture: user.data.profile.picture, name: user.data.profile.name, email: user.data.user.email, id: user.data.user._id });
+                            // }
+                            // }
+                        }} />
+                    </div>
+                </div>
+            </div>
+            <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Edit an Election</h3>
+                <div className="dashboard-row-mod-container">
+                    <div className="dashboard-row-mod-input">
+                        <p>Enter Election ID</p>
+                        <input placeholder="ID" onChange={async (e) => {
+                            // if (checkEmail(e.target.value)) {
+                            // console.log("true email")
+                            // const user = await axios.get(`/api/mod/email/${e.target.value}`);
+                            // if (user.data.user) {
+                            // setUser({ picture: user.data.profile.picture, name: user.data.profile.name, email: user.data.user.email, id: user.data.user._id });
+                            // }
+                            // }
+                        }} />
+                    </div>
+                </div>
+            </div>
+            <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Answer Election Specific Questions as a Politician</h3>
+                <div className="dashboard-row-mod-container">
+                    <div className="dashboard-row-mod-input">
+                        <p>Enter Election ID</p>
+                        <input placeholder="Election's ID" onChange={async (e) => {
+                            // if (checkEmail(e.target.value)) {
+                            // console.log("true email")
+                            // const user = await axios.get(`/api/mod/email/${e.target.value}`);
+                            // if (user.data.user) {
+                            // setUser({ picture: user.data.profile.picture, name: user.data.profile.name, email: user.data.user.email, id: user.data.user._id });
+                            // }
+                            // }
+                        }} />
+                    </div>
+                    <div className="dashboard-row-mod-input">
+                        <p>Enter Politician's ID</p>
+                        <input placeholder="Politician's id" onChange={async (e) => {
+                            // if (checkEmail(e.target.value)) {
+                            // console.log("true email")
+                            // const user = await axios.get(`/api/mod/email/${e.target.value}`);
+                            // if (user.data.user) {
+                            // setUser({ picture: user.data.profile.picture, name: user.data.profile.name, email: user.data.user.email, id: user.data.user._id });
+                            // }
+                            // }
+                        }} />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2 className="dashboard-title">
+            Overview
+        </h2>
+        <div className='dashboard-row'>
+            <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Politicians</h3>
+                <div className="dashboard-row-mod-container">
+                    <div className="dashboard-row-mod-container-politicians">
+                        {props.admin.politicians.map(p => {
+                            return (<div className="dashboard-row-mod-container-politicians-each" onClick={() => {
+                                history(`/candidate/${p._id}`);
+                            }}>
+                                <img src={p.picture} alt={p.name}></img>
+                                <p>{p.name}</p>
+                                <p>{p.state}, {p.country}</p>
+
+                            </div>)
+                        })}
+                    </div>
+                </div>
+            </div>
+            <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Elections</h3>
+                <div className="dashboard-row-mod-container">
+                    <div className="dashboard-row-mod-container-politicians">
+                        {props.admin.elections.map(p => {
+                            return (<div className="dashboard-row-mod-container-politicians-each" onClick={() => {
+                                history(`/election/${p._id}`);
+                            }}>
+                                <p>{p.for}</p>
+                                <p>{p.location.city ? p.location.city + "," : null} {p.location.state ? p.location.state + "," : null} {p.location.country ? p.location.country : null}</p>
+                                <p>{(months[(new Date(p.date)).getMonth()]) + " " + new Date(p.date).getDate() + 'th' +', ' + new Date(p.date).getFullYear()}</p>
+                            </div>)
+                        })}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div >)
 }
 const mapStateToProps = (state) => {
     return ({

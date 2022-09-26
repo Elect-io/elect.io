@@ -50,6 +50,8 @@ router.get('/search/:country/:name', async (req, res) => {
         console.log(req.params.country)
         //search all political parties from a certain region
         if (req.params.country !== "all") {
+            
+            console.log("all")
             const party = await Party.find({
                 country: req.params.country, $text: {
                     $search: req.params.name

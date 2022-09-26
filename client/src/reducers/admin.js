@@ -8,8 +8,8 @@ const initialState = {
     createdElections: 0,
     createdPoliticianAnswers: 0,
     createdPoliticians: 0,
-    electionCount: 0,
-    politicianCount: 0,
+    politicians:[],
+    elections:[],
     mods: [],
     profileCount: 0
 }

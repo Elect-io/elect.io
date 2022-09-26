@@ -81,7 +81,7 @@ router.post('/', [auth, validator([{ name: 'name' }, { name: "country" }, { name
         if (race && !listOfRaces.includes(race)) {
             return res.status(400).json({ error: "This race input has not yet been added to our database" })
         }
-        
+
         if (religion && !listOfReligions.includes(religion)) {
             return res.status(400).json({ error: "This religion input has not yet been added to our database" })
         }
@@ -94,7 +94,7 @@ router.post('/', [auth, validator([{ name: 'name' }, { name: "country" }, { name
         else {
             picture = await simpleAvatarGenerator(name);
         }
-        const politician = new Politician({ name, gender, dateOfBirth, sexualOrientation, picture, country, state, createdBy: user._id, editors: [user._id], race, religion, genderIdentity, partyAffiliation});
+        const politician = new Politician({ name, gender, dateOfBirth, sexualOrientation, picture, country, state, createdBy: user._id, editors: [user._id], race, religion, genderIdentity, partyAffiliation });
         await politician.save();
         return res.json({ politician });
     }
@@ -163,10 +163,10 @@ router.put('/:id', auth, async (req, res) => {
             picture = await imageUploader(picture);
             politician.picture = picture;
         }
-        if(religion && !listOfReligions.includes(religion)){
+        if (religion && !listOfReligions.includes(religion)) {
             return res.status(400).json({ error: "This religion input has not yet been added to our database" })
         }
-        else if(religion){
+        else if (religion) {
             politician.religion = religion;
         }
         politician.editors = [...politician.editors, user._id];
@@ -200,6 +200,17 @@ router.delete('/:id', auth, async (req, res) => {
         if (err.kind === 'ObjectId') {
             return res.status(404).json({ error: "Not Found" })
         }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
+
+router.get('/all/:from', async (req, res) => {
+    try {
+        let politicians = await Politician.find().skip(Number(req.params.from)).limit(10);
+        return res.json({ politicians });
+    }
+    catch (err) {
         console.log(err);
         return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
     }

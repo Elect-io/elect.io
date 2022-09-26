@@ -19,7 +19,7 @@ router.get('/stats', auth, async (req, res) => {
                 $gte: 1
             }
         });
-        const moderatorProfiles = [];
+        const moderatorProfiles:Array<any> = [];
         let i = 0;
         while (admins[i]) {
             let { name, picture, createdAt } = (await Profile.findOne({ user: admins[i]._id }).select(['name', 'picture', 'createdAt']) as any);
@@ -27,9 +27,9 @@ router.get('/stats', auth, async (req, res) => {
             moderatorProfiles.push({ name, picture, createdAt, admin: admins[i].admin, user: admins[i]._id });
             i++;
         }
-        const createdElections = await Elections.countDocuments({ createdBy: admin._id });
-        const createdPoliticians = await Politician.countDocuments({ createdBy: admin._id });
-        const createdPoliticianAnswers = await PoliticianAnswer.countDocuments({ createdBy: admin._id });
+        const createdElections = await Elections.find({ createdBy: admin._id });
+        const createdPoliticians = await Politician.find({ createdBy: admin._id });
+        const createdPoliticianAnswers = await PoliticianAnswer.find({ createdBy: admin._id });
 
         const totalContributions = await Elections.countDocuments({
             editors: {
@@ -44,13 +44,13 @@ router.get('/stats', auth, async (req, res) => {
                 $in: [admin._id]
             }
         });
-        const politicians = await Politician.countDocuments({})
-        const elections = await Elections.countDocuments({});
+        const politicians = await Politician.find()
+        const elections = await Elections.find()
         return res.json({
             profileCount: profiles,
             mods: moderatorProfiles,
-            politicianCount: politicians,
-            electionCount: elections,
+            politicians: politicians,
+            elections: elections,
             totalContributions,
             createdElections, createdPoliticianAnswers, createdPoliticians
         })
@@ -75,7 +75,7 @@ router.get('/email/:id', auth, async (req, res) => {
             const profile = await Profile.findOne({ user: user._id }).select(['name', 'picture']);
             return res.json({ user, profile })
         }
-        return res.status(404).json({error: "Not Found"});
+        return res.status(404).json({ error: "Not Found" });
     }
     catch (err) {
         if (err.kind === 'ObjectId') {
