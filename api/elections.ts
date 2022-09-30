@@ -37,7 +37,7 @@ router.post('/', [auth, validator([{ name: "politicians" }, { name: "date" }, { 
         }
 
         if (politicians) {
-            let Politicians = [];
+            let Politicians:any = [];
             for (let i = 0; i < politicians.length; i++) {
                 try {
                     const a = await Politician.findById(politicians[i]);
@@ -108,10 +108,10 @@ router.put('/:id', auth, async (req, res) => {
         }
 
         if (politicians) {
-            let Politicians = [];
+            let Politicians:any = [];
             for (let i = 0; i < politicians.length; i++) {
                 try {
-                    const a = await Politician.findById(politicians[i]);
+                    const a:any = await Politician.findById(politicians[i]);
                     if (!a) {
                         return res.status(404).json({ error: `politician ${politicians[i]} not found` });
                     }

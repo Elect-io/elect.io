@@ -30,6 +30,34 @@ router.get('/:id', async (req, res) => {
         return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
     }
 })
+router.get('/search/:country/:name', async (req, res) => {
+    try {
+        console.log(req.params.name)
+        const politicians = await Politician.find({ $text: { $search: req.params.name }, country: req.params.country });
+        return res.json({ politicians });
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
+
+router.get('/search/:country/:state/:name', async (req, res) => {
+    try {
+        const politicians = await Politician.find({ country: req.params.country, state: req.params.state, $text: { $search: req.params.name } });
+        return res.json({ politicians });
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
 //get a politicians' info by political party
 
 router.get('/party/:id/:skip', async (req, res) => {

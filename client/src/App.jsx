@@ -18,7 +18,9 @@ const Profile = lazy(() => import('./components/profile/profile'));
 const EditProfile = lazy(() => import('./components/profile/editProfile'));
 const Authenticate = lazy(() => import('./components/auth/authenticate'));
 const CreateCandidate = lazy(() => import('./components/candidate/create'));
+const CreateElection= lazy(() => import('./components/election/create'));
 const ModDashboard = lazy(() => import('./components/moderator/dashboard'));
+
 const Home = lazy(() => import('./components/home/home'));
 class App extends React.Component {
   async componentWillMount() {
@@ -46,12 +48,14 @@ class App extends React.Component {
                 <Route path="/assessment/general" exact element={<div><General /></div>} />
                 <Route path="/profile" exact element={<div><Profile /></div>} />
                 <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
-                
+
                 <Route path="/candidate/:id" exact element={<div><Candidate /></div>} />
                 {this.props.admin > 0 ?
 
                   <><Route path="/mod/dashboard" exact element={<div><ModDashboard /></div>} />
-                  <Route path='/create/candidate' exact element={<div><CreateCandidate /></div>} />
+                    <Route path='/create/candidate' exact element={<div><CreateCandidate /></div>} />
+                    
+                    <Route path='/create/election' exact element={<div><CreateElection/></div>} />
                   </>
                   : null}
               </Switch>

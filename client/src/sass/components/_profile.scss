@@ -10,9 +10,23 @@
         border-radius: 1rem;
         width: 25rem;
         transition: opacity 0.2s;
-        &-each{
-            
+
+        &-each {}
+
+        &-politician {
+            object-fit: cover;
+            padding: 1rem .5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            img {
+                border-radius: 100%;
+                width: 8rem;
+                height: 8rem;
+            }
         }
+
         position: absolute;
         cursor: pointer;
         font-size: 1.6rem;
@@ -22,6 +36,29 @@
     }
 
     &-edit {
+        &-politician {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+
+            // justify-content: space-between;
+            &-each {
+                display: flex;
+                padding:1rem 1.5rem;
+                box-shadow: 0 0 .2rem.2rem rgba(0, 0, 0, 0.1);
+                align-items: center;
+                flex-direction: column;
+                margin-right: 2rem;
+
+                img {
+                    border-radius: 100%;
+                    width: 8rem;
+                    height: 8rem;
+                }
+            }
+
+        }
+
         display: grid;
         // display: gird;
         grid-template-columns: auto auto;

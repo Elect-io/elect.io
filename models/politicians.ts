@@ -77,6 +77,6 @@ const politicians = new mongoose.Schema({
     }
 })
 
-politicians.index({ '$**': "text" });
+politicians.index({ 'name': "text" });
 export default mongoose.model('politician', politicians);
 

@@ -536,11 +536,41 @@
   font-size: 1.6rem;
   padding: 0rem 1rem;
 }
+.profile-dropdown-politician {
+  object-fit: cover;
+  padding: 1rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.profile-dropdown-politician img {
+  border-radius: 100%;
+  width: 8rem;
+  height: 8rem;
+}
 .profile-edit {
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 2rem;
   margin: 2rem 0;
+}
+.profile-edit-politician {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+}
+.profile-edit-politician-each {
+  display: flex;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 0 0.2rem 0.2rem rgba(0, 0, 0, 0.1);
+  align-items: center;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+.profile-edit-politician-each img {
+  border-radius: 100%;
+  width: 8rem;
+  height: 8rem;
 }
 .profile-edit-each {
   position: relative;
