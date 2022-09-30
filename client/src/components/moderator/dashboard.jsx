@@ -27,6 +27,10 @@ const Dashboard = (props) => {
     const months = ['January', 'February', "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const [mods, setMods] = React.useState(props.admin.mods);
     const [user, setUser] = React.useState({});
+    const [state, setState] = React.useState({
+        editCandidate: '',
+        editElection: ''
+    });
     const history = useHistory();
     if (props.admin.mods.length > mods.length) {
         setMods(props.admin.mods);
@@ -204,30 +208,25 @@ const Dashboard = (props) => {
             </div>
             <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Answer Election Specific Questions as a Politician</h3>
                 <div className="dashboard-row-mod-container">
-                    <div className="dashboard-row-mod-input">
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+
+                        history(`/edit/election/${state.editElection}`);
+                    }}  className="dashboard-row-mod-input">
                         <p>Enter Election ID</p>
                         <input placeholder="Election's ID" onChange={async (e) => {
-                            // if (checkEmail(e.target.value)) {
-                            // console.log("true email")
-                            // const user = await axios.get(`/api/mod/email/${e.target.value}`);
-                            // if (user.data.user) {
-                            // setUser({ picture: user.data.profile.picture, name: user.data.profile.name, email: user.data.user.email, id: user.data.user._id });
-                            // }
-                            // }
+                            setState(state => ({ ...state, editElection: e.target.value }))
                         }} />
-                    </div>
-                    <div className="dashboard-row-mod-input">
+                    </form>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        history(`/edit/candidate/${state.editCandidate}`);
+                    }}  className="dashboard-row-mod-input">
                         <p>Enter Politician's ID</p>
                         <input placeholder="Politician's id" onChange={async (e) => {
-                            // if (checkEmail(e.target.value)) {
-                            // console.log("true email")
-                            // const user = await axios.get(`/api/mod/email/${e.target.value}`);
-                            // if (user.data.user) {
-                            // setUser({ picture: user.data.profile.picture, name: user.data.profile.name, email: user.data.user.email, id: user.data.user._id });
-                            // }
-                            // }
+                            setState(state => ({ ...state, editCandidate: e.target.value }))
                         }} />
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -260,7 +259,7 @@ const Dashboard = (props) => {
                             }}>
                                 <p>{p.for}</p>
                                 <p>{p.location.city ? p.location.city + "," : null} {p.location.state ? p.location.state + "," : null} {p.location.country ? p.location.country : null}</p>
-                                <p>{(months[(new Date(p.date)).getMonth()]) + " " + new Date(p.date).getDate() + 'th' +', ' + new Date(p.date).getFullYear()}</p>
+                                <p>{(months[(new Date(p.date)).getMonth()]) + " " + new Date(p.date).getDate() + 'th' + ', ' + new Date(p.date).getFullYear()}</p>
                             </div>)
                         })}
                     </div>

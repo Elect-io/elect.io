@@ -759,9 +759,6 @@
   padding: 0 1rem;
   margin: 1rem 0;
 }
-.dashboard-row-mod-container-politicians {
-  min-width: 60rem;
-}
 .dashboard-row-mod-container-politicians-each {
   justify-content: space-between;
   display: flex;
