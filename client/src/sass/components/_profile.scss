@@ -37,14 +37,22 @@
 
     &-edit {
         &-politician {
+            max-width: 50%;
             display: flex;
             align-items: center;
             margin: 2rem 0;
+            flex-wrap: wrap;
 
             // justify-content: space-between;
             &-each {
+                &:hover{
+                    background-color: $inputColor;
+                    transform: skew(-4deg);
+                }
+                cursor: pointer;
+                margin: 1rem auto;
                 display: flex;
-                padding:1rem 1.5rem;
+                padding: 1rem 1.5rem;
                 box-shadow: 0 0 .2rem.2rem rgba(0, 0, 0, 0.1);
                 align-items: center;
                 flex-direction: column;

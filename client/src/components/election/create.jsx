@@ -67,7 +67,7 @@ const CreateCandidate = (props) => {
                         }} type="text" placeholder={a} /></span></div>)
                     }
                     else if (a === "Date") {
-                        return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input min="1905-01-01" max="2003-01-01" type="date" className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]]} onChange={(e) => {
+                        return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input min="2022-01-01" max="2050-01-01" type="date" className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]]} onChange={(e) => {
                             setState(state => ({ ...state, [trueKeys[a]]: e.target.value }))
                         }} placeholder={a} /></span></div>)
                     }
@@ -78,6 +78,7 @@ const CreateCandidate = (props) => {
 
                                 {state.politicians.map(item => {
                                     return <div class="profile-edit-politician-each" onClick={() => {
+                                        setState(state => ({ ...state, politicians: state.politicians.filter(a => a !== item) }))
                                     }}>
                                         <img alt={item.name} src={item.picture} />
                                         <p>{item.name}</p>
@@ -105,8 +106,13 @@ const CreateCandidate = (props) => {
                             <div className="profile-dropdown" style={{ opacity: dropDown === trueKeys[a] ? 100 : 0, visibility: dropDown === trueKeys[a] ? 'visible' : 'hidden' }}>
                                 {politicians.map(item => {
                                     return <div class="profile-dropdown-politician" onClick={() => {
-                                        setState(state => ({ ...state, [trueKeys[a]]: [...state.politicians, item] }));
-                                        setDropDown(null);
+                                        let found = state.politicians.find(a => a._id.toString() === item._id.toString());
+                                        console.log(found)
+                                        if (!found) {
+                                            setState(state => ({ ...state, [trueKeys[a]]: [...state.politicians, item], politicianSearch: '' }));
+                                            setDropDown(null);
+                                        }
+
                                     }}>
                                         <img alt={item.name} src={item.picture} />
                                         <p>{item.name}</p>
@@ -148,8 +154,16 @@ const CreateCandidate = (props) => {
             </div>
 
             <button className="button-sm" onClick={async () => {
-                let res = await axios.post('/api/politician', state);
-                navigate(`/candidate/${res.data.politician._id}`);
+                let s = state;
+                s.politicians = s.politicians.map(a => a._id);
+                if (s.state?.length === 0) {
+                    s.state = null;
+                }
+                s.For = s.for;
+                console.log(s)
+                let res = await axios.post('/api/election', s);
+
+                navigate(`/election/${res.data.election._id}`);
             }}>Save</button>
         </div>
     )
