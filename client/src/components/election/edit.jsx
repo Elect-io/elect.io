@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
-import React from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import GetImage from '../../actions/getImage';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import listOfCountries from '../../util/listOfCountries.ts';
 import listOfAmericanStates from '../../util/listOfAmericanStates.ts';
 import listOfGenderIdentities from '../../util/listOfGenderIdentities.ts';
@@ -22,9 +22,26 @@ const mapStateToProps = (state) => {
     }
 }
 
+
+
 const CreateCandidate = (props) => {
+    let { id } = useParams()
 
     const navigate = useNavigate();
+    useEffect(() => {
+        (async () => {
+            try {
+                let data = await axios.get(`/api/election/${id}`)
+                console.log(data.data)
+                let date = new Date(data.data.election.date)
+                setState({ ...data.data.election, country: data.data.election.location.country, state: data.data.election.location.state, date: `${date.getFullYear()}-${(date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1).toString() : date.getMonth() + 1}-${date.getDate()<10?("0"+date.getDate().toString()):date.getDate()}` });
+            }
+            catch (err) {
+                console.log()
+                // navigate('/dashboard')
+            }
+        })()
+    }, []);
     let keys = ["Politicians", "For", "Type", "Date", "State", "Country"];
     let trueKeys = {
         For: "for",
@@ -57,7 +74,7 @@ const CreateCandidate = (props) => {
     })
     return (
         <div className="profile">
-            <h1 className="auth-header">Create Election</h1>
+            <h1 className="auth-header">Edit Election</h1>
 
             <div className="profile-edit">
                 {keys.map(a => {
@@ -90,17 +107,17 @@ const CreateCandidate = (props) => {
                                 setState(state => ({ ...state, politicianSearch: e.target.value }))
                                 setDropDown(trueKeys[a]);
                                 if (state.state && state.country) {
-                                    let res = await axios.get(`/api/politician/search/${state.country}/${state.state}/${e.target.value}`);
+                                    let res = await axios.get(`/ api / politician / search / ${state.country} /${state.state}/${e.target.value} `);
                                     console.log(res.data.politicians);
                                     setPoliticians(res.data.politicians);
                                 }
                                 else if (state.country) {
-                                    let res = await axios.get(`/api/politician/search/${state.country}/${e.target.value}`);
+                                    let res = await axios.get(`/ api / politician / search / ${state.country} /${e.target.value}`);
                                     setPoliticians(res.data.politicians);
                                     console.log(res.data.politicians)
                                 }
 
-                            }} type="text" placeholder={a} /></span>
+                            }} type="text" placeholder={a} /></span >
 
 
                             <div className="profile-dropdown" style={{ opacity: dropDown === trueKeys[a] ? 100 : 0, visibility: dropDown === trueKeys[a] ? 'visible' : 'hidden' }}>
@@ -120,7 +137,7 @@ const CreateCandidate = (props) => {
                                 })}
                             </div>
 
-                        </div>)
+                        </div >)
 
                     }
                     else {
@@ -151,7 +168,7 @@ const CreateCandidate = (props) => {
                         )
                     }
                 })}
-            </div>
+            </div >
 
             <button className="button-sm" onClick={async () => {
                 let s = state;
@@ -161,11 +178,11 @@ const CreateCandidate = (props) => {
                 }
                 s.For = s.for;
                 console.log(s)
-                let res = await axios.post('/api/election', s);
+                let res = await axios.put('/api/election/'+id, s);
 
                 navigate(`/election/${res.data.election._id}`);
             }}>Save</button>
-        </div>
+        </div >
     )
 }
 

@@ -176,57 +176,41 @@ const Dashboard = (props) => {
         <div className="dashboard-row">
             <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Edit a Candidate</h3>
                 <div className="dashboard-row-mod-container">
-                    <div className="dashboard-row-mod-input">
-                        <p>Enter Candidate's Name</p>
-                        <input placeholder="Name" onChange={async (e) => {
-                            // if (checkEmail(e.target.value)) {
-                            // console.log("true email")
-                            // const user = await axios.get(`/api/mod/email/${e.target.value}`);
-                            // if (user.data.user) {
-                            // setUser({ picture: user.data.profile.picture, name: user.data.profile.name, email: user.data.user.email, id: user.data.user._id });
-                            // }
-                            // }
-                        }} />
-                    </div>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        history(`/edit/candidate/${state.editCandidate}`);
+                    }} className="dashboard-row-mod-input">
+                        <p>Enter Candidate's ID</p>
+                        <input onChange={async (e) => {
+                            setState(state => ({ ...state, editCandidate: e.target.value }))
+                        }} placeholder="Name" />
+                    </form>
                 </div>
             </div>
             <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Edit an Election</h3>
                 <div className="dashboard-row-mod-container">
-                    <div className="dashboard-row-mod-input">
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        console.log(e)
+                        history(`/edit/election/${state.editElection}`);
+                    }} className="dashboard-row-mod-input">
                         <p>Enter Election ID</p>
                         <input placeholder="ID" onChange={async (e) => {
-                            // if (checkEmail(e.target.value)) {
-                            // console.log("true email")
-                            // const user = await axios.get(`/api/mod/email/${e.target.value}`);
-                            // if (user.data.user) {
-                            // setUser({ picture: user.data.profile.picture, name: user.data.profile.name, email: user.data.user.email, id: user.data.user._id });
-                            // }
-                            // }
+                            setState(state => ({ ...state, editElection: e.target.value }))
                         }} />
-                    </div>
+                    </form>
                 </div>
             </div>
             <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Answer Election Specific Questions as a Politician</h3>
                 <div className="dashboard-row-mod-container">
-                    <form onSubmit={(e) => {
-                        e.preventDefault();
-
-                        history(`/edit/election/${state.editElection}`);
-                    }}  className="dashboard-row-mod-input">
+                    <div className="dashboard-row-mod-input">
                         <p>Enter Election ID</p>
-                        <input placeholder="Election's ID" onChange={async (e) => {
-                            setState(state => ({ ...state, editElection: e.target.value }))
-                        }} />
-                    </form>
-                    <form onSubmit={(e) => {
-                        e.preventDefault();
-                        history(`/edit/candidate/${state.editCandidate}`);
-                    }}  className="dashboard-row-mod-input">
+                        <input placeholder="Election's ID" />
+                    </div>
+                    <div className="dashboard-row-mod-input">
                         <p>Enter Politician's ID</p>
-                        <input placeholder="Politician's id" onChange={async (e) => {
-                            setState(state => ({ ...state, editCandidate: e.target.value }))
-                        }} />
-                    </form>
+                        <input placeholder="Politician's id" />
+                    </div>
                 </div>
             </div>
         </div>

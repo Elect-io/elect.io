@@ -37,7 +37,7 @@ router.post('/', [auth, validator([{ name: "politicians" }, { name: "date" }, { 
         }
 
         if (politicians) {
-            let Politicians:any = [];
+            let Politicians: any = [];
             for (let i = 0; i < politicians.length; i++) {
                 try {
                     const a = await Politician.findById(politicians[i]);
@@ -108,10 +108,10 @@ router.put('/:id', auth, async (req, res) => {
         }
 
         if (politicians) {
-            let Politicians:any = [];
+            let Politicians: any = [];
             for (let i = 0; i < politicians.length; i++) {
                 try {
-                    const a:any = await Politician.findById(politicians[i]);
+                    const a: any = await Politician.findById(politicians[i]);
                     if (!a) {
                         return res.status(404).json({ error: `politician ${politicians[i]} not found` });
                     }
@@ -138,10 +138,27 @@ router.put('/:id', auth, async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
     try {
         let election = await Election.findById(req.params.id);
+        
+        let politicians = []
         if (!election) {
             return res.status(404).json({ error: "Not Found" })
         }
-        return res.json({ election });
+        for (let i = 0; i < election.politicians.length; i++) {
+            let a:any = await Politician.findById(election.politicians[i]);
+            await politicians.push(a)
+        }
+        // election.politicians = politicians;
+        console.log(politicians);
+        return res.json({ election:{
+            _id: election._id,
+            date: election.date,
+            type:election.type,
+            for:election.for,
+            location:election.location,
+            createdBy:election.createdBy,
+            editors:election.editors,
+            politicians
+        } });
     }
     catch (err) {
         if (err.kind === 'ObjectId') {
@@ -176,11 +193,11 @@ router.delete('/:id', auth, async (req, res) => {
         if (user.admin < 2 && election.user.toString() !== user._id.toString()) {
             return res.status(401).json({ error: "You need to be at least a moderator to access this route" })
         }
-        if(!election){
+        if (!election) {
             return res.status(404).json({ error: "Not Found" })
         }
         await election.delete();
-        return res.json({msg:"successfully deleted!"})
+        return res.json({ msg: "successfully deleted!" })
     }
     catch (err) {
         if (err.kind === 'ObjectId') {
