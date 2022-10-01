@@ -5,6 +5,10 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    hook: {
+        type: 'string',
+        required:true
+    },
     xCoefficient: {
         type: Number,
         //agree = +x

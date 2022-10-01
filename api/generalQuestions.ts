@@ -20,20 +20,20 @@ router.get('/', auth, async (req, res) => {
     }
 })
 
-router.post('/', [auth, validator([{ name: "question" }, { name: "category" }])], async (req, res) => {
+router.post('/', [auth, validator([{ name: "question" }, { name: "category" }, {name:'hook'}])], async (req, res) => {
     try {
         const user = await User.findById(req.user);
         if (user.admin < 2) {
             return res.status(401).json({ error: "You need to be at least an admin to access this route" })
         }
-        let { question, category, xCoefficient, yCoefficient } = req.body;
+        let { question, category, xCoefficient, yCoefficient, hook } = req.body;
         if (!xCoefficient) {
             xCoefficient = 0;
         }
         if (!yCoefficient) {
             yCoefficient = 0;
         }
-        let questionInstance = new Question({ question, category, xCoefficient: Number(xCoefficient), yCoefficient: Number(yCoefficient), createdBy: user._id, editors: [user._id] });
+        let questionInstance = new Question({ question, category, hook, xCoefficient: Number(xCoefficient), yCoefficient: Number(yCoefficient), createdBy: user._id, editors: [user._id] });
         await questionInstance.save();
         return res.json({ questionInstance });
     }
@@ -52,7 +52,7 @@ router.put('/:id', auth, async (req, res) => {
         if (user.admin < 2) {
             return res.status(401).json({ error: "You need to be at least an admin to access this route" })
         }
-        const { question, category, xCoefficient, yCoefficient } = req.body;
+        const { question, category, xCoefficient, yCoefficient, hook } = req.body;
         let questionInstance = await Question.findById(req.params.id);
         if (!questionInstance) {
             return res.status(404).json({ error: "Not Found" })
@@ -68,6 +68,9 @@ router.put('/:id', auth, async (req, res) => {
         }
         if (yCoefficient) {
             questionInstance.yCoefficient = Number(yCoefficient);
+        }
+        if (hook) {
+            questionInstance.hook = hook;
         }
         questionInstance.editors = [...questionInstance.editors, user._id];
         await questionInstance.save();

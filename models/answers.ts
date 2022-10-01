@@ -5,6 +5,19 @@ const answerSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true
     },
+    effect:{
+        type:{
+            xCoefficient: {
+                type:Number,
+                default: 0
+            },
+            yCoefficient: {
+                type:Number,
+                default: 0
+            }
+        },
+        required:true,
+    },
     answer:{
         type:Number,
         required: true,
