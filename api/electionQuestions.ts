@@ -25,7 +25,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 })
 
-router.post('/:id', [auth, validator([{ name: "question" }, { name: "category" }])], async (req, res) => {
+router.post('/:id', [auth, validator([{ name: "question" }, { name: 'hook' }])], async (req, res) => {
     try {
         const user = await User.findById(req.user);
         const election = await Election.findById(req.params.id);
@@ -35,8 +35,8 @@ router.post('/:id', [auth, validator([{ name: "question" }, { name: "category" }
         if (!election) {
             return res.status(404).json({ error: "Not Found" })
         }
-        let { question, category } = req.body;
-        let questionInstance = new Question({ question, category, createdBy: user._id, election: election._id, editors: [user._id] });
+        let { question, category, hook } = req.body;
+        let questionInstance = new Question({ question, hook, createdBy: user._id, election: election._id, editors: [user._id] });
         await questionInstance.save();
         return res.json({ questionInstance });
     }
@@ -59,13 +59,13 @@ router.put('/:id', auth, async (req, res) => {
         if (user.admin < 2 && questionInstance.user.toString() !== user._id.toString()) {
             return res.status(401).json({ error: "You need to be at least an admin to access this route" })
         }
-        const { question, category } = req.body;
-     
+        const { question, category, hook } = req.body;
+
         if (question) {
             questionInstance.question = question
         }
-        if (category) {
-            questionInstance.category = category
+        if (hook) {
+            questionInstance.hook = hook;
         }
         questionInstance.editors = [...questionInstance.editors, user._id];
         await questionInstance.save();

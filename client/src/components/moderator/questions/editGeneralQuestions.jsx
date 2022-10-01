@@ -10,7 +10,12 @@ const EachQuestion = (props) => {
         <input placeholder='y-coefficient' onChange={(e) => setState(state => ({ ...state, yCoefficient: Number(e.target.value) }))} value={state.yCoefficient}></input>
         <input placeholder='hook' onChange={(e) => setState(state => ({ ...state, hook: e.target.value }))} value={state.hook}></input>
         <button onClick={async () => {
-
+            try {
+                const request = await axios.put(`/api/general-question/${state._id}`, state);
+            }
+            catch (err) {
+                console.log(err)
+            }
         }}>Save</button>
         <button onClick={async () => {
             try {

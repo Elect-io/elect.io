@@ -26,7 +26,7 @@ const EditElection = lazy(() => import('./components/election/edit'));
 const ModDashboard = lazy(() => import('./components/moderator/dashboard'));
 
 const EditGeneralQuestions = lazy(() => import('./components/moderator/questions/editGeneralQuestions'));
-const EditElectionSpecificQuestions = lazy(() => import('./components/moderator/questions/editGeneralQuestions'));
+const EditElectionSpecificQuestions = lazy(() => import('./components/moderator/questions/editElectionSpecificQuestions'));
 const CreateParty = lazy(() => import('./components/party/create'));
 const EditParty = lazy(() => import('./components/party/edit'));
 

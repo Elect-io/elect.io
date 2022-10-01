@@ -10,13 +10,12 @@ const questionSchema = new mongoose.Schema({
         required: true,
         ref: "election"
     },
+    hook:{
+        type:String
+    },
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: 'user',
-        required: true
-    },
-    category: {
-        type: String,
         required: true
     },
     editors: {
