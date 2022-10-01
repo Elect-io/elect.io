@@ -30,13 +30,13 @@ router.get('/', auth, async (req, res) => {
     }
 })
 
-router.post('/reset/hard', validator([{ name: 'code' }]), auth, async (req, res) => {
+router.post('/reset/soft', validator([{ name: 'code' }]), auth, async (req, res) => {
     try {
         const user = await User.findById(req.user);
         if (user.admin !== 3) {
             return res.status(401).json({ error: 'Unauthorized' });
         }
-        if (req.body.code !== process.env.RESET_CODE_HARD) {
+        if (req.body.code !== process.env.RESET_CODE_SOFT) {
             return res.status(401).json({ error: 'Unauthorized' });
         }
         await Answers.remove();
