@@ -122,6 +122,7 @@ const CreateParty = (props) => {
 
             <button className="button-sm" onClick={async () => {
                 let res = await axios.put('/api/party/' + id, state);
+                
                 navigate(`/party/${res.data.party._id}`);
             }}>Save</button>
         </div>
