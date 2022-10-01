@@ -20,6 +20,7 @@ import answerElections from './api/answerElectionQuestions';
 import politicianAnswerGeneralQuestions from './api/politicianAnswerGeneralQuestions';
 import politicianAnswerElections from './api/politicianAnswerElection';
 import analyze from './api/analyze';
+import reset from './api/reset';
 
 db();
 app.use(bodyParser.json({ extended: false, limit: '50mb' }));
@@ -54,3 +55,4 @@ app.use('/api/answer-politician-general-question', politicianAnswerGeneralQuesti
 app.use('/api/answer-politician-election-question', politicianAnswerElections);
 
 app.use('/api/analyze', analyze);
+app.use('/api/reset', reset);
