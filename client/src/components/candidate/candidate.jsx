@@ -27,7 +27,7 @@ const Profile = (props) => {
                 setProfile(data.data.politician)
                 console.log(data)
             }
-            catch(err){
+            catch (err) {
                 navigate('/not-found')
             }
         })()
@@ -40,8 +40,8 @@ const Profile = (props) => {
             <div className="profile-header-left">
                 <img className="profile-header-left-image" src={profile.picture} alt={profile.name} />
                 <div>
-                    <h2 className="profile-header-left-name">{profile.name} <Link to="/profile/edit"><ModeEditOutlineOutlinedIcon className="profile-header-left-name-icon" /></Link></h2>
-                
+                    <h2 className="profile-header-left-name">{profile.name} {props.user.admin>1?<Link to={"/edit/candidate/" + id}><ModeEditOutlineOutlinedIcon className="profile-header-left-name-icon" /></Link>:null}</h2>
+
                     <p className="profile-header-left-content">
                         {profile.country ? profile.country : null}{profile.state ? ", " + profile.state : null}
                     </p>

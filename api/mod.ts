@@ -7,6 +7,8 @@ import User from '../models/user';
 import Elections from '../models/elections';
 import PoliticianAnswer from '../models/politicianAnswers';
 import Politician from '../models/politicians';
+import Parties from '../models/party';
+
 router.get('/stats', auth, async (req, res) => {
     try {
         const admin = await User.findById(req.user);
@@ -19,7 +21,7 @@ router.get('/stats', auth, async (req, res) => {
                 $gte: 1
             }
         });
-        const moderatorProfiles:Array<any> = [];
+        const moderatorProfiles: Array<any> = [];
         let i = 0;
         while (admins[i]) {
             let { name, picture, createdAt } = (await Profile.findOne({ user: admins[i]._id }).select(['name', 'picture', 'createdAt']) as any);
@@ -30,7 +32,7 @@ router.get('/stats', auth, async (req, res) => {
         const createdElections = await Elections.find({ createdBy: admin._id });
         const createdPoliticians = await Politician.find({ createdBy: admin._id });
         const createdPoliticianAnswers = await PoliticianAnswer.find({ createdBy: admin._id });
-
+        const createdPoliticalParties = await Parties.find({ createdBy: admin._id });
         const totalContributions = await Elections.countDocuments({
             editors: {
                 $in: [admin._id]
@@ -43,8 +45,13 @@ router.get('/stats', auth, async (req, res) => {
             editors: {
                 $in: [admin._id]
             }
+        }) + await Parties.countDocuments({
+            editors: {
+                $in: [admin._id]
+            }
         });
         const politicians = await Politician.find()
+        const parties = await Parties.find();
         const elections = await Elections.find()
         return res.json({
             profileCount: profiles,
@@ -52,7 +59,7 @@ router.get('/stats', auth, async (req, res) => {
             politicians: politicians,
             elections: elections,
             totalContributions,
-            createdElections, createdPoliticianAnswers, createdPoliticians
+            createdElections, createdPoliticianAnswers, createdPoliticians, createdPoliticalParties, parties
         })
     }
     catch (err) {

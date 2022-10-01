@@ -31,6 +31,7 @@ const Dashboard = (props) => {
         editCandidate: '',
         editElection: '',
         softResetCode: '',
+        partyId:'',
         hardResetCode: ''
     });
     const history = useHistory();
@@ -173,7 +174,9 @@ const Dashboard = (props) => {
             <Link to="/create/candidate" className="dashboard-row-mod-link">
                 <p className="dashboard-row-item-link"> Answer General Questions as a Politician</p>
             </Link>
-
+            <Link to="/create/party" className="dashboard-row-mod-link">
+                <p className="dashboard-row-item-link"> Create a political party</p>
+            </Link>
         </div>
         <div className="dashboard-row">
             <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Edit a Candidate</h3>
@@ -215,6 +218,24 @@ const Dashboard = (props) => {
                     </div>
                 </div>
             </div>
+            <div className="dashboard-row-mod">
+                    <div className="dashboard-row-mod-container">
+                        <form onSubmit={async (e) => {
+                            try {
+                                e.preventDefault();
+                                history('/edit/party/' + state.partyId);
+                            }
+                            catch (err) {
+                                console.log(err);
+                            }
+                        }} className="dashboard-row-mod-input">
+                            <p>Edit Political Party</p>
+                            <input placeholder="Party Id" value={state.partyId} onChange={async (e) => {
+                                setState(state => ({ ...state, partyId: e.target.value }))
+                            }} />
+                        </form>
+                    </div>
+                </div>
         </div>
         <h2 className="dashboard-title">
             Overview
@@ -246,6 +267,21 @@ const Dashboard = (props) => {
                                 <p>{p.for}</p>
                                 <p>{p.location.city ? p.location.city + "," : null} {p.location.state ? p.location.state + "," : null} {p.location.country ? p.location.country : null}</p>
                                 <p>{(months[(new Date(p.date)).getMonth()]) + " " + new Date(p.date).getDate() + 'th' + ', ' + new Date(p.date).getFullYear()}</p>
+                            </div>)
+                        })}
+                    </div>
+                </div>
+            </div>
+            <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Parties</h3>
+                <div className="dashboard-row-mod-container">
+                    <div className="dashboard-row-mod-container-politicians">
+                        {props.admin.parties.map(p => {
+                            return (<div className="dashboard-row-mod-container-politicians-each" style={p.color ? { backgroundColor: p.color, color: 'white', padding: '1rem' } : {}} onClick={() => {
+                                history(`/party/${p._id}`);
+                            }}>
+                                <img alt={p.name} src={p.symbol} />
+                                <p>{p.name}</p>
+                                <p>{p.country}</p>
                             </div>)
                         })}
                     </div>
@@ -291,9 +327,37 @@ const Dashboard = (props) => {
                             }} />
                         </form>
                     </div>
+
                 </div>
 
-            </div></div> : null}
+            </div>
+            <div className="dashboard-row">
+
+                <Link to="/edit/questions/general" className="dashboard-row-mod-link">
+                    <p className="dashboard-row-item-link">Edit Questions</p>
+                </Link>
+                <div className="dashboard-row-mod">
+                    <div className="dashboard-row-mod-container">
+                        <form onSubmit={async (e) => {
+                            try {
+                                e.preventDefault();
+                                history('/edit/questions/' + state.createdElectionId);
+                            }
+                            catch (err) {
+                                console.log(err);
+                            }
+                        }} className="dashboard-row-mod-input">
+                            <p>Create Election Specific Questions</p>
+                            <input placeholder="Election Id" value={state.createdElectionId} onChange={async (e) => {
+                                setState(state => ({ ...state, createdElectionId: e.target.value }))
+                            }} />
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div> : null}
 
 
     </div >)

@@ -72,6 +72,7 @@ router.put('/:id', auth, async (req, res) => {
         if (hook) {
             questionInstance.hook = hook;
         }
+        
         questionInstance.editors = [...questionInstance.editors, user._id];
         await questionInstance.save();
         return res.json({ questionInstance });

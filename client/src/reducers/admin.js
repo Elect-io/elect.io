@@ -10,6 +10,7 @@ const initialState = {
     createdPoliticians: 0,
     politicians:[],
     elections:[],
+    parties:[],
     mods: [],
     profileCount: 0
 }

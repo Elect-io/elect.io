@@ -18,10 +18,17 @@ const Profile = lazy(() => import('./components/profile/profile'));
 const EditProfile = lazy(() => import('./components/profile/editProfile'));
 const Authenticate = lazy(() => import('./components/auth/authenticate'));
 const CreateCandidate = lazy(() => import('./components/candidate/create'));
+const EditCandidate = lazy(() => import('./components/candidate/edit'));
+
 const CreateElection = lazy(() => import('./components/election/create'));
 
 const EditElection = lazy(() => import('./components/election/edit'));
 const ModDashboard = lazy(() => import('./components/moderator/dashboard'));
+
+const EditGeneralQuestions = lazy(() => import('./components/moderator/questions/editGeneralQuestions'));
+const EditElectionSpecificQuestions = lazy(() => import('./components/moderator/questions/editGeneralQuestions'));
+const CreateParty = lazy(() => import('./components/party/create'));
+const EditParty = lazy(() => import('./components/party/edit'));
 
 const Home = lazy(() => import('./components/home/home'));
 class App extends React.Component {
@@ -56,10 +63,21 @@ class App extends React.Component {
 
                   <><Route path="/mod/dashboard" exact element={<div><ModDashboard /></div>} />
                     <Route path='/create/candidate' exact element={<div><CreateCandidate /></div>} />
+                    <Route path='/edit/candidate/:id' exact element={<div><EditCandidate /></div>} />
+
                     <Route path='/create/election' exact element={<div><CreateElection /></div>} />
                     <Route path='/edit/election/:id' exact element={<div><EditElection /></div>} />
+                    <Route path='/create/party/' exact element={<div><CreateParty /></div>} />
+                    <Route path='/edit/party/:id' exact element={<div><EditParty /></div>} /> 
                   </>
                   : null}
+                {this.props.admin === 3 ?
+                  <>
+                    <Route path="/edit/questions/general" exact element={<div><EditGeneralQuestions /></div>} />
+                    <Route path='/edit/questions/:id' exact element={<div><EditElectionSpecificQuestions /></div>} />
+                  </>
+                  : null}
+
               </Switch>
             </div>
           </div>

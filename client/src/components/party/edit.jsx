@@ -22,72 +22,60 @@ const mapStateToProps = (state) => {
     }
 }
 
-const CreateCandidate = (props) => {
+const CreateParty = (props) => {
     const { id } = useParams();
     useEffect(() => {
         (async () => {
             try {
-                const candidate = await axios.get('/api/politician/' + id)
-                setState(candidate.data.politician)
+
+                const party = await axios.get('/api/party/' + id)
+                setState(party.data.party)
             }
             catch (err) {
                 navigate('/mod/dashboard')
             }
         })()
+
     }, [])
     const navigate = useNavigate();
-    let keys = ['Name', 'Gender Identity', "Religion", "Sexual Orientation", "Political Affiliation", "Race", "Gender", "Date Of Birth", "State", "Country"];
+    let keys = ['Name', "Color", "Common Name", "More Details", "Country"]
     let trueKeys = {
         Name: "name",
-        "Gender Identity": "genderIdentity",
-        Religion: 'religion',
-        "Sexual Orientation": "sexualOrientation",
-        Race: "race",
-        "Date Of Birth": "dateOfBirth",
-        Gender: "gender",
-        State: "state",
+        Symbol: "symbol",
+        Color: 'color',
+        "Common Name": 'commonName',
+        "More Details": 'moreDetails',
         Country: "country",
-        "Political Affiliation": "partyAffiliation"
     }
     let lists = {
-        race: listOfRaces,
-        religion: listOfReligions,
-        sexualOrientation: listOfSexualities,
-        gender: listOfGenders,
-        genderIdentity: listOfGenderIdentities,
         country: listOfCountries,
         state: listOfAmericanStates
     }
     const [dropDown, setDropDown] = React.useState(null);
     const [parties, setParties] = React.useState([]);
     const [state, setState] = React.useState({
-        name: "", //
-        picture: "", //
-        dateOfBirth: "",
-        country: '', //
-        state: '', //
-        race: '', //
-        sexualOrientation: "", //
-        gender: "", //
-        religion: "", //
-        genderIdentity: "", //
-        partyAffiliation: { name: '' }
+        name: '',
+        symbol: '',
+        color: '',
+        commonName: '',
+        moreDetails: '',
+        country: 'The United States of America',
     })
     return (
         <div className="profile">
-            <h1 className="auth-header">Create Candidate Profile</h1>
+            <h1 className="auth-header">Create Political Party</h1>
             <div className="profile-header">
                 <div className="profile-header-left">
                     <input className="auth-form-input-hidden" onChange={(e) => {
-                        GetImage(e.target.files[0], setState, 'picture')
+                        GetImage(e.target.files[0], setState, 'symbol')
                     }} id="profile" type="file" placeholder="Password" />
 
 
-                    {!state.picture ? <label htmlFor="profile" className="auth-form-input-profile"> <p>Choose a profile picture</p>
+                    {!state.symbol ? <label htmlFor="profile" className="auth-form-input-profile"> <p>Choose a Symbol</p>
                         <AddCircleOutlineIcon className="auth-form-input-profile-icon" /></label> :
                         <div className="auth-form-input-profile">
-                            <img className="auth-form-input-profile-image" src={state.picture} alt="profile" />
-                            <div className="auth-form-input-profile-cross" onClick={() => setState({ ...state, picture: null })}><CancelIcon className="auth-form-input-profile-cross-icon" /></div>
+                            <img className="auth-form-input-profile-image" src={state.symbol} alt="profile" />
+                            <div className="auth-form-input-profile-cross" onClick={() => setState({ ...state, symbol: null })}><CancelIcon className="auth-form-input-profile-cross-icon" /></div>
                         </div>}
                     {/* <img className="profile-header-left-image" src={props.profile.picture} alt={props.profile.name} /> */}
 
@@ -95,47 +83,13 @@ const CreateCandidate = (props) => {
             </div>
             <div className="profile-edit">
                 {keys.map(a => {
-                    if (a === "Name") {
+                    if (a === "Name" || a === "Color" || a === "More Details" || a === "Common Name") {
                         return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]]} onChange={(e) => {
                             setState(state => ({ ...state, [trueKeys[a]]: e.target.value }))
                         }} type="text" placeholder={a} /></span></div>)
                     }
-                    else if (a === "Date Of Birth") {
-                        return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input min="1905-01-01" max="2003-01-01" type="date" className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]]} onChange={(e) => {
-                            setState(state => ({ ...state, [trueKeys[a]]: e.target.value }))
-                        }} placeholder={a} /></span></div>)
-                    }
-                    else if (a === "Political Affiliation") {
 
-                        return (<div className="profile-edit-each"> <p className="profile-edit-each-title">{a}</p><span className="profile-edit-each-container"><input className="auth-form-input" name={trueKeys[a]} value={state[trueKeys[a]].name} onChange={async (e) => {
-                            setState(state => ({ ...state, [trueKeys[a]]: { ...state[trueKeys[a]], name: e.target.value } }))
-                            setDropDown(trueKeys[a]);
-                            console.log(state["partyAffiliation"])
-                            if (state.country) {
-                                let res = await axios.get(`/api/party/search/${state.country}/${e.target.value}`);
-                                console.log(res);
-                                setParties(res.data.party);
-                            }
-                            else {
-                                let res = await axios.get(`/api/party/search/all/${e.target.value}`);
-                                setParties(res.data.party);
-                                console.log(res)
-                            }
 
-                        }} type="text" placeholder={a} /></span>
-
-                            <div className="profile-dropdown" style={{ opacity: dropDown === trueKeys[a] ? 100 : 0, visibility: dropDown === trueKeys[a] ? 'visible' : 'hidden' }}>
-                                {parties.map(item => {
-                                    return <p class="profile-dropdown-each" onClick={() => {
-                                        setState(state => ({ ...state, [trueKeys[a]]: item }));
-                                        setDropDown(null);
-                                    }}>{item.name}</p>
-                                })}
-                            </div>
-
-                        </div>)
-
-                    }
                     else {
                         return (
                             <div className="profile-edit-each">
@@ -167,11 +121,11 @@ const CreateCandidate = (props) => {
             </div>
 
             <button className="button-sm" onClick={async () => {
-                let res = await axios.put('/api/politician/' + id, state);
-                navigate(`/candidate/${res.data.politician._id}`);
+                let res = await axios.put('/api/party/' + id, state);
+                navigate(`/party/${res.data.party._id}`);
             }}>Save</button>
         </div>
     )
 }
 
-export default connect(mapStateToProps)(CreateCandidate)
+export default connect(mapStateToProps)(CreateParty)
