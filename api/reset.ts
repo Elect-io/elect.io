@@ -68,7 +68,7 @@ router.post('/reset/hard', validator([{ name: 'code' }]), auth, async (req, res)
             return res.status(401).json({ error: 'Unauthorized' });
         }
         if (req.body.code !== process.env.RESET_CODE_HARD) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Unauthorized; wrong code' });
         }
         await politicians.remove();
         await Party.remove();
@@ -78,11 +78,12 @@ router.post('/reset/hard', validator([{ name: 'code' }]), auth, async (req, res)
         await Elections.remove();
         await Social.remove();
 
-        let users = await User.find({ _id: { $not: user._id } });
-        let profile = await Profile.findOne({ _id: user._id });
+        let users = await User.find({ _id: { $ne: user._id } });
+        let profile = await Profile.findOne({ user: user._id });
         profile.xCoefficient = 0;
         profile.yCoefficient = 0;
-        let profiles = await Profile.find({ user: { $not: user._id } });
+        let profiles = await Profile.find({ user: { $ne: user._id } })
+        console.log(profiles);
         for (let i = 0; i < users.length; i++) {
             await users[i].delete();
         }
@@ -96,6 +97,7 @@ router.post('/reset/hard', validator([{ name: 'code' }]), auth, async (req, res)
         })
     }
     catch (err) {
+        console.log(err)
         return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 });

@@ -29,7 +29,9 @@ const Dashboard = (props) => {
     const [user, setUser] = React.useState({});
     const [state, setState] = React.useState({
         editCandidate: '',
-        editElection: ''
+        editElection: '',
+        softResetCode: '',
+        hardResetCode: ''
     });
     const history = useHistory();
     if (props.admin.mods.length > mods.length) {
@@ -250,6 +252,49 @@ const Dashboard = (props) => {
                 </div>
             </div>
         </div>
+        {props.adminLevel === 3 ? <div> <h2 className="dashboard-title">
+            Super Admin Tools
+        </h2><div className="dashboard-row">
+                <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">SOFT RESET</h3>
+                    <div className="dashboard-row-mod-container">
+                        <form onSubmit={async (e) => {
+                            try {
+                                e.preventDefault();
+                                await axios.post('/api/reset/reset/soft/', { code: state.softResetCode });
+                                document.location.reload()
+                            } catch (err) {
+                                console.log(err);
+                            }
+                        }} className="dashboard-row-mod-input">
+                            <p>ENTER SOFT RESET CODE </p>
+                            <input onChange={async (e) => {
+                                setState(state => ({ ...state, softResetCode: e.target.value }))
+                            }} placeholder="SOFT RESET CODE" />
+                        </form>
+                    </div>
+                </div>
+                <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">HARD RESET</h3>
+                    <div className="dashboard-row-mod-container">
+                        <form onSubmit={async (e) => {
+                            try {
+                                e.preventDefault();
+                                await axios.post('/api/reset/reset/hard/', { code: state.hardResetCode });
+                                document.location.reload()
+                            }
+                            catch (err) {
+                                console.log(err);
+                            }
+                        }} className="dashboard-row-mod-input">
+                            <p>ENTER HARD RESET CODE</p>
+                            <input placeholder="HARD RESET CODE" onChange={async (e) => {
+                                setState(state => ({ ...state, hardResetCode: e.target.value }))
+                            }} />
+                        </form>
+                    </div>
+                </div>
+
+            </div></div> : null}
+
 
     </div >)
 }
