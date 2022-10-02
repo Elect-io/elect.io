@@ -57,22 +57,34 @@ router.post('/:id/:answer', auth, async (req, res) => {
         }
         const question = await Question.findById(req.params.id);
         const exists = await Answer.findOne({ question: question._id, user: user._id });
+        let effect = {
+            yCoefficient: 0,
+            xCoefficient: 0
+        };
         switch (answer) {
             case 0:
                 profile.yCoefficient += 2 * question.yCoefficient;
+                effect.yCoefficient = 2 * question.yCoefficient;
+                effect.xCoefficient = 2 * question.xCoefficient;
                 profile.xCoefficient += 2 * question.xCoefficient;
                 break;
             case 1:
                 profile.yCoefficient += question.yCoefficient;
                 profile.xCoefficient += question.xCoefficient;
+                effect.yCoefficient = question.yCoefficient;
+                effect.xCoefficient = question.xCoefficient;
                 break;
             case 3:
                 profile.yCoefficient -= question.yCoefficient;
                 profile.xCoefficient -= question.xCoefficient;
+                effect.yCoefficient = -question.yCoefficient;
+                effect.xCoefficient = -question.xCoefficient;
                 break;
             case 4:
                 profile.yCoefficient -= 2 * question.yCoefficient;
                 profile.xCoefficient -= 2 * question.xCoefficient;
+                effect.yCoefficient = -2 * question.yCoefficient;
+                effect.xCoefficient = -2 * question.xCoefficient;
                 break;
         }
         if (exists) {
@@ -80,21 +92,30 @@ router.post('/:id/:answer', auth, async (req, res) => {
                 case 0:
                     profile.yCoefficient -= 2 * question.yCoefficient;
                     profile.xCoefficient -= 2 * question.xCoefficient;
+                    effect.yCoefficient = -2 * question.yCoefficient;
+                    effect.xCoefficient = -2 * question.xCoefficient;
                     break;
                 case 1:
                     profile.yCoefficient -= question.yCoefficient;
                     profile.xCoefficient -= question.xCoefficient;
+                    effect.yCoefficient = -question.yCoefficient;
+                    effect.xCoefficient = -question.xCoefficient;
                     break;
                 case 3:
                     profile.yCoefficient += question.yCoefficient;
                     profile.xCoefficient += question.xCoefficient;
+                    effect.yCoefficient = question.yCoefficient;
+                    effect.xCoefficient = question.xCoefficient;
                     break;
                 case 4:
                     profile.yCoefficient += 2 * question.yCoefficient;
                     profile.xCoefficient += 2 * question.xCoefficient;
+                    effect.yCoefficient = 2 * question.yCoefficient;
+                    effect.xCoefficient = 2 * question.xCoefficient;
                     break;
             }
             exists.answer = answer;
+            exists.effect = effect;
 
             await exists.save();
 
@@ -105,7 +126,8 @@ router.post('/:id/:answer', auth, async (req, res) => {
             const newAnswer = new Answer({
                 question: question._id,
                 user: user._id,
-                answer
+                answer,
+                effect
             });
 
             await profile.save()

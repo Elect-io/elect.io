@@ -32,6 +32,7 @@ const Dashboard = (props) => {
         editElection: '',
         softResetCode: '',
         partyId:'',
+        answerCandidate:'',
         hardResetCode: ''
     });
     const history = useHistory();
@@ -203,6 +204,19 @@ const Dashboard = (props) => {
                         <input placeholder="ID" onChange={async (e) => {
                             setState(state => ({ ...state, editElection: e.target.value }))
                         }} />
+                    </form>
+                </div>
+            </div>
+            <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Answer General Questions as a politician</h3>
+                <div className="dashboard-row-mod-container">
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        history(`/assessment/general/${state.answerCandidate}`);
+                    }} className="dashboard-row-mod-input">
+                        <p>Enter Candidate's ID</p>
+                        <input onChange={async (e) => {
+                            setState(state => ({ ...state, answerCandidate: e.target.value }))
+                        }} value={state.answerCandidate} placeholder="ID" />
                     </form>
                 </div>
             </div>

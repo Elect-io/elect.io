@@ -404,6 +404,47 @@
   align-items: center;
   height: 100vh;
 }
+.poll-politician img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-right: 2rem;
+}
+.poll-politician-input + p {
+  font-size: 1.4rem;
+}
+.poll-politician-input {
+  border: 1px solid #AEAEAE;
+  background-color: #F9F9F9;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  margin: 4rem auto 1rem;
+  width: 100%;
+  padding: 1rem;
+  height: 3rem;
+}
+.poll-politician-input:focus {
+  outline: none;
+}
+.poll-politician h3 {
+  font-size: 3rem;
+  font-weight: 300;
+}
+.poll-politician p {
+  font-size: 2rem;
+}
+.poll-politician div {
+  align-items: center;
+  display: flex;
+}
+.poll-politicians {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  height: 100vh;
+}
 .poll-container {
   width: 100%;
   max-width: 100rem;

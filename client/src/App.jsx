@@ -30,6 +30,8 @@ const EditElectionSpecificQuestions = lazy(() => import('./components/moderator/
 const CreateParty = lazy(() => import('./components/party/create'));
 const EditParty = lazy(() => import('./components/party/edit'));
 
+const TakeQuizAsCandidate = lazy(() => import('./components/moderator/takeGeneralQuizAsAcandidate'));
+
 const Home = lazy(() => import('./components/home/home'));
 class App extends React.Component {
   async componentWillMount() {
@@ -69,6 +71,8 @@ class App extends React.Component {
                     <Route path='/edit/election/:id' exact element={<div><EditElection /></div>} />
                     <Route path='/create/party/' exact element={<div><CreateParty /></div>} />
                     <Route path='/edit/party/:id' exact element={<div><EditParty /></div>} /> 
+                    <Route path='/assessment/general/:id' exact element={<div><TakeQuizAsCandidate /></div>} /> 
+                    
                   </>
                   : null}
                 {this.props.admin === 3 ?

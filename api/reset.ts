@@ -44,8 +44,8 @@ router.post('/reset/soft', validator([{ name: 'code' }]), auth, async (req, res)
         let profiles = await Profile.find();
         let Politicians = await politicians.find();
         for (let i = 0; i < profiles.length; i++) {
-            profile[i].xCoefficient = 0;
-            profile[i].yCoefficient = 0;
+            profiles[i].xCoefficient = 0;
+            profiles[i].yCoefficient = 0;
             await profiles[i].save()
         }
         for (let i = 0; i < Politicians.length; i++) {
@@ -58,6 +58,7 @@ router.post('/reset/soft', validator([{ name: 'code' }]), auth, async (req, res)
         })
     }
     catch (err) {
+        console.log(err)
         return res.status(500).json({ error: "We can't process your request at this moment" });
     }
 });

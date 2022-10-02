@@ -7,6 +7,23 @@ import User from '../models/user';
 import Answer from '../models/politicianAnswers';
 import auth from '../middlewares/auth';
 
+router.get('/:politician', async (req, res) => {
+    try {
+        const politician = await Politician.findById(req.params.politician);
+        if (!politician) {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        const answers = await Answer.find({ politician: politician._id });
+        return res.json({ answers });
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
 router.get('/:politician/:id', async (req, res) => {
     try {
         const politician = await Politician.findById(req.params.politician);
@@ -32,7 +49,8 @@ router.post('/:id/:politician/:answer', [auth, validator([{ name: "source" }])],
     try {
         const user = await User.findById(req.user);
         const answer = Number(req.params.answer);
-        let {source} = req.body;
+        console.log(req.params.id)
+        let { source } = req.body;
         const politician = await Politician.findById(req.params.politician);
         if (!politician) {
             return res.status(404).json({ error: "Not Found" })
@@ -44,8 +62,7 @@ router.post('/:id/:politician/:answer', [auth, validator([{ name: "source" }])],
             return res.status(400).json({ error: "invalid response" })
         }
         const question = await Question.findById(req.params.id);
-        if(!question) {
-            
+        if (!question) {
             return res.status(400).json({ error: "invalid response" })
         }
         const exists = await Answer.findOne({ question: question._id, politician: politician._id });
@@ -103,7 +120,7 @@ router.post('/:id/:politician/:answer', [auth, validator([{ name: "source" }])],
                 createdBy: user._id,
                 politician: politician._id,
                 editors: [user._id],
-                source:[source, user._id],
+                source: [source, user._id],
                 answer
             });
 
