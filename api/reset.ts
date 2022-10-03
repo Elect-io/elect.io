@@ -51,7 +51,7 @@ router.post('/reset/soft', validator([{ name: 'code' }]), auth, async (req, res)
         for (let i = 0; i < Politicians.length; i++) {
             Politicians[i].xCoefficient = 0;
             Politicians[i].yCoefficient = 0;
-            await profiles[i].save()
+            await Politicians[i].save()
         }
         return res.json({
             msg: "Reset Completed"
