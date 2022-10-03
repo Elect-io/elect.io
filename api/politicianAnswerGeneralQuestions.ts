@@ -107,7 +107,7 @@ router.post('/:id/:politician/:answer', [auth, validator([{ name: "source" }])],
                     break;
             }
             exists.answer = answer;
-            exists.source = [...exists.source, [source, user._id]];
+            exists.source =  [source, user._id];
             exists.editors = [...exists.editors, user._id];
             await exists.save();
             await politician.save()

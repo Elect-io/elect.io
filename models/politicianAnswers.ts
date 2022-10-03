@@ -18,7 +18,7 @@ const answerSchema = new mongoose.Schema({
         */
     },
     source: {
-        type: [[String, mongoose.Types.ObjectId]],
+        type: [String, mongoose.Types.ObjectId],
         required: true,
         ref: 'user'
     },

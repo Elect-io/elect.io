@@ -18,26 +18,26 @@ const General = (props) => {
         politician: {
             name: '',
             picture: ''
-        }
+        },
+        loaded: false
     })
     React.useEffect(() => {
 
         ((async () => {
             let politician = await axios.get(`/api/politician/${id}`);
             let answers = await axios.get('/api/answer-politician-general-question/' + id);
-
             setState(state => ({ ...state, politician: politician.data.politician, answers: answers.data.answers, }))
 
         }))()
-    }, [id, props.generalQuestions.questions]);
+    }, []);
     const setAnswer = async (answer, previousAnswer) => {
         console.log("set answer")
         console.log(answer)
 
-        let answer1 = await axios.post('/api/answer-politician-general-question/' + props.generalQuestions.questions[state.current]._id + '/' + id + '/' + answer, { source: state.source.length > 4 ? state.source : previousAnswer?.source.length > 4 ? previousAnswer.source : 'none' });
+        let answer1 = await axios.post('/api/answer-politician-general-question/' + props.generalQuestions.questions[state.current]._id + '/' + id + '/' + answer, { source: state.source[0].length > 4 ? state.source[0] : previousAnswer?.source[0].length > 4 ? previousAnswer.source[0] : 'none' });
         let exists = state.answers.find(a => a.question.toString() === answer1.data.answer.question.toString())
         if (!exists) {
-            setState(state => ({ ...state, answers: [...state.answers, answer1.data.answer] }))
+            setState(state => ({ ...state, answers: [...state.answers, answer1.data.answer], source: '' }))
         }
         else {
             setState(state => ({
@@ -63,8 +63,14 @@ const General = (props) => {
                 return a;
             }
         })
-        setState(state => ({ ...state, source: answer?.source }))
-
+        console.log(answer)
+        if (!answer) {
+            console.log('setting source to none')
+            setState(state => ({ ...state, source: ['', ''] }))
+        }
+        else {
+            setState(state => ({ ...state, source: answer?.source }))
+        }
         setState(state => ({ ...state, current: state.current + 1 }));
     }
 
@@ -74,7 +80,13 @@ const General = (props) => {
                 return a;
             }
         })
-        setState(state => ({ ...state, current: state.current - 1, source: answer?.source }));
+        if (!answer) {
+            setState(state => ({ ...state, source: '' }))
+        }
+        else {
+            setState(state => ({ ...state, source: answer?.source }))
+        }
+        setState(state => ({ ...state, current: state.current - 1 }));
     }
     const answers = ["Strongly Agree", "Agree", "Unsure", "Disagree", "Strongly Disagree"]
     if (props.generalQuestions.loaded) {
@@ -86,6 +98,9 @@ const General = (props) => {
                 return a;
             }
         })
+        if (answer && !state.loaded) {
+            setState(state => ({ ...state, source: answer.source, loaded: true }))
+        }
         console.log(answer)
 
         return (
@@ -108,9 +123,18 @@ const General = (props) => {
                                 {answers.map((a, index) => <p onClick={setAnswer.bind(this, index, answer)} className={answer?.answer === index ? "poll-general-question-answer-each poll-general-question-answer-each-selected" : "poll-general-question-answer-each"}>
                                     {a}
                                 </p>)}
-                                <input class="poll-politician-input" value={answer?.source[0][0]} placeholder={"Source"} onChange={(e) => {
-                                    if(answer.source){
-                                        
+                                <input class="poll-politician-input" value={state.source[0]} placeholder={"Source"} onChange={(e) => {
+                                    if (answer.source) {
+                                        setState(state => ({
+                                            ...state, answers: state.answers.map(a => {
+                                                if (a._id.toString() === answer._id) {
+                                                    return { ...a, source: [e.target.value, ''] }
+                                                }
+                                                else {
+                                                    return a;
+                                                }
+                                            })
+                                        }))
                                     }
                                     setState(state => ({ ...state, source: e.target.value }))
 
@@ -125,7 +149,15 @@ const General = (props) => {
                         </div>
                         <div className="poll-general-key">
                             {props.generalQuestions.questions.map((question, index) => {
-                                return <div className="poll-general-key-each" onClick={() => setState(state => ({ ...state, current: index }))}><div className={index === state.current ? "poll-general-key-each-selected" : "poll-general-key-each-unselected"}><div className={state.answers.find(a => a.question.toString() === question._id.toString()) ? "poll-general-key-each-filled" : null} /></div> </div>
+                                return <div className="poll-general-key-each" onClick={() => {
+                                    let answer = state.answers.find(a => {
+                                        if (a.question.toString() === props.generalQuestions.questions[index]._id.toString()) {
+                                            return a;
+                                        }
+                                    })
+                                    setState(state => ({ ...state, current: index, source: answer? answer?.source:['',''] }))
+
+                                }}><div className={index === state.current ? "poll-general-key-each-selected" : "poll-general-key-each-unselected"}><div className={state.answers.find(a => a.question.toString() === question._id.toString()) ? "poll-general-key-each-filled" : null} /></div> </div>
                             })
                             }
                         </div>
