@@ -33,14 +33,13 @@ const pollReducer = (state = initialState, action) => {
             }
             return {
                 ...state, answers: state.answers.map(a => {
-                    if (a._id.toString() !== payload._id.toString()) {
+                    if (a.question.toString() !== payload.question.toString()) {
                         return a;
                     } else {
                         return payload
                     }
                 })
             }
-            break;
         default:
             return state;
     }

@@ -42,6 +42,7 @@ const General = (props) => {
         else {
             setState(state => ({
                 ...state, answers: state.answers.map(a => {
+                    console.log(a, answer1.data.answer);
                     if (a.question.toString() === answer1.data.answer.question.toString()) {
                         return answer1.data.answer
                     }
@@ -64,7 +65,7 @@ const General = (props) => {
         })
         setState(state => ({ ...state, source: answer?.source }))
 
-        setState(state => ({ ...state, current: state.current + 1}));
+        setState(state => ({ ...state, current: state.current + 1 }));
     }
 
     const left = () => {
@@ -78,7 +79,7 @@ const General = (props) => {
     const answers = ["Strongly Agree", "Agree", "Unsure", "Disagree", "Strongly Disagree"]
     if (props.generalQuestions.loaded) {
         if (!props.generalQuestions.questions[state.current]) {
-            return <Redirect to={'/candidate/'+id} />
+            return <Redirect to={'/candidate/' + id} />
         }
         let answer = state.answers.find(a => {
             if (a.question.toString() === props.generalQuestions.questions[state.current]._id.toString()) {
@@ -107,7 +108,13 @@ const General = (props) => {
                                 {answers.map((a, index) => <p onClick={setAnswer.bind(this, index, answer)} className={answer?.answer === index ? "poll-general-question-answer-each poll-general-question-answer-each-selected" : "poll-general-question-answer-each"}>
                                     {a}
                                 </p>)}
-                                <input class="poll-politician-input" value={answer?.source[0][0]} placeholder={"Source"} onChange={(e) => setState(state => ({ ...state, source: e.target.value }))}></input>
+                                <input class="poll-politician-input" value={answer?.source[0][0]} placeholder={"Source"} onChange={(e) => {
+                                    if(answer.source){
+                                        
+                                    }
+                                    setState(state => ({ ...state, source: e.target.value }))
+
+                                }}></input>
                                 <p>Please enter the source before selecting the answer</p>
                             </div>
                             <div className="poll-arrows">
