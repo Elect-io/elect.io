@@ -34,7 +34,7 @@ const General = (props) => {
         console.log("set answer")
         console.log(answer)
 
-        let answer1 = await axios.post('/api/answer-politician-general-question/' + props.generalQuestions.questions[state.current]._id + '/' + id + '/' + answer, { source: state.source[0].length > 4 ? state.source[0] : previousAnswer?.source[0].length > 4 ? previousAnswer.source[0] : 'none' });
+        let answer1 = await axios.post('/api/answer-politician-general-question/' + props.generalQuestions.questions[state.current]._id + '/' + id + '/' + answer, { source: state.source[0]?.length > 4 ? state.source[0] : previousAnswer?.source[0].length > 4 ? previousAnswer.source[0] : 'none' });
         let exists = state.answers.find(a => a.question.toString() === answer1.data.answer.question.toString())
         if (!exists) {
             setState(state => ({ ...state, answers: [...state.answers, answer1.data.answer], source: '' }))

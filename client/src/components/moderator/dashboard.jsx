@@ -290,7 +290,7 @@ const Dashboard = (props) => {
                 <div className="dashboard-row-mod-container">
                     <div className="dashboard-row-mod-container-politicians">
                         {props.admin.parties.map(p => {
-                            return (<div className="dashboard-row-mod-container-politicians-each" style={p.color ? { backgroundColor: p.color, color: 'white', padding: '1rem' } : {}} onClick={() => {
+                            return (<div className="dashboard-row-mod-container-politicians-each" style={p.color ? {} : {}} onClick={() => {
                                 history(`/party/${p._id}`);
                             }}>
                                 <img alt={p.name} src={p.symbol} />

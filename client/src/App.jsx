@@ -29,7 +29,7 @@ const EditGeneralQuestions = lazy(() => import('./components/moderator/questions
 const EditElectionSpecificQuestions = lazy(() => import('./components/moderator/questions/editElectionSpecificQuestions'));
 const CreateParty = lazy(() => import('./components/party/create'));
 const EditParty = lazy(() => import('./components/party/edit'));
-
+const Party = lazy(() => import('./components/party/index'));
 const TakeQuizAsCandidate = lazy(() => import('./components/moderator/takeGeneralQuizAsAcandidate'));
 
 const Home = lazy(() => import('./components/home/home'));
@@ -59,6 +59,7 @@ class App extends React.Component {
                 <Route path="/assessment/general" exact element={<div><General /></div>} />
                 <Route path="/profile" exact element={<div><Profile /></div>} />
                 <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
+                <Route path="/party/:id" exact element={<div><Party /></div>} />
 
                 <Route path="/candidate/:id" exact element={<div><Candidate /></div>} />
                 {this.props.admin > 0 ?
@@ -70,9 +71,9 @@ class App extends React.Component {
                     <Route path='/create/election' exact element={<div><CreateElection /></div>} />
                     <Route path='/edit/election/:id' exact element={<div><EditElection /></div>} />
                     <Route path='/create/party/' exact element={<div><CreateParty /></div>} />
-                    <Route path='/edit/party/:id' exact element={<div><EditParty /></div>} /> 
-                    <Route path='/assessment/general/:id' exact element={<div><TakeQuizAsCandidate /></div>} /> 
-                    
+                    <Route path='/edit/party/:id' exact element={<div><EditParty /></div>} />
+                    <Route path='/assessment/general/:id' exact element={<div><TakeQuizAsCandidate /></div>} />
+
                   </>
                   : null}
                 {this.props.admin === 3 ?

@@ -958,6 +958,74 @@
   font-size: 3rem;
 }
 
+.candidate-snippet {
+  max-width: 60rem;
+  max-height: 80rem;
+  overflow: auto;
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+.candidate-snippet-header {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+}
+.candidate-snippet-header img {
+  object-fit: cover;
+  height: 10rem;
+  border-radius: 100%;
+  width: 10rem;
+}
+.candidate-snippet-header div {
+  margin-left: 2rem;
+}
+.candidate-snippet-header div h3:first-child {
+  margin: 0 auto;
+  font-size: 1.8rem;
+}
+.candidate-snippet-header div h3:last-child {
+  margin: 0.8rem auto;
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.4);
+}
+.candidate-snippet-heading {
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.6rem;
+  display: flex;
+}
+.candidate-snippet-heading p {
+  margin-left: 1rem;
+}
+.candidate-snippet-opposes, .candidate-snippet-advocates {
+  max-height: 30rem;
+  padding-right: 2rem;
+  overflow: auto;
+  margin: 0rem auto 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.candidate-snippet-opposes-more, .candidate-snippet-advocates-more {
+  display: block;
+  width: 100%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.7);
+}
+.candidate-snippet-opposes div, .candidate-snippet-advocates div {
+  font-size: 1.2rem;
+  padding: 1rem;
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.4);
+  display: flex;
+  margin: 1rem 1rem 0 0;
+  border-radius: 1rem;
+  align-items: center;
+}
+.candidate-snippet-opposes div p, .candidate-snippet-advocates div p {
+  margin: 0 1rem;
+}
+
 body {
   margin: 0;
   padding: 0;
