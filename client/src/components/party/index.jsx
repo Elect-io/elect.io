@@ -5,7 +5,7 @@ import axios from "axios";
 const Party = (props) => {
     const { id } = useParams();
     let navigate = useNavigate()
-    const [state, setState] = useState({ loaded: false, politicians:[] });
+    const [state, setState] = useState({ loaded: false, politicians: [] });
     useEffect(() => {
         (async () => {
             try {
@@ -13,7 +13,7 @@ const Party = (props) => {
                 setState(state => ({ ...state, ...party.data.party, loaded: true }));
                 getCandidates(0);
             }
-            catch(err){
+            catch (err) {
                 console.log(err);
                 navigate('/')
             }
@@ -22,7 +22,7 @@ const Party = (props) => {
     const getCandidates = async (len) => {
         try {
             let candidates = await axios.get(`/api/politician/party/${id}/${len}`);
-            setState(state => ({ ...state, politicians: candidates.data.politicians}));
+            setState(state => ({ ...state, politicians: candidates.data.politicians }));
         }
         catch (err) {
             console.log(err);
@@ -39,8 +39,12 @@ const Party = (props) => {
                         <h1>{state.commonName}</h1>
                         <p>{state.name}, {state.country}</p>
                     </div>
-                </div>
+                    
                 <p className="party-description">{state.moreDetails}</p>
+                </div>
+                <h2>
+                    Active Politicians from the {state.name}  
+                </h2>
                 <div className="party-candidates">
                     {state.politicians.map((candidate, index) => {
                         return <Candidate partyName={state.commonName} {...candidate} />

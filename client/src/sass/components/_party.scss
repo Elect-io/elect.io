@@ -1,7 +1,47 @@
 .party {
+    max-width: 150rem;
+    margin: 0 auto;
+    padding: 4rem;
+
+    &-description {
+        width: 50%;
+        padding:3rem;
+        border-left: 1px solid rgba(#000, 0.2);
+        // width: 100%;
+    }
+    h2{
+        font-size: 2rem;
+        margin: 4rem auto;
+    }
+    &-header {
+        display: flex;
+        align-items: center;
+        margin: 0 0 3rem;
+
+        img {
+            width: 10rem;
+            margin-right: 2rem;
+        }
+
+        h1 {
+            margin: 0 auto;
+            font-size: 3rem;
+        }
+
+        p {
+            margin: .4rem auto;
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 1.4rem;
+        }
+
+        border-radius: 2rem;
+        padding:2rem;
+        box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
+    }
+
     &-snippet {
         width: 100%;
-        max-width:40rem;
+        max-width: 40rem;
         box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
         border-radius: 1rem;
         padding: 2rem;
@@ -25,5 +65,11 @@
             }
 
         }
+    }
+    &-candidates{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 4rem auto;
     }
 }

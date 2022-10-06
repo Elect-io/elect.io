@@ -19,7 +19,8 @@ const Candidate = (props) => {
             <img alt={props.name} src={props.picture} />
             <div>
                 <h3>{props.name}</h3>
-                <h3>{props.partyName || state.partyName}</h3>
+                <h3>{props.partyName || state.partyName}, {props.state}, {props.country}</h3>
+                
             </div>
         </div>
         <div className='candidate-snippet-heading'>

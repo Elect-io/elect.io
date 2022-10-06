@@ -21,9 +21,7 @@ router.get('/:id', auth, async (req, res) => {
         let totalQuestions = 0;
         let matchingQuestions = 0
         for (let i = 0; i < questions.length; i++) {
-
             const answer = await Answer.findOne({ user: user._id, question: questions[i]._id });
-            console.log(answer)
             if (answer !== undefined) {
                 const politicianAnswer = await PoliticianAnswer.findOne({ question: questions[i]._id, politician: politician._id });
 
