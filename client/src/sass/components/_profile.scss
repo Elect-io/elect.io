@@ -1,5 +1,7 @@
 .profile {
     padding: 4rem;
+    max-width: 150rem;
+    margin: 0 auto;
 
     &-dropdown {
         border: 1px solid $tertiaryColor;
@@ -45,10 +47,11 @@
 
             // justify-content: space-between;
             &-each {
-                &:hover{
+                &:hover {
                     background-color: $inputColor;
                     transform: skew(-4deg);
                 }
+
                 cursor: pointer;
                 margin: 1rem auto;
                 display: flex;
@@ -200,7 +203,7 @@
         padding: 1.4rem;
         border-radius: 1rem;
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-
+       
         &-each {
             display: flex;
             justify-content: space-between;

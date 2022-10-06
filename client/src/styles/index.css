@@ -562,6 +562,8 @@
 
 .profile {
   padding: 4rem;
+  max-width: 150rem;
+  margin: 0 auto;
 }
 .profile-dropdown {
   border: 1px solid #AEAEAE;
@@ -1024,6 +1026,54 @@
 }
 .candidate-snippet-opposes div p, .candidate-snippet-advocates div p {
   margin: 0 1rem;
+}
+.candidate-opposes, .candidate-advocates {
+  margin: 0rem auto 2rem;
+  display: flex;
+  flex-wrap: wrap;
+}
+.candidate-opposes-more, .candidate-advocates-more {
+  display: block;
+  width: 100%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.7);
+}
+.candidate-opposes div, .candidate-advocates div {
+  font-size: 1.2rem;
+  padding: 1rem;
+  box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.4);
+  display: flex;
+  margin: 1rem 1rem 0 0;
+  border-radius: 1rem;
+  align-items: center;
+}
+.candidate-opposes div p, .candidate-advocates div p {
+  margin: 0 1rem;
+}
+
+.party-snippet {
+  width: 100%;
+  max-width: 40rem;
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+}
+.party-snippet img {
+  width: 10rem;
+  margin-right: 3rem;
+}
+.party-snippet h3 {
+  text-decoration: none !important;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.6rem;
+  margin: 1rem auto;
+}
+.party-snippet h3:first-child {
+  font-size: 3rem;
+  margin: 0 auto;
 }
 
 body {

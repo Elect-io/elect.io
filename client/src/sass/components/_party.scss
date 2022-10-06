@@ -1,0 +1,29 @@
+.party {
+    &-snippet {
+        width: 100%;
+        max-width:40rem;
+        box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
+        border-radius: 1rem;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+
+        img {
+            width: 10rem;
+            margin-right: 3rem;
+        }
+
+        h3 {
+            text-decoration: none !important;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 1.6rem;
+            margin: 1rem auto;
+
+            &:first-child {
+                font-size: 3rem;
+                margin: 0 auto;
+            }
+
+        }
+    }
+}

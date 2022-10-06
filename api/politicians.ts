@@ -20,7 +20,14 @@ import listOfReligions from '../util/listOfReligions';
 router.get('/:id', async (req, res) => {
     try {
         const politician = await Politician.findById(req.params.id);
-        return res.json({ politician });
+        if (!politician) {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        let party = null;
+        if(politician.partyAffiliation){
+            party = await Party.findById(politician.partyAffiliation);
+        }
+        return res.json({ politician, party });
     }
     catch (err) {
         if (err.kind === 'ObjectId') {

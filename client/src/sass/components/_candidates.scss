@@ -3,9 +3,11 @@
         max-width: 60rem;
         max-height: 80rem;
         overflow: auto;
+
         &-header {
             display: flex;
             cursor: pointer;
+
             img {
                 object-fit: cover;
                 height: 10rem;
@@ -36,8 +38,9 @@
 
         box-shadow: 0 0 .2rem rgba(0, 0, 0, 0.4);
         padding:2rem;
-        
+
         border-radius: 1rem;
+
         &-heading {
             align-items: center;
             font-weight: 600;
@@ -90,5 +93,39 @@
             flex-wrap: wrap;
             // grid-template-columns: 1fr 1fr 1fr;
         }
+    }
+
+    &-opposes,
+    &-advocates {
+        // padding-right: 2rem;
+
+        &-more {
+            display: block;
+
+            width: 100%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: rgba($secondaryColor, 0.7);
+        }
+
+        div {
+            font-size: 1.2rem;
+
+            p {
+                margin: 0 1rem;
+            }
+
+            padding:1rem;
+            box-shadow: 0 0 .2rem rgba(0, 0, 0, 0.4);
+            display: flex;
+            margin: 1rem 1rem 0 0;
+            border-radius: 1rem;
+            align-items: center;
+        }
+
+        margin: 0rem auto 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        // grid-template-columns: 1fr 1fr 1fr;
     }
 }
