@@ -3,15 +3,23 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { connect } from 'react-redux';
 const Candidate = (props) => {
-    const [state, setState] = React.useState({ answers: [], partyName: null, showMoreAdvocate: false, showMoreOppose: false });
+    const [state, setState] = React.useState({ answers: [], partyName: props.partyName, showMoreAdvocate: false, loaded: false, showMoreOppose: false });
     const navigate = useNavigate()
     React.useEffect(() => {
         (async () => {
             let answers = await axios.get('/api/answer-politician-general-question/' + props._id);
-            setState(state => ({ ...state, answers: answers.data.answers }));
+            setState(state => ({ ...state, answers: answers.data.answers, loaded: true }));
+            if (state.partyName?.length === 0 || !state.partyName) {
+                let party = await axios.get('/api/party/' + props.partyAffiliation);
+                console.log(party.data)
+                setState(state => ({ ...state, partyName: party.data.party.name }));
+            }
         })()
     }, [])
     console.log(props)
+    if (!state.loaded) {
+        return <div></div>
+    }
     return (<div className="candidate-snippet">
         <div onClick={() => {
             navigate('/candidate/' + props._id);
@@ -19,8 +27,8 @@ const Candidate = (props) => {
             <img alt={props.name} src={props.picture} />
             <div>
                 <h3>{props.name}</h3>
-                <h3>{props.partyName || state.partyName}, {props.state}, {props.country}</h3>
-                
+                <h3>{state.partyName ? state.partyName + ',' : ''} {props.state}, {props.country}</h3>
+
             </div>
         </div>
         <div className='candidate-snippet-heading'>

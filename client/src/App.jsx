@@ -21,6 +21,7 @@ const CreateCandidate = lazy(() => import('./components/candidate/create'));
 const EditCandidate = lazy(() => import('./components/candidate/edit'));
 
 const CreateElection = lazy(() => import('./components/election/create'));
+const Election = lazy(() => import('./components/election/index'));
 
 const EditElection = lazy(() => import('./components/election/edit'));
 const ModDashboard = lazy(() => import('./components/moderator/dashboard'));
@@ -60,7 +61,7 @@ class App extends React.Component {
                 <Route path="/profile" exact element={<div><Profile /></div>} />
                 <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
                 <Route path="/party/:id" exact element={<div><Party /></div>} />
-
+                <Route path="/election/:id" exact element={<div><Election /></div>} />
                 <Route path="/candidate/:id" exact element={<div><Candidate /></div>} />
                 {this.props.admin > 0 ?
 

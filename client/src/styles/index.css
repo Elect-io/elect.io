@@ -1117,6 +1117,80 @@
   margin: 4rem auto;
 }
 
+.election {
+  max-width: 150rem;
+  margin: 0 auto;
+  padding: 4rem;
+}
+.election-description {
+  width: 50%;
+  padding: 3rem;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+.election h2 {
+  font-size: 2rem;
+  margin: 4rem auto;
+}
+.election-header {
+  display: flex;
+  align-items: center;
+  margin: 0 0 3rem;
+  border-radius: 2rem;
+  padding: 2rem;
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
+}
+.election-header-right {
+  justify-content: center;
+  width: 50%;
+  display: flex;
+}
+.election-header iframe {
+  width: 50%;
+  border-radius: 1.5rem;
+}
+.election-header img {
+  width: 10rem;
+  margin-right: 2rem;
+}
+.election-header h1 {
+  margin: 0 auto;
+  font-size: 3rem;
+}
+.election-header p {
+  margin: 0.4rem auto;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 1.4rem;
+}
+.election-snippet {
+  width: 100%;
+  max-width: 40rem;
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+}
+.election-snippet img {
+  width: 10rem;
+  margin-right: 3rem;
+}
+.election-snippet h3 {
+  text-decoration: none !important;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.6rem;
+  margin: 1rem auto;
+}
+.election-snippet h3:first-child {
+  font-size: 3rem;
+  margin: 0 auto;
+}
+.election-candidates {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 4rem auto;
+}
+
 body {
   margin: 0;
   padding: 0;
