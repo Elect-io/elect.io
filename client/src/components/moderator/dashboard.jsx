@@ -31,10 +31,14 @@ const Dashboard = (props) => {
         editCandidate: '',
         editElection: '',
         softResetCode: '',
-        partyId:'',
-        answerCandidate:'',
+        partyId: '',
+        answerCandidate: '',
         hardResetCode: ''
     });
+    const [specificElections, setSpecificElections] = React.useState({
+        election_id: '',
+        politician_id: ''
+    })
     const history = useHistory();
     if (props.admin.mods.length > mods.length) {
         setMods(props.admin.mods);
@@ -221,35 +225,45 @@ const Dashboard = (props) => {
                 </div>
             </div>
             <div className="dashboard-row-mod"><h3 className="dashboard-row-item-header">Answer Election Specific Questions as a Politician</h3>
-                <div className="dashboard-row-mod-container">
-                    <div className="dashboard-row-mod-input">
+                <div  className="dashboard-row-mod-container">
+                 
+                    <form onSubmit={async (e) => {
+                    e.preventDefault()
+                    console.log('form')
+                    history(`/assessment/election/${specificElections.election_id}/${specificElections.politician_id}`);
+                }} className="dashboard-row-mod-input">
                         <p>Enter Election ID</p>
-                        <input placeholder="Election's ID" />
-                    </div>
-                    <div className="dashboard-row-mod-input">
+                        <input placeholder="Election's ID" value={specificElections.election_id} onChange={(e) => setSpecificElections(a => ({ ...a, election_id: e.target.value }))} />
+                    </form>
+                    <form onSubmit={async (e) => {
+                    e.preventDefault()
+                    console.log('form')
+                    history(`/assessment/${specificElections.election_id}/${specificElections.politician_id}`);
+                }} className="dashboard-row-mod-input">
                         <p>Enter Politician's ID</p>
-                        <input placeholder="Politician's id" />
-                    </div>
+                        <input placeholder="Politician's id" value={specificElections.politician_id} onChange={(e) => setSpecificElections(a => ({ ...a, politician_id: e.target.value }))} />
+                    </form>
                 </div>
             </div>
             <div className="dashboard-row-mod">
-                    <div className="dashboard-row-mod-container">
-                        <form onSubmit={async (e) => {
-                            try {
-                                e.preventDefault();
-                                history('/edit/party/' + state.partyId);
-                            }
-                            catch (err) {
-                                console.log(err);
-                            }
-                        }} className="dashboard-row-mod-input">
-                            <p>Edit Political Party</p>
-                            <input placeholder="Party Id" value={state.partyId} onChange={async (e) => {
-                                setState(state => ({ ...state, partyId: e.target.value }))
-                            }} />
-                        </form>
-                    </div>
+                <div className="dashboard-row-mod-container">
+                    <form onSubmit={async (e) => {
+                        
+                        e.preventDefault();
+                        try {
+                            history('/edit/party/' + state.partyId);
+                        }
+                        catch (err) {
+                            console.log(err);
+                        }
+                    }} className="dashboard-row-mod-input">
+                        <p>Edit Political Party</p>
+                        <input placeholder="Party Id" value={state.partyId} onChange={async (e) => {
+                            setState(state => ({ ...state, partyId: e.target.value }))
+                        }} />
+                    </form>
                 </div>
+            </div>
         </div>
         <h2 className="dashboard-title">
             Overview

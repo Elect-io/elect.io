@@ -145,6 +145,7 @@ router.get('/:id', auth, async (req, res) => {
         }
         for (let i = 0; i < election.politicians.length; i++) {
             let a:any = await Politician.findById(election.politicians[i]);
+            
             await politicians.push(a)
         }
         // election.politicians = politicians;

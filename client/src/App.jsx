@@ -7,6 +7,7 @@ import { loadProfile } from './actions/auth';
 import General from './components/assessment/general';
 import { getAllQuestions } from './actions/poll';
 import Candidate from './components/candidate/candidate';
+import TakeElectionQuizAsACandidate from './components/moderator/takeElectionQuizAsACandidate';
 const SideBar = lazy(() => import('./components/reusables/sidebar'));
 const Login = lazy(() => import('./components/auth/login'));
 const Signup = lazy(() => import('./components/auth/signup'));
@@ -74,6 +75,7 @@ class App extends React.Component {
                     <Route path='/create/party/' exact element={<div><CreateParty /></div>} />
                     <Route path='/edit/party/:id' exact element={<div><EditParty /></div>} />
                     <Route path='/assessment/general/:id' exact element={<div><TakeQuizAsCandidate /></div>} />
+                    <Route path='/assessment/:election/:id' exact element={<div><TakeElectionQuizAsACandidate /></div>} />
 
                   </>
                   : null}
