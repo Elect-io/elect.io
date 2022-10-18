@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { connect } from 'react-redux';
 const Candidate = (props) => {
-    const [state, setState] = React.useState({ answers: [], partyName: props.partyName, showMoreAdvocate: false, loaded: false, showMoreOppose: false });
+    const [state, setState] = React.useState({ answers: [], partyName: props.partyName, showMoreAdvocate: false, loaded: false, showMoreOppose: false, matchesBy: null, });
     const navigate = useNavigate()
     React.useEffect(() => {
         (async () => {
@@ -14,6 +14,9 @@ const Candidate = (props) => {
                 console.log(party.data)
                 setState(state => ({ ...state, partyName: party.data.party.name }));
             }
+            let analyze = await axios.get('/api/analyze/' + props._id);
+            let matchesBy = Math.round((analyze.data.matchingQuestions * 100 *100) / analyze.data.totalQuestions) / 100;
+            setState(state => ({ ...state, matchesBy: matchesBy}));
         })()
     }, [])
     console.log(props)
@@ -89,6 +92,10 @@ const Candidate = (props) => {
             }).length > 5 ? !state.showMoreOppose ? <p className='candidate-snippet-advocates-more' onClick={(a) => setState(state => ({ ...state, showMoreOppose: true }))}>View More</p> : <p onClick={(a) => setState(state => ({ ...state, showMoreOppose: false }))} className='candidate-snippet-advocates-more'>Show Less</p> : null}
 
         </div>
+        <div className='candidate-snippet-heading'>
+            <p>Matches your perfect candidate by <span style={state.matchesBy > 90? {color:'#4DCF05'}: state.matchesBy>70? {color:'#84DD52'}: state.matchesBy>50? {color:'#BBDD52'}: state.matchesBy>35?{color:'#CFC605'}:{color:'#CF2905'}}>{state.matchesBy}% </span></p>
+        </div>
+
     </div>)
 
 }
