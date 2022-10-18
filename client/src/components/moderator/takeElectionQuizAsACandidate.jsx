@@ -32,13 +32,15 @@ const General = (props) => {
             let politician = await axios.get(`/api/politician/${id}`);
             let answers = await axios.get('/api/answer-politician-general-question/' + id);
             let Election = await axios.get('/api/election/' + election);
-            setState(state => ({ ...state, politician: politician.data.politician, answers: answers.data.answers, election: Election.data.election }))
+           
+            let questions = await axios.get(`/api/election-specific-question/${election}`);
+            setState(state => ({ ...state, politician: politician.data.politician, answers: answers.data.answers, election: Election.data.election, questions: questions.data.questions, loaded:true}))
         }))()
     }, []);
     const setAnswer = async (answer, previousAnswer) => {
         console.log("set answer")
         console.log(answer)
-        let answer1 = await axios.post('/api/answer-politician-general-question/' + props.generalQuestions.questions[state.current]._id + '/' + id + '/' + answer, { source: state.source[0]?.length > 4 ? state.source[0] : previousAnswer?.source[0].length > 4 ? previousAnswer.source[0] : 'none' });
+        let answer1 = await axios.post('/api/answer-politician-general-question/' + state.questions[state.current]._id + '/' + id + '/' + answer, { source: state.source[0]?.length > 4 ? state.source[0] : previousAnswer?.source[0].length > 4 ? previousAnswer.source[0] : 'none' });
         let exists = state.answers.find(a => a.question.toString() === answer1.data.answer.question.toString())
         if (!exists) {
             setState(state => ({ ...state, answers: [...state.answers, answer1.data.answer], source: '' }))
@@ -63,7 +65,7 @@ const General = (props) => {
     }
     const right = () => {
         let answer = state.answers.find(a => {
-            if (a.question.toString() === props.generalQuestions.questions[state.current + 1]?._id.toString()) {
+            if (a.question.toString() === state.questions[state.current + 1]?._id.toString()) {
                 return a;
             }
         })
@@ -80,7 +82,7 @@ const General = (props) => {
 
     const left = () => {
         let answer = state.answers.find(a => {
-            if (a.question.toString() === props.generalQuestions.questions[state.current - 1]._id.toString()) {
+            if (a.question.toString() === state.questions[state.current - 1]._id.toString()) {
                 return a;
             }
         })
@@ -93,12 +95,12 @@ const General = (props) => {
         setState(state => ({ ...state, current: state.current - 1 }));
     }
     const answers = ["Strongly Agree", "Agree", "Unsure", "Disagree", "Strongly Disagree"]
-    if (props.generalQuestions.loaded) {
-        if (!props.generalQuestions.questions[state.current]) {
+    if (state.loaded) {
+        if (!state.questions[state.current]) {
             return <Redirect to={'/candidate/' + id} />
         }
         let answer = state.answers.find(a => {
-            if (a.question.toString() === props.generalQuestions.questions[state.current]._id.toString()) {
+            if (a.question.toString() === state.questions[state.current]._id.toString()) {
                 return a;
             }
         })
@@ -132,7 +134,7 @@ const General = (props) => {
                     <div className="poll-general">
                         <div className="poll-general-question">
                             <h2 className="poll-general-question-title">
-                                {props.generalQuestions.questions[state.current].question}
+                                {state.questions[state.current].question}
                             </h2>
                             <div className="poll-general-question-answer">
                                 {answers.map((a, index) => <p onClick={setAnswer.bind(this, index, answer)} className={answer?.answer === index ? "poll-general-question-answer-each poll-general-question-answer-each-selected" : "poll-general-question-answer-each"}>
@@ -163,10 +165,10 @@ const General = (props) => {
                             </div>
                         </div>
                         <div className="poll-general-key">
-                            {props.generalQuestions.questions.map((question, index) => {
+                            {state.questions.map((question, index) => {
                                 return <div className="poll-general-key-each" onClick={() => {
                                     let answer = state.answers.find(a => {
-                                        if (a.question.toString() === props.generalQuestions.questions[index]._id.toString()) {
+                                        if (a.question.toString() === state.questions[index]._id.toString()) {
                                             return a;
                                         }
                                     })
