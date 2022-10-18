@@ -1146,6 +1146,10 @@
 }
 .election-header-snippet .election-header-right {
   width: 100% !important;
+  margin-top: 2rem;
+  display: block !important;
+}
+.election-header-snippet .election-header-right div {
   display: block;
 }
 .election-header-snippet iframe {
