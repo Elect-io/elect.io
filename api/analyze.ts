@@ -26,7 +26,7 @@ router.get('/:id', auth, async (req, res) => {
                 const politicianAnswer = await PoliticianAnswer.findOne({ question: questions[i]._id, politician: politician._id });
 
                 if (politicianAnswer !== undefined && politicianAnswer !== null) {
-                    console.log(politicianAnswer)
+               
                     if (answer.answer === politicianAnswer.answer) {
                         matchingQuestions += 1;
                     }

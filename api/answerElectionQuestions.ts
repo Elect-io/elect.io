@@ -20,7 +20,7 @@ router.get('/election/:id', auth, async (req, res) => {
      
         let answers:any = [];
         for (let i = 0; i < questions.length; i++) {
-            const answer = await Answer.findOne({ question: questions[i]._id});
+            const answer = await Answer.findOne({ question: questions[i]._id, user:user._id});
             answers = [...answers, answer];
         }
         if (!election) {

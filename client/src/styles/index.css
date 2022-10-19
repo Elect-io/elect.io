@@ -1162,7 +1162,14 @@
 .election-header-right {
   justify-content: center;
   width: 50%;
+  align-items: center;
+  flex-direction: column;
   display: flex;
+}
+.election-header-right div:nth-child(2) {
+  color: #fff !important;
+  display: block;
+  margin-top: 2rem;
 }
 .election-header iframe {
   width: 50%;

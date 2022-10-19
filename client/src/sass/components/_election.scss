@@ -24,8 +24,11 @@
 
         &-snippet &-right {
             width: 100% !important;
-            margin-top: 2rem;;
-            display: block !important;;
+            margin-top: 2rem;
+            ;
+            display: block !important;
+            ;
+
             div {
                 display: block;
             }
@@ -43,7 +46,14 @@
 
         &-right {
             justify-content: center;
+            div:nth-child(2){
+                color:#fff !important;
+                display: block;
+                margin-top: 2rem;
+            }
             width: 50%;
+            align-items: center;
+            flex-direction: column;
             display: flex;
         }
 

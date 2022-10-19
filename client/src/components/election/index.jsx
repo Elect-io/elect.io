@@ -2,6 +2,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import Snippet from '../candidate/snippet';
+
+import Analyze from '../buttons/assessment';
+import { connect } from 'react-redux'
+import Exclaim from '../../icons/exclaim';
 const Election = (props) => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -36,7 +40,18 @@ const Election = (props) => {
                     <p>{state.location.city ? state.location.city + ', ' : ''}{state.location.state ? state.location.state + ', ' : ''}{state.location.country}</p>
                     <p>{months[date.getMonth()]}, {date.getDate()}th, {date.getFullYear()}</p>
                 </div>
+                <div>
+                    <Analyze id={id} />
+                    <div>
+                        {state.answers.length === state.questions.length ? <p className="home-header-para-success">
+                            <Exclaim />  You have already answered all questions pertaining to this election
+                        </p> : <p className="home-header-para-general">
+                            <Exclaim />  You have {state.questions.length - state.answers.length} unanswered questions
+                        </p>}
+                    </div>
+                </div>
             </div>
+
         </div>
         <h2>Candidates</h2>
         <div className='election-candidates'>
