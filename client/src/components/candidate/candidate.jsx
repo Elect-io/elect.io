@@ -123,7 +123,7 @@ const Profile = (props) => {
                     <svg width="15" height="15" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10 1.66699C5.40001 1.66699 1.66667 5.40033 1.66667 10.0003C1.66667 14.6003 5.40001 18.3337 10 18.3337C14.6 18.3337 18.3333 14.6003 18.3333 10.0003C18.3333 5.40033 14.6 1.66699 10 1.66699ZM9.16667 5.83366V9.16699H5.83334V10.8337H9.16667V14.167H10.8333V10.8337H14.1667V9.16699H10.8333V5.83366H9.16667ZM3.33334 10.0003C3.33334 13.6753 6.32501 16.667 10 16.667C13.675 16.667 16.6667 13.6753 16.6667 10.0003C16.6667 6.32533 13.675 3.33366 10 3.33366C6.32501 3.33366 3.33334 6.32533 3.33334 10.0003Z" fill="#6BE193" />
                     </svg>
-                    <p>{props.generalQuestions.questions.find(q => q._id.toString() === a.question.toString()).hook}</p>
+                    <p>{props.generalQuestions.questions.find(q => q._id.toString() === a.question.toString())?.hook}</p>
                 </div>)
             })}
         </div>
@@ -144,7 +144,7 @@ const Profile = (props) => {
                     <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M6.625 1C3.865 1 1.625 3.24 1.625 6C1.625 8.76 3.865 11 6.625 11C9.385 11 11.625 8.76 11.625 6C11.625 3.24 9.385 1 6.625 1ZM2.625 6C2.625 8.205 4.42 10 6.625 10C8.83 10 10.625 8.205 10.625 6C10.625 3.795 8.83 2 6.625 2C4.42 2 2.625 3.795 2.625 6ZM4.125 5.5V6.5H9.125V5.5H4.125Z" fill="#FF4F4F" />
                     </svg>
-                    <p>{props.generalQuestions.questions.find(q => q._id.toString() === a.question.toString()).hook}</p>
+                    <p>{props.generalQuestions.questions.find(q => q._id.toString() === a.question.toString())?.hook}</p>
 
                 </div>)
             })}

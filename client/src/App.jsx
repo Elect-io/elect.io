@@ -8,6 +8,7 @@ import General from './components/assessment/general';
 import { getAllQuestions } from './actions/poll';
 import Candidate from './components/candidate/candidate';
 import TakeElectionQuizAsACandidate from './components/moderator/takeElectionQuizAsACandidate';
+import Others from './components/assessment/others';
 const SideBar = lazy(() => import('./components/reusables/sidebar'));
 const Login = lazy(() => import('./components/auth/login'));
 const Signup = lazy(() => import('./components/auth/signup'));
@@ -59,6 +60,8 @@ class App extends React.Component {
               <Switch>
                 <Route path="/" element={<div><Home /></div>} />
                 <Route path="/assessment/general" exact element={<div><General /></div>} />
+                
+                <Route path="/assessment/:id" exact element={<div><Others /></div>} />
                 <Route path="/profile" exact element={<div><Profile /></div>} />
                 <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
                 <Route path="/party/:id" exact element={<div><Party /></div>} />
