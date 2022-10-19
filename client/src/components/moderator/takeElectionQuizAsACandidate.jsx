@@ -29,18 +29,15 @@ const General = (props) => {
     React.useEffect(() => {
 
         ((async () => {
-            let politician = await axios.get(`/api/politician/${id}`);
-            let answers = await axios.get('/api/answer-politician-general-question/' + id);
-            let Election = await axios.get('/api/election/' + election);
-           
-            let questions = await axios.get(`/api/election-specific-question/${election}`);
-            setState(state => ({ ...state, politician: politician.data.politician, answers: answers.data.answers, election: Election.data.election, questions: questions.data.questions, loaded:true}))
+            let Election = await axios.get(`/api/answer-politician-election-question/election/${election}/${id}`);
+           console.log(Election.data)
+            setState(state => ({ ...state, politician: Election.data.politician, answers: Election.data.answers, election: Election.data.election, questions: Election.data.questions, loaded: true }))
         }))()
     }, []);
     const setAnswer = async (answer, previousAnswer) => {
         console.log("set answer")
         console.log(answer)
-        let answer1 = await axios.post('/api/answer-politician-general-question/' + state.questions[state.current]._id + '/' + id + '/' + answer, { source: state.source[0]?.length > 4 ? state.source[0] : previousAnswer?.source[0].length > 4 ? previousAnswer.source[0] : 'none' });
+        let answer1 = await axios.post('/api/answer-politician-election-question/' + state.questions[state.current]._id + '/' + id + '/' + answer, { source: state.source[0]?.length > 4 ? state.source[0] : previousAnswer?.source[0].length > 4 ? previousAnswer.source[0] : 'none' });
         let exists = state.answers.find(a => a.question.toString() === answer1.data.answer.question.toString())
         if (!exists) {
             setState(state => ({ ...state, answers: [...state.answers, answer1.data.answer], source: '' }))
@@ -100,7 +97,7 @@ const General = (props) => {
             return <Redirect to={'/candidate/' + id} />
         }
         let answer = state.answers.find(a => {
-            if (a.question.toString() === state.questions[state.current]._id.toString()) {
+            if (a.question?.toString() === state.questions[state.current]._id.toString()) {
                 return a;
             }
         })
@@ -174,7 +171,7 @@ const General = (props) => {
                                     })
                                     setState(state => ({ ...state, current: index, source: answer ? answer?.source : ['', ''] }))
 
-                                }}><div className={index === state.current ? "poll-general-key-each-selected" : "poll-general-key-each-unselected"}><div className={state.answers.find(a => a.question.toString() === question._id.toString()) ? "poll-general-key-each-filled" : null} /></div> </div>
+                                }}><div className={index === state.current ? "poll-general-key-each-selected" : "poll-general-key-each-unselected"}><div className={state.answers.find(a => a?.question?.toString() === question._id.toString()) ? "poll-general-key-each-filled" : null} /></div> </div>
                             })
                             }
                         </div>

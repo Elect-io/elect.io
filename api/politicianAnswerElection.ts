@@ -8,6 +8,29 @@ import User from '../models/user';
 import Answer from '../models/politicianAnswers';
 import auth from '../middlewares/auth';
 
+router.get('/election/:id/:politician', async (req, res) => {
+    try {
+        const election = await Election.findById(req.params.id);
+        const politician = await Politician.findById(req.params.politician);
+        const questions = await Question.find({ election: election._id });
+        let answers:any = [];
+        for (let i = 0; i < questions.length; i++) {
+            const answer = await Answer.findOne({ politician: politician._id, question: questions[i]._id});
+            answers = [...answers, answer];
+        }
+        if (!election || !politician) {
+            return res.status(404).json({ error: "Not Found"});
+        }
+        res.json({ election, politician, questions, answers });
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
 router.get('/:politician/:id', async (req, res) => {
     try {
         const politician = await Politician.findById(req.params.politician);
@@ -33,7 +56,7 @@ router.post('/:id/:politician/:answer', [auth, validator([{ name: "source" }])],
     try {
         const user = await User.findById(req.user);
         const answer = Number(req.params.answer);
-        let {source} = req.body;
+        let { source } = req.body;
         const politician = await Politician.findById(req.params.politician);
         if (!politician) {
             return res.status(404).json({ error: "Not Found" })
@@ -46,14 +69,14 @@ router.post('/:id/:politician/:answer', [auth, validator([{ name: "source" }])],
         }
         const question = await Question.findById(req.params.id);
         const exists = await Answer.findOne({ question: question._id, politician: politician._id });
-       
+
         if (exists) {
             if (user.admin < 2 && politician.user !== user._id) {
                 return res.status(401).json({ error: "You need to be at least an admin to access this route" })
             }
-           
+
             exists.answer = answer;
-            exists.source = [...exists.source, [source, user._id]];
+            exists.source = source;
             exists.editors = [...exists.editors, user._id];
             await exists.save();
             await politician.save()
@@ -66,7 +89,7 @@ router.post('/:id/:politician/:answer', [auth, validator([{ name: "source" }])],
                 createdBy: user._id,
                 politician: politician._id,
                 editors: [user._id],
-                source:[source, user._id],
+                source,
                 answer
             });
 
