@@ -31,9 +31,9 @@ router.get('/location', async (req, res) => {
             console.log(electionType)
             console.log('2')
             const elections = await Election.find({
-                location: {
-                    country
-                }, type: electionType
+                'location.country': country,
+                'location.state': state, 
+                type: electionType
             }).skip(Number(offset)).limit(10);
             console.log( {
                 country, state
