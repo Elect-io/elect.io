@@ -13,6 +13,56 @@ import listOfCountries from '../util/listOfCountries';
 import listOfAmericanStates from '../util/listOfAmericanStates';
 
 
+router.get('/location', async (req, res) => {
+    try {
+        console.log('get location');
+        const { country, state, electionType, offset } = req.query;
+        console.log(state)
+
+        if (state !== 'null' && state) {
+            console.log('1')
+            if (!electionType || electionType === "null") {
+                const elections = await Election.find({
+                    'location.country': country,
+                    'location.state': state
+                }).skip(Number(offset)).limit(10);
+                return res.json({ elections });
+            }
+            console.log(electionType)
+            console.log('2')
+            const elections = await Election.find({
+                location: {
+                    country
+                }, type: electionType
+            }).skip(Number(offset)).limit(10);
+            console.log( {
+                country, state
+            })
+            return res.json({ elections });
+        }
+        if (!electionType || electionType === "null") {
+            console.log('3')
+            const elections = await Election.find({
+                'location.country': country
+            }).skip(Number(offset)).limit(10);
+            return res.json({ elections });
+        }
+
+        console.log('4')
+        const elections = await Election.find({
+            'location.country': country, type: electionType
+        }).skip(Number(offset)).limit(10);
+        return res.json({ elections });
+
+    }
+    catch (err) {
+        if (err.kind === 'ObjectId') {
+            return res.status(404).json({ error: "Not Found" })
+        }
+        console.log(err);
+        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
+    }
+})
 
 router.post('/', [auth, validator([{ name: "politicians" }, { name: "date" }, { name: "type" }, { name: "For" }, { name: "country" }])], async (req, res) => {
     try {
@@ -153,7 +203,7 @@ router.get('/:id', auth, async (req, res) => {
         let questions = await Question.find({ election: election._id });
         let answers: any = [];
         for (let i = 0; i < questions.length; i++) {
-            let answer = await Answer.findOne({ user: user._id, question: questions[i]._id});
+            let answer = await Answer.findOne({ user: user._id, question: questions[i]._id });
             console.log(answer)
             answers = [...answers, answer];
         }
@@ -184,22 +234,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 })
 
-router.get('/location/:skip', async (req, res) => {
-    try {
-        const { country, state, city, district } = req.query;
-        const elections = await Election.find({
-            country, state, city, district
-        }).skip(Number(req.params.skip)).limit(10);
-        return res.json({ elections });
-    }
-    catch (err) {
-        if (err.kind === 'ObjectId') {
-            return res.status(404).json({ error: "Not Found" })
-        }
-        console.log(err);
-        return res.status(500).json({ error: "We can't process your request at this moment. Please try again later!" })
-    }
-})
+
 
 router.delete('/:id', auth, async (req, res) => {
     try {

@@ -51,7 +51,6 @@ const Election = (props) => {
                     </div>
                 </div>
             </div>
-
         </div>
         <h2>Candidates</h2>
         <div className='election-candidates'>

@@ -1,6 +1,10 @@
 .home {
     padding: 4rem;
 
+    h3 {
+        font-size: 2rem;
+    }
+
     &-header {
         display: flex;
         width: 100%;
@@ -8,26 +12,31 @@
         justify-content: space-between;
 
         &-para {
-            &-success{
+            &-success {
                 padding: 1.5rem;
                 font-size: 1.2rem;
                 display: flex;
                 align-items: center;
-                svg{
+
+                svg {
                     margin-right: 1rem;
                 }
+
                 border-radius: .75rem;
                 box-shadow: 0 0 .4rem rgba(0, 0, 0, 0.2);
             }
+
             &-general {
                 padding: 1.5rem;
                 font-size: 1.2rem;
-                
+
                 display: flex;
                 align-items: center;
-                svg{
+
+                svg {
                     margin-right: 1rem;
                 }
+
                 border-radius: .75rem;
                 box-shadow: 0 0 .4rem rgba(0, 0, 0, 0.2);
             }
@@ -41,8 +50,50 @@
                 justify-content: space-between;
                 display: flex;
 
+                &-election {
+                    .profile-dropdown {
+                        background-color: #fff !important;
+                        border: none !important;
+                        height: 40rem !important;
+                    }
+
+                    &-text {
+                        font-weight: 600;
+                        font-size: 1.5rem;
+                        margin: 0;
+                    }
+
+                    &-dropdown {
+                        border: none !important;
+                        min-width: 20rem;
+                        border-radius: 1rem;
+                        background-color: transparent !important;
+                        font-size: 1.4rem;
+
+                        padding-left: 1rem;
+
+                        p {
+
+                            display: flex;
+                            position: relative;
+                            align-items: center;
+                            justify-content: space-between;
+                        }
+
+                        span {
+                            position: absolute;
+                            right: 0;
+                            top: 40%;
+                            transform: translate(-50%, -50%);
+                        }
+                    }
+
+                    width: 15rem;
+
+                }
+
                 &-each {
-                    &-text{
+                    &-text {
                         font-weight: 600;
                         font-size: 1.5rem;
                         margin: 0;
@@ -57,5 +108,16 @@
                 font-weight: 700;
             }
         }
+    }
+
+    &-elections {
+        &-container {
+            display: grid;
+            grid-gap: 4rem;
+            grid-template-columns: 1fr 1fr 1fr ;
+        }
+
+        // display: flex;
+        width: 100%;
     }
 }
