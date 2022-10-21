@@ -24,9 +24,6 @@ class SideBar extends React.Component {
                     this.setState({ selected: 1 });
                     break
                 case "mod":
-                    this.setState({ selected: 4 });
-                    break;
-                case "elections":
                     this.setState({ selected: 3 });
                     break;
                 default:
@@ -53,9 +50,8 @@ class SideBar extends React.Component {
             </div>
 
             <Link to="/" className="sidebar-each"><Vector onClick={() => this.setState({ selected: 2 })} active={this.state.selected === 2} /></Link>
-            <Link to="/elections" className="sidebar-each"><Group onClick={() => this.setState({ selected: 3 })} active={this.state.selected === 3} /></Link>
-
-            {this.props.admin?<Link to="/mod/dashboard"><DashboardIcon className={this.state.selected===4? "sidebar-icon sidebar-icon-selected":"sidebar-icon"} onClick={() => this.setState({ selected: 4 })} active={this.state.selected === 4} /></Link>:null}
+         
+            {this.props.admin?<Link to="/mod/dashboard"><DashboardIcon className={this.state.selected===3? "sidebar-icon sidebar-icon-selected":"sidebar-icon"} onClick={() => this.setState({ selected: 3 })} active={this.state.selected === 3} /></Link>:null}
         </div>)
     }
 }

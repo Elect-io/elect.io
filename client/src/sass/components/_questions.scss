@@ -2,20 +2,28 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
+
     align-items: center;
     height: 100vh;
-    &-politician{
-        img{
+
+    &-politician {
+        // height: auto;
+        @include respond(phone) {
+            margin-bottom: 60rem;
+        
+        }
+        img {
             width: 10rem;
             height: 10rem;
             border-radius: 100%;
             object-fit: cover;
             margin-right: 2rem;
         }
-        &-input + p{
+        &-input+p {
             font-size: 1.4rem;
         }
-        &-input{
+
+        &-input {
             border: 1px solid $tertiaryColor;
 
             background-color: $inputColor;
@@ -26,25 +34,38 @@
 
             border-radius: 1rem;
             font-size: 1.6rem;
-            margin: 4rem auto 1rem; 
+            margin: 4rem auto 1rem;
             width: 100%;
             padding:1rem;
             height: 3rem;
         }
-        h3{
+
+        h3 {
             font-size: 3rem;
             font-weight: 300;
         }
-        p{            
+
+        p {
             font-size: 2rem;
         }
-        div{
+
+        div {
             align-items: center;
             display: flex;
         }
     }
+
     &-politicians {
-        
+        @include respond(tablet) {
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            width: calc(100% - 4rem);
+            padding: 10rem 2rem;
+            height: calc(100vh - 20rem);
+        }
+
         display: flex;
         justify-content: space-around;
         width: 100%;
@@ -99,6 +120,10 @@
             max-height: 8rem;
             height: 100%;
 
+            @include respond(tablet) {
+                margin: 2rem auto;
+            }
+
             * {
                 margin: 0
             }
@@ -151,6 +176,12 @@
             }
         }
 
+        @include respond(tablet) {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
         display:flex;
         justify-content:space-between;
         align-items: center;
@@ -159,11 +190,15 @@
             width: 100%;
             max-width: 50rem;
 
+            @include respond(tablet) {
+                width: 100%;
+            }
+
             // margin-right: 3rem;
             &-answer {
                 &-each {
                     box-shadow: 0 .2rem .25rem rgba(0, 0, 0, 0.2);
-                    width: 100%;
+                    width: calc(100% - 2rem);
                     font-size: 1.4rem;
                     display: flex;
                     align-items: center;

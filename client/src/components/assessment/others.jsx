@@ -103,7 +103,8 @@ const General = (props) => {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         let date = new Date(state.election.date);
         return (
-            <div className="poll-politicians">
+          
+          <div className="poll-politicians">
                 <Link to={'/election/'+id} style={{color:'black', textDecoration:'none'}} className="poll-politician">
                   
                     <div className='election-header election-header-snippet'>
