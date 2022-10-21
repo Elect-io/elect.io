@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Routes as Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Routes as Switch, Route, BrowserRouter as Router, Navigate as Redirect, Link } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import setToken from './actions/setToken';
 import { loadProfile } from './actions/auth';
@@ -60,7 +60,7 @@ class App extends React.Component {
               <Switch>
                 <Route path="/" element={<div><Home /></div>} />
                 <Route path="/assessment/general" exact element={<div><General /></div>} />
-                
+
                 <Route path="/assessment/:id" exact element={<div><Others /></div>} />
                 <Route path="/profile" exact element={<div><Profile /></div>} />
                 <Route path="/profile/edit" exact element={<div><EditProfile /></div>} />
@@ -72,7 +72,6 @@ class App extends React.Component {
                   <><Route path="/mod/dashboard" exact element={<div><ModDashboard /></div>} />
                     <Route path='/create/candidate' exact element={<div><CreateCandidate /></div>} />
                     <Route path='/edit/candidate/:id' exact element={<div><EditCandidate /></div>} />
-
                     <Route path='/create/election' exact element={<div><CreateElection /></div>} />
                     <Route path='/edit/election/:id' exact element={<div><EditElection /></div>} />
                     <Route path='/create/party/' exact element={<div><CreateParty /></div>} />
@@ -88,6 +87,14 @@ class App extends React.Component {
                     <Route path='/edit/questions/:id' exact element={<div><EditElectionSpecificQuestions /></div>} />
                   </>
                   : null}
+                <Route path="*" element={<div className='not-found'>
+
+                  <h1>
+                    404
+                  </h1>
+                  <p>The page that you were looking for doesn't exist</p>
+                  <Link to="/">Let's go back to the home page?</Link>
+                </div>} />
 
               </Switch>
             </div>
@@ -123,7 +130,7 @@ class App extends React.Component {
 
               <div className="app-right">
                 <Switch>
-                  <Route path="/" element={<div>Home</div>} />
+                  <Route path="/" element={<Redirect to="/profile/sign-up" />} />
                   <Route path="/profile/login" element={<Login />} />
                   <Route path="/profile/forgot-password/:id" exact element={<ResetPassword />} />
                   <Route path="/profile/forgot-password" element={<ForgotPassword />} />
@@ -131,7 +138,7 @@ class App extends React.Component {
                   <Route path="/profile/socials/google/:id" element={<CreateFromGoogle />} />
                   <Route path="/profile/socials/merge/:id" element={<Merge />} />
                   <Route path="/profile/authenticate/:token" element={<Authenticate />} />
-
+                  <Route path="*" element={<Redirect to="/profile/sign-up" />} />
                 </Switch>
               </div>
             </div>
