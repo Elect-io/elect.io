@@ -33,7 +33,7 @@ app.use((req, res, next)=>{
 app.use(bodyParser.json({ extended: false, limit: '50mb' }));
 
 try {
-    app.listen(process.env.server_port, () => {
+    app.listen(process.env.PORT || process.env.port || process.env.server_port, () => {
         console.log(`Server started successfully; Listening on port ${process.env.server_port}`);
     });
 }
