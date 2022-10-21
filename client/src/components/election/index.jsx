@@ -39,17 +39,18 @@ const Election = (props) => {
                     <h1>{state.for}</h1>
                     <p>{state.location.city ? state.location.city + ', ' : ''}{state.location.state ? state.location.state + ', ' : ''}{state.location.country}</p>
                     <p>{months[date.getMonth()]}, {date.getDate()}th, {date.getFullYear()}</p>
-                </div>
-                <div>
-                    <Analyze id={id} />
-                    <div>
-                        {state.answers.length === state.questions.length ? <p className="home-header-para-success">
-                            <Exclaim />  You have already answered all questions pertaining to this election
-                        </p> : <p className="home-header-para-general">
-                            <Exclaim />  You have {state.questions.length - state.answers.length} unanswered questions
-                        </p>}
+                    <div style={{marginTop:'2rem'}}>
+                        <Analyze id={id} />
+                        <div>
+                            {state.answers.length === state.questions.length ? <p className="home-header-para-success">
+                                <Exclaim />  You have already answered all questions pertaining to this election
+                            </p> : <p className="home-header-para-general">
+                                <Exclaim />  You have {state.questions.length - state.answers.length} unanswered questions
+                            </p>}
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <h2>Candidates</h2>

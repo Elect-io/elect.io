@@ -2,6 +2,9 @@
     padding: 4rem;
     max-width: 150rem;
     margin: 0 auto;
+    @include respond(tablet) {
+        padding: 4rem 1rem;
+    }
 
     &-dropdown {
         border: 1px solid $tertiaryColor;
@@ -115,9 +118,19 @@
         display: flex;
         justify-content: space-between;
 
+        @include respond(tablet) {
+            display: block;
+        }
+
         &-left {
             display: flex;
             align-items: center;
+
+            @include respond(tablet) {
+                display: block;
+                text-align: center;
+
+            }
 
             &-image {
                 width: 15rem;
@@ -140,13 +153,22 @@
             }
 
             &-content {
+
                 font-weight: 300;
                 margin: 1rem 0;
                 font-size: 1.5rem
             }
         }
 
-        &-right {}
+        &-right {
+            @include respond(tablet){
+                display: flex;
+                margin-top: 2rem;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
 
     &-map {
@@ -203,7 +225,7 @@
         padding: 1.4rem;
         border-radius: 1rem;
         box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-       
+
         &-each {
             display: flex;
             justify-content: space-between;
@@ -217,6 +239,7 @@
 
             &-content {
                 font-size: 1.4rem;
+                text-align: right;
             }
 
             // box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -230,6 +253,13 @@
     &-body {
         margin-top: 4rem;
         display: grid;
+
+        @include respond(tablet) {
+            display: block;
+            // text-align: center;
+        }
+        
+
         grid-template-columns: 1fr 1fr;
     }
 }

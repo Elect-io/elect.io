@@ -15,7 +15,7 @@ const Snippet = (props) => {
                     </div>
                  
                 </div>
-                <iframe className='election-snippet-map' width="600" height="500" src={`https://maps.google.com/maps?q=${props.location.city ? props.location.city + ', ' : ''}${props.location.state ? props.location.state + ', ' : ''}${props.location.country}&iwloc=&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                <iframe className='election-snippet-map' width="200" height="200" src={`https://maps.google.com/maps?q=${props.location.city ? props.location.city + ', ' : ''}${props.location.state ? props.location.state + ', ' : ''}${props.location.country}&iwloc=&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
          
             </div>
 

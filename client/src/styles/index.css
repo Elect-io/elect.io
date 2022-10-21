@@ -13,6 +13,12 @@
   background-color: #000;
   transition: all 0.2s !important;
 }
+@media (max-width: 56.25em) {
+  .button-assessment {
+    width: calc(100% - 4rem);
+    max-width: 22rem !important;
+  }
+}
 .button-assessment p {
   margin: 0;
 }
@@ -350,6 +356,11 @@
 .home {
   padding: 4rem;
 }
+@media (max-width: 56.25em) {
+  .home {
+    padding: 4rem 0.2rem;
+  }
+}
 .home h3 {
   font-size: 2rem;
 }
@@ -358,6 +369,11 @@
   width: 100%;
   align-items: flex-start;
   justify-content: space-between;
+}
+@media (max-width: 56.25em) {
+  .home-header {
+    display: block;
+  }
 }
 .home-header-para-success {
   padding: 1.5rem;
@@ -386,6 +402,17 @@
   margin-top: 1rem;
   justify-content: space-between;
   display: flex;
+}
+@media (max-width: 45.5em) {
+  .home-header-top-input {
+    margin-bottom: 2rem;
+    display: block;
+  }
+}
+@media (max-width: 56.25em) {
+  .home-header-top-input {
+    width: auto;
+  }
 }
 .home-header-top-input-election {
   width: 15rem;
@@ -428,17 +455,34 @@
   font-size: 1.5rem;
   margin: 0;
 }
+@media (max-width: 56.25em) {
+  .home-header-top {
+    margin: 0 0 3rem;
+  }
+}
 .home-header-top-name {
   font-size: 2rem;
   font-weight: 700;
 }
 .home-elections {
-  width: 100%;
+  width: calc(100% - 4rem);
 }
 .home-elections-container {
   display: grid;
   grid-gap: 4rem;
   grid-template-columns: 1fr 1fr 1fr;
+}
+@media (max-width: 56.25em) {
+  .home-elections-container {
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 45.5em) {
+  .home-elections-container {
+    justify-content: center;
+    grid-template-columns: 1fr;
+  }
 }
 
 .poll {
@@ -609,6 +653,11 @@
   max-width: 150rem;
   margin: 0 auto;
 }
+@media (max-width: 56.25em) {
+  .profile {
+    padding: 4rem 1rem;
+  }
+}
 .profile-dropdown {
   border: 1px solid #AEAEAE;
   max-height: 15rem;
@@ -695,9 +744,20 @@
   display: flex;
   justify-content: space-between;
 }
+@media (max-width: 56.25em) {
+  .profile-header {
+    display: block;
+  }
+}
 .profile-header-left {
   display: flex;
   align-items: center;
+}
+@media (max-width: 56.25em) {
+  .profile-header-left {
+    display: block;
+    text-align: center;
+  }
 }
 .profile-header-left-image {
   width: 15rem;
@@ -719,6 +779,15 @@
   font-weight: 300;
   margin: 1rem 0;
   font-size: 1.5rem;
+}
+@media (max-width: 56.25em) {
+  .profile-header-right {
+    display: flex;
+    margin-top: 2rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .profile-map-legend {
   display: flex;
@@ -775,6 +844,7 @@
 }
 .profile-demographics-each-content {
   font-size: 1.4rem;
+  text-align: right;
 }
 .profile-demographics-each-title {
   font-weight: 600;
@@ -784,6 +854,11 @@
   margin-top: 4rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+@media (max-width: 56.25em) {
+  .profile-body {
+    display: block;
+  }
 }
 
 .dashboard {
@@ -1007,15 +1082,30 @@
 .candidate-snippet {
   max-width: 60rem;
   max-height: 80rem;
+  margin: 2rem 0;
   overflow: auto;
   box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.4);
   padding: 2rem;
   border-radius: 1rem;
 }
+@media (max-width: 56.25em) {
+  .candidate-snippet {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
 .candidate-snippet-header {
   display: flex;
   cursor: pointer;
   align-items: center;
+}
+@media (max-width: 56.25em) {
+  .candidate-snippet-header {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 }
 .candidate-snippet-header img {
   object-fit: cover;
@@ -1034,6 +1124,11 @@
   margin: 0.8rem auto;
   font-size: 1.4rem;
   color: rgba(0, 0, 0, 0.4);
+}
+@media (max-width: 56.25em) {
+  .candidate-snippet-header div {
+    margin: 2rem 0 3rem;
+  }
 }
 .candidate-snippet-heading {
   align-items: center;
@@ -1101,10 +1196,22 @@
   margin: 0 auto;
   padding: 4rem;
 }
+@media (max-width: 56.25em) {
+  .party {
+    padding: 4rem 0.5rem;
+  }
+}
 .party-description {
   width: 50%;
   padding: 3rem;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 56.25em) {
+  .party-description {
+    border-left: none;
+    width: 100%;
+    padding: 0;
+  }
 }
 .party h2 {
   font-size: 2rem;
@@ -1117,6 +1224,16 @@
   border-radius: 2rem;
   padding: 2rem;
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 56.25em) {
+  .party-header {
+    display: block;
+  }
+}
+@media (max-width: 56.25em) {
+  .party-header {
+    text-align: center;
+  }
 }
 .party-header img {
   width: 10rem;
@@ -1131,8 +1248,13 @@
   color: rgba(0, 0, 0, 0.7);
   font-size: 1.4rem;
 }
+@media (max-width: 56.25em) {
+  .party-header p {
+    margin: 1.5rem auto;
+  }
+}
 .party-snippet {
-  width: 100%;
+  width: calc(100% - 4rem);
   max-width: 40rem;
   box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
@@ -1140,9 +1262,21 @@
   display: flex;
   align-items: center;
 }
+@media (max-width: 56.25em) {
+  .party-snippet {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
 .party-snippet img {
   width: 10rem;
   margin-right: 3rem;
+}
+@media (max-width: 56.25em) {
+  .party-snippet img {
+    margin: 2rem 0;
+  }
 }
 .party-snippet h3 {
   text-decoration: none !important;
@@ -1166,10 +1300,22 @@
   margin: 0 auto;
   padding: 4rem;
 }
+@media (max-width: 45.5em) {
+  .election {
+    padding: 1rem;
+    width: 100%;
+    margin: 0 0;
+  }
+}
 .election-snippet-map {
   border-radius: 1rem;
   height: 20rem;
   width: 20rem;
+}
+@media (max-width: 56.25em) {
+  .election-snippet-map {
+    width: 100%;
+  }
 }
 .election-snippet-each {
   max-width: 100rem !important;
@@ -1186,11 +1332,25 @@
   justify-content: space-between;
   align-items: center;
 }
+@media (max-width: 56.25em) {
+  .election-snippet-each-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
 .election-snippet-each-inner h3 {
   margin: 0;
 }
 .election-snippet-each-inner p {
   font-size: 1.4rem;
+}
+@media (max-width: 56.25em) {
+  .election-snippet-each {
+    max-width: 20rem !important;
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
 }
 .election-description {
   width: 50%;
@@ -1241,9 +1401,28 @@
   display: block;
   margin-top: 2rem;
 }
+@media (max-width: 56.25em) {
+  .election-header-right {
+    width: 100%;
+    margin: 3rem auto;
+    text-align: left;
+  }
+}
 .election-header iframe {
   width: 50%;
   border-radius: 1.5rem;
+}
+@media (max-width: 56.25em) {
+  .election-header iframe {
+    width: 100%;
+    height: 30rem;
+  }
+}
+@media (max-width: 56.25em) {
+  .election-header {
+    flex-direction: column;
+    width: calc(100% - 4rem);
+  }
 }
 .election-header img {
   width: 10rem;
@@ -1252,6 +1431,12 @@
 .election-header h1 {
   margin: 0 auto;
   font-size: 3rem;
+}
+@media (max-width: 56.25em) {
+  .election-header h1 {
+    flex-direction: column;
+    font-size: 2.4rem;
+  }
 }
 .election-header p {
   margin: 0.4rem auto;

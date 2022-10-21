@@ -3,27 +3,51 @@
     margin: 0 auto;
     padding: 4rem;
 
+    @include respond(phone) {
+        padding: 1rem;
+        width: 100%;
+        margin: 0 0;
+    }
+
     &-snippet {
         &-map {
             border-radius: 1rem;
             height: 20rem;
             width: 20rem;
+
+            @include respond(tablet) {
+                width: 100%;
+            }
         }
 
         &-each {
             &-inner {
+                @include respond(tablet) {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 ;
-                h3{
-                    margin:0;
+
+                h3 {
+                    margin: 0;
                 }
-                p{
+
+                p {
                     font-size: 1.4rem;
                 }
-                div {
-                }
+
+                div {}
+            }
+
+            @include respond(tablet) {
+                max-width: 20rem !important;
+                margin: 2rem auto;
+                padding: 1.5rem;
             }
 
             max-width: 100rem !important;
@@ -32,6 +56,7 @@
             text-decoration: none;
             border-radius: 1rem;
             margin: 2rem;
+
             padding: 2rem;
             box-shadow: 0 0 0.2rem rgba(0, 0, 0, 0.2);
         }
@@ -46,6 +71,7 @@
 
     h2 {
         font-size: 2rem;
+
         margin: 4rem auto;
     }
 
@@ -80,11 +106,17 @@
 
         &-right {
             justify-content: center;
-
+            
             div:nth-child(2) {
                 color: #fff !important;
                 display: block;
                 margin-top: 2rem;
+            }
+
+            @include respond(tablet) {
+                width: 100%;
+                margin: 3rem auto;
+                text-align: left;
             }
 
             width: 50%;
@@ -96,6 +128,18 @@
         iframe {
             width: 50%;
             border-radius: 1.5rem;
+
+            @include respond(tablet) {
+                width: 100%;
+                height: 30rem;
+            }
+
+        }
+
+
+        @include respond(tablet) {
+            flex-direction: column;
+            width: calc(100% - 4rem);
         }
 
         display: flex;
@@ -110,6 +154,12 @@
 
         h1 {
             margin: 0 auto;
+
+            @include respond(tablet) {
+                flex-direction: column;
+                font-size: 2.4rem;
+            }
+
             font-size: 3rem;
         }
 

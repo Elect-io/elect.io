@@ -2,23 +2,40 @@
     max-width: 150rem;
     margin: 0 auto;
     padding: 4rem;
-
+    @include respond(tablet) {
+        padding: 4rem .5rem;
+    }
     &-description {
         width: 50%;
-        padding:3rem;
+        padding: 3rem;
         border-left: 1px solid rgba(#000, 0.2);
+
+        @include respond(tablet) {
+            border-left: none;
+            width: 100%;
+            padding: 0
+        }
+
         // width: 100%;
     }
-    h2{
+
+    h2 {
         font-size: 2rem;
         margin: 4rem auto;
     }
-    
+
     &-header {
-       
+        @include respond(tablet) {
+            display: block;
+        }
+
         display: flex;
         align-items: center;
         margin: 0 0 3rem;
+
+        @include respond(tablet) {
+            text-align: center;
+        }
 
         img {
             width: 10rem;
@@ -31,6 +48,11 @@
         }
 
         p {
+
+            @include respond(tablet) {
+                margin: 1.5rem auto;
+            }
+
             margin: .4rem auto;
             color: rgba(0, 0, 0, 0.7);
             font-size: 1.4rem;
@@ -42,7 +64,7 @@
     }
 
     &-snippet {
-        width: 100%;
+        width: calc(100% - 4rem);
         max-width: 40rem;
         box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
         border-radius: 1rem;
@@ -50,7 +72,16 @@
         display: flex;
         align-items: center;
 
+        @include respond(tablet) {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
         img {
+            @include respond(tablet) {
+            margin: 2rem 0;
+            }
             width: 10rem;
             margin-right: 3rem;
         }
@@ -68,7 +99,8 @@
 
         }
     }
-    &-candidates{
+
+    &-candidates {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;

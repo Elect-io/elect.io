@@ -1,5 +1,9 @@
 .home {
     padding: 4rem;
+    
+    @include respond(tablet) {
+        padding:4rem .2rem;
+    }
 
     h3 {
         font-size: 2rem;
@@ -7,6 +11,11 @@
 
     &-header {
         display: flex;
+
+        @include respond(tablet) {
+            display: block;
+        }
+
         width: 100%;
         align-items: flex-start;
         justify-content: space-between;
@@ -45,6 +54,13 @@
         &-top {
 
             &-input {
+                @include respond(phone) {
+                    margin-bottom: 2rem;
+                    display: block;
+                }
+                @include respond(tablet){
+                    width: auto;;
+                }
                 width: 55rem;
                 margin-top: 1rem;
                 justify-content: space-between;
@@ -93,6 +109,9 @@
                 }
 
                 &-each {
+                    @include respond(phone) {
+                        
+                    }
                     &-text {
                         font-weight: 600;
                         font-size: 1.5rem;
@@ -102,7 +121,10 @@
                     width: 25rem;
                 }
             }
-
+            @include respond(tablet) {
+                margin: 0 0 3rem;
+                // display: block;
+            }
             &-name {
                 font-size: 2rem;
                 font-weight: 700;
@@ -112,12 +134,27 @@
 
     &-elections {
         &-container {
+            @include respond(tablet) {
+
+                justify-content: center;
+                ;
+                grid-template-columns: 1fr 1fr;
+                // padding: 0 2.4rem;
+            }
+
+            @include respond(phone) {
+
+                justify-content: center;
+                ;
+                grid-template-columns: 1fr;
+                // padding: 0 2.4rem;
+            }
             display: grid;
             grid-gap: 4rem;
-            grid-template-columns: 1fr 1fr 1fr ;
+            grid-template-columns: 1fr 1fr 1fr;
         }
 
         // display: flex;
-        width: 100%;
+        width: calc(100% - 4rem);
     }
 }
