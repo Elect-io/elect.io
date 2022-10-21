@@ -230,7 +230,7 @@ const Dashboard = (props) => {
                     <form onSubmit={async (e) => {
                     e.preventDefault()
                     console.log('form')
-                    history(`/assessment/election/${specificElections.election_id}/${specificElections.politician_id}`);
+                    history(`/assessment/${specificElections.election_id}/${specificElections.politician_id}`);
                 }} className="dashboard-row-mod-input">
                         <p>Enter Election ID</p>
                         <input placeholder="Election's ID" value={specificElections.election_id} onChange={(e) => setSpecificElections(a => ({ ...a, election_id: e.target.value }))} />

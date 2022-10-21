@@ -18,6 +18,12 @@
     &-row {
         margin: 2rem 0 6rem;
         display: flex;
+
+        @include respond(tablet) {
+            display: grid;
+            grid-gap: 4rem;
+        }
+
         width: 100%;
         align-items: flex-start;
         // max-width: 70rem;
@@ -77,18 +83,28 @@
                     &-each {
                         justify-content: space-between;
                         display: flex;
+                        @include respond(tablet){
+                            display: block;
+                            text-align: center;
+                        }
                         cursor: pointer;
                         border-bottom: solid 1px rgba($secondaryColor, 0.11);
                         align-items: center;
-                        p{
+
+                        p {
                             font-size: 1.3rem;
+                            @include respond(tablet){
+                                display: block;
+                                width: 100%;
+                            }
                             width: 30%;
                         }
+
                         img {
                             object-fit: cover;
                             height: 10rem;
                             width: 10rem;
-                            padding:2rem;
+                            padding: 2rem;
                             border-radius: 3rem;
                         }
                     }
@@ -151,7 +167,9 @@
                     width: .5rem;
                 }
             }
-
+            @include respond(tablet){
+                min-width: calc(100% - 2.8rem);
+            }
             min-width: 38rem;
             margin-right: 4rem;
             box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
