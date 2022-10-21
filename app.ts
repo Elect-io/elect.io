@@ -1,5 +1,6 @@
 //npm module imports
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -22,7 +23,13 @@ import politicianAnswerElections from './api/politicianAnswerElection';
 import analyze from './api/analyze';
 import reset from './api/reset';
 
+
 db();
+app.use((req, res, next)=>{
+    res.setHeader('X-Powered-By', `Elect.io`);
+    next();
+})
+
 app.use(bodyParser.json({ extended: false, limit: '50mb' }));
 
 try {
@@ -34,6 +41,7 @@ catch (err) {
     console.error('Failed to start the server');
     console.log(err);
 }
+
 
 app.use('/api/user', user);
 app.use('/api/socials', socials);
@@ -56,3 +64,9 @@ app.use('/api/answer-politician-election-question', politicianAnswerElections);
 
 app.use('/api/analyze', analyze);
 app.use('/api/reset', reset);
+
+app.use(express.static((__dirname + "/build/")));
+
+app.get('*', async (req, res) => {
+   return res.sendFile(__dirname + '/build/index.html');
+})
