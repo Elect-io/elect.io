@@ -152,7 +152,7 @@ class Home extends React.Component {
                         })}
                     </div>
                 </div>
-                <div  id="election" >
+                <div id="election" >
                     <InfiniteScroll
                         dataLength={this.state.elections.length}
                         next={this.loadMoreElections.bind(this, this.state.elections.length, this.state.country, this.state.state, this.state.electionType)}
@@ -163,11 +163,11 @@ class Home extends React.Component {
                     >
                         <div className='home-elections-container'>
 
-                        {this.state.elections.map((item, index) => (
+                            {this.state.elections.map((item, index) => (
 
-                            <Snippet {...item} key={index} />
-                        ))}
-                        
+                                <Snippet {...item} key={index} />
+                            ))}
+
                         </div>
                     </InfiniteScroll>
                 </div>
